@@ -1,0 +1,143 @@
+@import '../../components/variables.css';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 410px;
+  height: 324px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background: white;
+}
+
+.lead {
+  width: calc(100% - 50px);
+  margin: 18px auto 27px;
+  color: #545457;
+  font-size: 21px;
+  font-weight: 600;
+  font-family: var(--font-family-source);
+}
+
+.form {
+  width: 100%;
+}
+
+.formGroup {
+  width: calc(100% - 50px);
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-family: var(--font-family-source);
+  font-weight: 600;
+  font-size: 12px;
+  color: #8d8d96;
+}
+
+.input {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  width: 100%;
+  height: 40px;
+  outline: 0;
+  border: 1px solid #d3d3db;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: #616161;
+  font-size: 18px;
+  line-height: 1.3333333;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.input:focus {
+  border-color: #0074c2;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 116, 194, 0.6);
+}
+
+.breaker {
+  width: 100%;
+  height: 1px;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  background: #eaecf1;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 50px);
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.button {
+  height: 40px;
+  padding: 10px 20px;
+  font-family: var(--font-family-source);
+  font-size: 15px;
+  border: 0 none;
+  text-shadow: none;
+  background: #2776a6;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 25px;
+  color: white;
+}
+
+.button:hover {
+  background: rgba(54, 50, 119, 0.8);
+}
+
+.button:focus {
+  border-color: #0074c2;
+  box-shadow: 0 0 8px rgba(0, 116, 194, 0.6);
+}
+
+.forgot {
+  padding: 8px 0;
+  color: #2b77a3;
+  font-family: var(--font-family-source);
+  font-weight: 300;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.signupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 410px;
+}
+
+.noAccount {
+  color: white;
+  font-family: var(--font-family-source);
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.signupLink {
+  color: white;
+  font-family: var(--font-family-source);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 3px;
+  border: 1px solid white;
+}
