@@ -1,0 +1,387 @@
+.container {
+  width: 100%;
+  margin: auto;
+}
+
+.wrapper {
+  max-width: 920px;
+  padding: 0 20px;
+  margin: auto;
+}
+
+.firstContainer {
+  height: 800px;
+  background-image: url('/img/grassroots_photo.jpg');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.logo {
+  width: 30%;
+  height: 20%;
+  margin-top: 40px;
+}
+
+.headline {
+  max-width: 550px;
+  margin-top: 220px;
+  font-size: 50px;
+  font-family: 'RisingSunHeavy', sans-serif;
+  color: #fff;
+  line-height: 60px;
+  letter-spacing: 2px;
+}
+
+.slogan {
+  margin-top: 35px;
+  font-size: 20px;
+  color: #fff;
+  font-family: 'PT Sans', sans-serif;
+}
+
+@media (max-width: 880px) {
+  .firstContainer {
+    height: 600px;
+  }
+
+  .headline {
+    margin-top: 50px;
+    line-height: 45px;
+    font-size: 40px;
+  }
+}
+
+.applyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 50px;
+  text-decoration: none;
+  background: #2677c2;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.secondContainer {
+  padding: 40px 0;
+  background: #f5f5f5;
+}
+
+.showcaseContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.showcaseLeft {
+  display: flex;
+  flex-direction: column;
+  flex: 11 0 0%;
+  margin-top: 130px;
+  min-height: 566px;
+}
+
+.showcaseHeadline {
+  width: 100%;
+  font-size: 30px;
+  color: #2c82c9;
+  font-family: 'RisingSunHeavy', sans-serif;
+}
+
+.showcaseText {
+  max-width: 550px;
+  min-width: 290px;
+  margin-top: 30px;
+  font-size: 20px;
+  color: #909090;
+  line-height: 28px;
+}
+
+.showcaseRight {
+  display: flex;
+  justify-content: center;
+  flex: 5 0 0%;
+  height: 528px;
+  min-height: 528px;
+  margin-top: 60px;
+}
+
+.hands {
+  width: auto;
+  height: 80%;
+}
+
+@media (max-width: 880px) {
+  .showcaseContainer {
+    flex-direction: column;
+  }
+
+  .showcaseRight {
+    margin-top: 40px;
+  }
+
+  .secondContainer {
+    min-height: 506px;
+  }
+
+  .showcaseLeft {
+    margin-top: 10px;
+  }
+}
+
+.thirdContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.parallax {
+  width: 100%;
+  height: 100%;
+}
+
+.testemonyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.testimonyHeadline {
+  max-width: 700px;
+  font-size: 50px;
+  font-family: 'RisingSunHeavy', sans-serif;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 60px;
+}
+
+.fourthContainer {
+  min-height: 1165px;
+  padding: 40px 0;
+  background: #f5f5f5;
+}
+
+.testimonyContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-items: center;
+  min-height: 365px;
+}
+
+.clientBox {
+  display: flex;
+  flex-direction: column;
+  flex: 11;
+}
+
+.clientInfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.clientName {
+  margin-right: 10px;
+  font-size: 30px;
+  color: #2c82c9;
+  font-family: 'RisingSunHeavy', sans-serif;
+}
+
+.clientTitle {
+  display: flex;
+  align-items: flex-start;
+  height: 45px;
+  margin-top: 4px;
+  font-size: 20px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #a1a4a6;
+}
+
+.clientText {
+  margin-top: 5px;
+  font-size: 20px;
+  color: #909090;
+  line-height: 28px;
+}
+
+.clientImageContainer {
+  display: flex;
+  flex: 6 0 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.clientImage {
+  width: 200px;
+  height: 100%;
+  margin-left: 50px;
+}
+
+@media (max-width: 880px) {
+  .testimonyContainer {
+    flex-direction: column-reverse;
+  }
+
+  .clientBox {
+    margin-top: 30px;
+  }
+
+  .clientTitle {
+    font-family: 'RisingSunHeavy', sans-serif;
+    font-size: 17px;
+  }
+
+  .clientImage {
+    margin-left: 0;
+    width: 250px;
+    height: 250px;
+  }
+}
+
+.calculatorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 240px;
+  padding: 20px 0;
+  margin-top: 80px;
+  background: #fff;
+}
+
+.calculatorText {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  font-size: 30px;
+  color: #646464;
+  font-family: 'RisingSunRegular', sans-serif;
+  line-height: 40px;
+}
+
+.calculatorTextUpper {
+  margin-top: 40px;
+}
+
+.calculatorCost {
+  color: #ffc14b;
+  font-size: 32px;
+  font-weight: 800;
+  font-family: 'RisingSunHeavy', sans-serif;
+}
+
+.calculatorTryButton {
+  margin-top: 40px;
+}
+
+@media (max-width: 880px) {
+  .calculatorContainer {
+    margin-top: 35px;
+  }
+
+  .calculatorTextUpper {
+    margin-top: 10px;
+  }
+}
+
+/* Super small phone */
+@media (max-width: 350px) {
+  .clientTitle {
+    font-size: 18px;
+  }
+
+  .clientName {
+    font-size: 26px;
+  }
+
+  .calculatorText {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+.footerBreaker {
+  height: 4px;
+  width: 100%;
+  background: #2c2c2c;
+}
+
+.footer {
+  height: 250px;
+  background: #404040;
+}
+
+.footerWrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footerItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+
+.footerItemWrapper {
+  display: flex;
+  flex: 2 1 100px;
+  align-items: flex-end;
+  height: 100px;
+}
+
+.footerItemInner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 100px;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pressIcon {
+  width: 53px;
+  height: 43px;
+  margin-bottom: 14px;
+}
+
+.contactIcon {
+  width: 43px;
+  height: 32px;
+  margin-bottom: 18px;
+}
+
+.teamIcon {
+  width: 40px;
+  height: 53px;
+  margin-bottom: 12px;
+}
+
+.copyright {
+  display: flex;
+  flex-direction: row;
+  color: #818486;
+  font-size: 12px;
+}
