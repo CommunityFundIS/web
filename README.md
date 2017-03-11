@@ -6,13 +6,11 @@ To run the project:
 
 1. [Install yarn](https://yarnpkg.com/lang/en/docs/install/)
 2. Run Install
-  ```
-  yarn install
-  ```
+
+        yarn install
 3. Run start
-  ```
-  yarn start
-  ```
+
+        yarn start
 
 This will start the following:
 
