@@ -17,10 +17,10 @@ class GrantForm extends Component {
     name: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
-    ask: PropTypes.string,
+    askAmount: PropTypes.string,
     totalCost: PropTypes.string,
-    longDescription: PropTypes.string,
-    shortDescription: PropTypes.string,
+    description: PropTypes.string,
+    summary: PropTypes.string,
   }
   render() {
     const {
@@ -30,10 +30,10 @@ class GrantForm extends Component {
       name = '',
       email = '',
       phone = '',
-      ask = '',
+      askAmount = '',
       totalCost = '',
-      longDescription = '',
-      shortDescription = '',
+      description = '',
+      summary = '',
     } = this.props;
 
     return (
@@ -84,18 +84,18 @@ class GrantForm extends Component {
 
           <input
             type="text"
-            value={shortDescription}
+            value={summary}
             placeholder="Short summary"
             className={s.input}
-            onChange={({ target: { value } }) => inputChange('shortDescription', value)}
+            onChange={({ target: { value } }) => inputChange('summary', value)}
           />
 
           <textarea
             type="text"
-            value={longDescription}
+            value={description}
             placeholder="Description"
-            className={`${s.input} ${s.longDescription}`}
-            onChange={({ target: { value } }) => inputChange('longDescription', value)}
+            className={`${s.input} ${s.description}`}
+            onChange={({ target: { value } }) => inputChange('description', value)}
           />
 
           <div className={s.labelContainer} >
@@ -105,10 +105,10 @@ class GrantForm extends Component {
           <div className={s.costContainer}>
             <input
               type="text"
-              value={ask}
+              value={askAmount}
               placeholder="How much money do you need?"
               className={`${s.input} ${s.ask}`}
-              onChange={({ target: { value } }) => inputChange('ask', value)}
+              onChange={({ target: { value } }) => inputChange('askAmount', value)}
             />
 
             <input
