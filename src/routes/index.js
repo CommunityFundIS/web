@@ -8,6 +8,7 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./frontpage').default,
+    require('./grantform').default,
     require('./login').default,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,

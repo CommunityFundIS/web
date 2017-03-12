@@ -19,7 +19,7 @@ class Frontpage extends Component {
             <Link
               className={s.applyButton}
               style={{ marginTop: '40px' }}
-              to="/grants"
+              to="/grant"
             >
               Apply for a grant
             </Link>
