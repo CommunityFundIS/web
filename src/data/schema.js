@@ -13,6 +13,7 @@ import {
 } from 'graphql';
 
 import me from './queries/me';
+import createSubmission from './mutations/createSubmission';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -21,11 +22,12 @@ const schema = new Schema({
       me,
     },
   }),
-  // mutation: new ObjectType({
-  //   name: 'Mutation',
-  //   fields: {
-  //   },
-  // }),
+  mutation: new ObjectType({
+    name: 'Mutation',
+    fields: {
+      createSubmission,
+    },
+  }),
 });
 
 export default schema;

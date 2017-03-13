@@ -24,6 +24,10 @@ const dbObj = {
 //   // populate db info
 // }
 
+export const isDev = process.env.NODE_ENV === 'development';
+
+export const googleRecaptchaSecret = process.env.GOOGLE_RECAPTCHA_SECRET;
+
 export const db = dbObj;
 
 export const analytics = {
