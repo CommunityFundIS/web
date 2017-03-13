@@ -13,22 +13,18 @@ export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 const dbObj = {
-  host: 'localhost',
-  port: 5432,
-  database: 'communityfund',
-  user: '',
-  password: '',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
 };
 
-// if (process.env.NODE_ENV === 'production') {
-//   // populate db info
-// }
+export const db = dbObj;
 
 export const isDev = process.env.NODE_ENV === 'development';
 
 export const googleRecaptchaSecret = process.env.GOOGLE_RECAPTCHA_SECRET;
-
-export const db = dbObj;
 
 export const analytics = {
 
