@@ -12,8 +12,10 @@ import {
 const up = async () => {
   console.log('Starting to seed');
   try {
-    await seedUser();
-    await seedSubmission();
+    await Promise.all([
+      seedUser(),
+      seedSubmission(),
+    ]);
   } catch (e) {
     console.error('Failed to seed', e);
     process.exit(1);
@@ -26,8 +28,10 @@ const up = async () => {
 const down = async () => {
   console.log('Starting to flush');
   try {
-    await flushUser();
-    await flushSubmission();
+    await Promise.all([
+      flushUser(),
+      flushSubmission(),
+    ]);
   } catch (e) {
     console.error('Failed to flush', e);
     process.exit(1);
