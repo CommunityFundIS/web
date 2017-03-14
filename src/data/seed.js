@@ -4,10 +4,16 @@ import {
   down as flushUser,
 } from './seeders/user';
 
+import {
+  up as seedSubmission,
+  down as flushSubmission,
+} from './seeders/submission';
+
 const up = async () => {
   console.log('Starting to seed');
   try {
     await seedUser();
+    await seedSubmission();
   } catch (e) {
     console.error('Failed to seed', e);
     process.exit(1);
@@ -21,6 +27,7 @@ const down = async () => {
   console.log('Starting to flush');
   try {
     await flushUser();
+    await flushSubmission();
   } catch (e) {
     console.error('Failed to flush', e);
     process.exit(1);

@@ -121,6 +121,10 @@ const config = {
           limit: 10000,
         },
       },
+      {
+        test: /\.handlebars$/,
+        loader: 'handlebars-loader',
+      },
     ],
   },
 
