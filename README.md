@@ -1,6 +1,6 @@
 # Community Fund
 
-![](https://codeship.com/projects/a4ad0b40-eac5-0134-c6ec-52c39acfad49/status?branch=master)
+-![](https://codeship.com/projects/a4ad0b40-eac5-0134-c6ec-52c39acfad49/status?branch=master)
 
 This project is based off [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit)
 
@@ -19,15 +19,26 @@ To run the project:
         export DB_PASSWORD="communityfund_password"
 3. Run start
 
-        source .env && yarn start-dev-db
-        source .env && yarn start
+        yarn start:all
 
 This will start the following:
 
 + The CommunityFund website - http://localhost:3001
 + [Browsersync](https://browsersync.io/) - http://localhost:3002. This is an awesome debugging tool.
 + GraphQL interface - http://localhost:3001/graphql
++ A postgres database running within a docker container
 
 When running locally the database is run within a docker container. You can kill the local database (and flush all of the data) by running the following command:
 
-  yarn stop-dev-db
+      yarn db:stop
+
+Commands:
+
++     yarn start - Start the node server.
++     yarn start: all - Start the local db, seed the db and start the node server.
++     yarn db:start - Start the local db.
++     yarn db:stop - Stop the local db.
++     yarn db:seed - Seed the local db.
++     yarn db:flush - Flush the local db.
++     yarn lint:js - Lint all the JS files
++     yarn lint:css - Lint all the CSS files
