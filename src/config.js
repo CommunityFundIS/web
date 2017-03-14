@@ -26,6 +26,11 @@ export const isDev = process.env.NODE_ENV === 'development';
 
 export const googleRecaptchaSecret = process.env.GOOGLE_RECAPTCHA_SECRET;
 
+export const AWS_SES = {
+  user: process.env.AWS_SES_USER,
+  password: process.env.AWS_SES_PASSWORD,
+};
+
 export const analytics = {
 
   // https://analytics.google.com/

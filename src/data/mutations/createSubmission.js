@@ -4,10 +4,11 @@ import {
 } from 'graphql';
 import moment from 'moment';
 import SubmissionType from '../types/SubmissionType';
-import { Submission } from '../models';
+import { Submission, User } from '../models';
 import { logError } from '../../logger';
 import { isDev, googleRecaptchaSecret } from '../../config';
 import fetch from '../../core/fetch';
+import { sendReviewEmail } from '../../core/email';
 
 const createSubmission = {
   type: SubmissionType,
@@ -77,6 +78,13 @@ const createSubmission = {
       // @TODO handle better
       throw e;
     }
+
+    const reviewers = await User.findAll({
+      isReviewer: true,
+    });
+
+    // Send review email to all reviewers
+    await Promise.all(reviewers.map(user => sendReviewEmail(user.email, submission.id)));
 
     return submission;
   },
