@@ -1,3 +1,5 @@
+set -e
+
 yarn build --release
 cd build && zip -r -X "../payload.zip" * && cd ..
 
