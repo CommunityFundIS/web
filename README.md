@@ -1,5 +1,7 @@
 # Community Fund
 
+-![](https://codeship.com/projects/a4ad0b40-eac5-0134-c6ec-52c39acfad49/status?branch=master)
+
 This project is based off [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit)
 
 To run the project:
