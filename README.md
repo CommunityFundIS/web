@@ -30,14 +30,15 @@ This will start the following:
 
 When running locally the database is run within a docker container. You can kill the local database (and flush all of the data) by running the following command:
 
-  yarn db:stop
+      yarn db:stop
 
 Commands:
-+ yarn start - Start the node server.
-+ yarn start: all - Start the local db, seed the db and start the node server.
-+ yarn db:start - Start the local db.
-+ yarn db:stop - Stop the local db.
-+ yarn db:seed - Seed the local db.
-+ yarn db:flush - Flush the local db.
-+ yarn lint:js - Lint all the JS files
-+ yarn lint:css - Lint all the CSS files
+
++     yarn start - Start the node server.
++     yarn start: all - Start the local db, seed the db and start the node server.
++     yarn db:start - Start the local db.
++     yarn db:stop - Stop the local db.
++     yarn db:seed - Seed the local db.
++     yarn db:flush - Flush the local db.
++     yarn lint:js - Lint all the JS files
++     yarn lint:css - Lint all the CSS files
