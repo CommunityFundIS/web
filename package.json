@@ -218,7 +218,7 @@
     ]
   },
   "scripts": {
-    "start": "babel-node tools/run start",
+    "start": "source .env && babel-node tools/run start",
     "start:all": "yarn db:start && sleep 5 && yarn db:seed && yarn start",
     "db:start": "./tools/startDevDatabase.sh",
     "db:stop": "./tools/stopDevDatabase.sh",
