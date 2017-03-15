@@ -13,11 +13,11 @@
 .content {
   width: 500px;
   background: #fff;
-  height: 840px;
   display: flex;
   flex-direction: column;
   padding-left: 80px;
   padding-right: 80px;
+  margin-bottom: 40px;
 }
 
 .labelContainer {
