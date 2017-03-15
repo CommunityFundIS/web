@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+
+import validator from 'validator';
 import {
   GRANT_INPUT_CHANGED,
   GRANT_FORM_VALIDATION_ERRORS,
@@ -6,7 +8,7 @@ import {
 import { log, logError } from '../logger';
 import { isDev } from '../config';
 
-const validateInput = (field, value) => {
+const validateInput = (field, value, onSubmit) => {
   if (isDev && field === 'googleToken') {
     return null;
   }
@@ -21,9 +23,14 @@ const validateInput = (field, value) => {
   }
 
   if (field === 'askAmount' || field === 'totalCost') {
-    const valueAsInt = parseInt(value, 10);
-    if (!valueAsInt || valueAsInt <= 0) {
+    if (!(validator.isInt(value) || validator.isFloat(value))) {
       return 'Must be a valid number';
+    }
+  }
+
+  if (onSubmit && field === 'email') {
+    if (!validator.isEmail(value)) {
+      return 'Invalid email';
     }
   }
 
@@ -31,7 +38,7 @@ const validateInput = (field, value) => {
 };
 
 export function inputChange(field, value) {
-  const error = validateInput(field, value);
+  const error = validateInput(field, value, false);
   return {
     type: GRANT_INPUT_CHANGED,
     payload: {
@@ -81,7 +88,7 @@ export function submitGrant() {
       'totalCost',
       'googleToken',
     ].forEach(field => {
-      const error = validateInput(field, values[field]);
+      const error = validateInput(field, values[field], true);
       if (error) {
         validationErrors[field] = error;
       }
