@@ -148,6 +148,11 @@
   cursor: pointer;
 }
 
+.formErrorMessage {
+  padding-top: 10px;
+  text-align: center;
+}
+
 /* .success {
   width: 84px;
   height: 40px;
