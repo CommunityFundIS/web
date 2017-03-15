@@ -1,14 +1,51 @@
 /* eslint-disable import/prefer-default-export */
-import { GRANT_INPUT_CHANGED } from '../constants';
+import {
+  GRANT_INPUT_CHANGED,
+  GRANT_FORM_VALIDATION_ERRORS,
+} from '../constants';
 import { log, logError } from '../logger';
 import { isDev } from '../config';
 
+const validateInput = (field, value) => {
+  if (isDev && field === 'googleToken') {
+    return null;
+  }
+  if (!value || value === '') {
+    return 'Required';
+  }
+
+  if (field === 'date') {
+    if (value.unix() < Date.now() / 1000) {
+      return 'Past date';
+    }
+  }
+
+  if (field === 'askAmount' || field === 'totalCost') {
+    const valueAsInt = parseInt(value, 10);
+    if (!valueAsInt || valueAsInt <= 0) {
+      return 'Must be a valid number';
+    }
+  }
+
+  return null;
+};
+
 export function inputChange(field, value) {
+  const error = validateInput(field, value);
   return {
     type: GRANT_INPUT_CHANGED,
     payload: {
-      [field]: value,
+      field,
+      value,
+      error,
     },
+  };
+}
+
+export function showValidationErrors(errors) {
+  return {
+    type: GRANT_FORM_VALIDATION_ERRORS,
+    payload: errors,
   };
 }
 
@@ -16,35 +53,44 @@ export function submitGrant() {
   return async (dispatch, getStore, { graphqlRequest }) => {
     const {
       grant,
-      grant: {
-        name,
-        phone,
-        email,
-        date,
-        summary,
-        description,
-        askAmount,
-        totalCost,
-        googleToken,
-      },
     } = getStore();
 
+    const values = grant.values || {};
+    const {
+      name,
+      phone,
+      email,
+      date,
+      summary,
+      description,
+      askAmount,
+      totalCost,
+      googleToken,
+    } = values;
+
     // @TODO do better validation
-    let validationError = null;
-    ['name', 'phone', 'email', 'date', 'summary', 'description', 'askAmount', 'totalCost', 'googleToken'].forEach(field => {
-      // Skip googleToken in dev mode
-      if (isDev && field === 'googleToken') return;
-      const value = grant[field];
-      if (!value || value === '') {
-        validationError = `${field} has wrong value`;
+    const validationErrors = {};
+    [
+      'name',
+      'phone',
+      'email',
+      'date',
+      'summary',
+      'description',
+      'askAmount',
+      'totalCost',
+      'googleToken',
+    ].forEach(field => {
+      const error = validateInput(field, values[field]);
+      if (error) {
+        validationErrors[field] = error;
       }
     });
 
-    // @TODO handle error
-    if (validationError) return logError(validationError);
-
-    // @TODO handle error
-    if (date.unix() < (Date.now() / 1000)) return logError('Past date');
+    if (Object.keys(validationErrors).length > 0) {
+      dispatch(showValidationErrors(validationErrors));
+      return false;
+    }
 
     const query = `
       mutation{
@@ -66,8 +112,12 @@ export function submitGrant() {
     log('query is', query);
 
     try {
-      const { data, error } = await graphqlRequest(query);
-      log('got back', data, error);
+      const { data, errors } = await graphqlRequest(query);
+      log('got back', data, errors);
+
+      if (errors) {
+        return false;
+      }
     } catch (e) {
       logError('Failed to mutate ingredient', e);
       // @TODO dispatch failure event
