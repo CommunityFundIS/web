@@ -6,8 +6,93 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReCAPTCHA from 'react-google-recaptcha';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { inputChange, submitGrant } from '../../actions/grant';
 import s from './GrantForm.css';
+
+const InputWithError = (
+  { type, value, placeholder, className, errorMessage, onChange },
+) => (
+  <div className={className}>
+    <input
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      className={classNames(s.input, errorMessage ? s.inputError : null)}
+      onChange={onChange}
+    />
+    {errorMessage &&
+      <div className={s.inputErrorMessage}>
+        {errorMessage}
+      </div>}
+  </div>
+);
+InputWithError.propTypes = {
+  type: PropTypes.string,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  errorMessage: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
+const TextareaWithError = (
+  { type, value, placeholder, className, errorMessage, onChange },
+) => (
+  <div>
+    <textarea
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      className={classNames(
+        s.input,
+        className,
+        errorMessage ? s.inputError : null,
+      )}
+      onChange={onChange}
+    />
+    {errorMessage &&
+      <div className={s.inputErrorMessage}>
+        {errorMessage}
+      </div>}
+  </div>
+);
+TextareaWithError.propTypes = {
+  type: PropTypes.string,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  errorMessage: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
+const DatepickerWithError = (
+  { value, placeholder, dateFormat, locale, className, errorMessage, onChange },
+) => (
+  <div className={className}>
+    <DatePicker
+      selected={value}
+      placeholderText={placeholder}
+      dateFormat={dateFormat}
+      onChange={onChange}
+      locale={locale}
+      className={classNames(s.input, errorMessage ? s.inputError : null)}
+    />
+    {errorMessage &&
+      <div className={s.inputErrorMessage}>
+        {errorMessage}
+      </div>}
+  </div>
+);
+DatepickerWithError.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  dateFormat: PropTypes.string,
+  locale: PropTypes.string,
+  className: PropTypes.string,
+  errorMessage: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 class GrantForm extends Component {
   static propTypes = {
@@ -21,7 +106,8 @@ class GrantForm extends Component {
     totalCost: PropTypes.string,
     description: PropTypes.string,
     summary: PropTypes.string,
-  }
+    errors: PropTypes.object,
+  };
   render() {
     const {
       inputChange,
@@ -34,6 +120,7 @@ class GrantForm extends Component {
       totalCost = '',
       description = '',
       summary = '',
+      errors = {},
     } = this.props;
 
     return (
@@ -43,29 +130,31 @@ class GrantForm extends Component {
             <div className={s.label}>Contact</div>
           </div>
 
-          <input
+          <InputWithError
             type="text"
             value={name}
             placeholder="Name"
-            className={s.input}
             onChange={({ target: { value } }) => inputChange('name', value)}
+            errorMessage={errors.name}
           />
 
           <div className={s.contactContainer}>
-            <input
+            <InputWithError
               type="text"
               value={email}
               placeholder="Email"
-              className={`${s.input} ${s.email}`}
+              className={s.email}
               onChange={({ target: { value } }) => inputChange('email', value)}
+              errorMessage={errors.email}
             />
 
-            <input
+            <InputWithError
               type="text"
               value={phone}
               placeholder="Phone number"
-              className={`${s.input} ${s.phone}`}
+              className={s.phone}
               onChange={({ target: { value } }) => inputChange('phone', value)}
+              errorMessage={errors.phone}
             />
           </div>
 
@@ -73,50 +162,57 @@ class GrantForm extends Component {
             <div className={s.label}>About your event</div>
           </div>
 
-          <DatePicker
-            selected={date}
-            placeholderText="Date"
+          <DatepickerWithError
+            value={date}
+            placeholder="Date"
             dateFormat="DD/MM/YYYY"
-            onChange={(value) => inputChange('date', value)}
+            onChange={value => inputChange('date', value)}
             locale="en"
-            className={`${s.input} ${s.date}`}
+            className={s.date}
+            errorMessage={errors.date}
           />
 
-          <input
+          <InputWithError
             type="text"
             value={summary}
             placeholder="Short summary"
-            className={s.input}
             onChange={({ target: { value } }) => inputChange('summary', value)}
+            errorMessage={errors.summary}
           />
 
-          <textarea
+          <TextareaWithError
             type="text"
             value={description}
             placeholder="Description"
-            className={`${s.input} ${s.description}`}
-            onChange={({ target: { value } }) => inputChange('description', value)}
+            className={s.description}
+            onChange={({ target: { value } }) =>
+              inputChange('description', value)}
+            errorMessage={errors.description}
           />
 
-          <div className={s.labelContainer} >
+          <div className={s.labelContainer}>
             <div className={s.label}>Grant</div>
           </div>
 
           <div className={s.costContainer}>
-            <input
+            <InputWithError
               type="text"
               value={askAmount}
               placeholder="How much money do you need?"
-              className={`${s.input} ${s.ask}`}
-              onChange={({ target: { value } }) => inputChange('askAmount', value)}
+              className={s.ask}
+              onChange={({ target: { value } }) =>
+                inputChange('askAmount', value)}
+              errorMessage={errors.askAmount}
             />
 
-            <input
+            <InputWithError
               type="text"
               value={totalCost}
               placeholder="How much does the event cost?"
-              className={`${s.input} ${s.totalCost}`}
-              onChange={({ target: { value } }) => inputChange('totalCost', value)}
+              className={s.totalCost}
+              onChange={({ target: { value } }) =>
+                inputChange('totalCost', value)}
+              errorMessage={errors.totalCost}
             />
           </div>
 
@@ -124,7 +220,7 @@ class GrantForm extends Component {
             <ReCAPTCHA
               // ref="recaptcha"
               sitekey="6LdRlycTAAAAAHFDPQDPkspMIqEDnUR4xk7ouueV"
-              onChange={(token) => inputChange('googleToken', token)}
+              onChange={token => inputChange('googleToken', token)}
               className={s.captcha}
             />
           </div>
@@ -137,9 +233,13 @@ class GrantForm extends Component {
   }
 }
 
-export default connect((state /* , props */) => ({
-  ...state.grant,
-}), {
-  inputChange,
-  submitGrant,
-})(withStyles(s)(GrantForm));
+export default connect(
+  (state /* , props */) => ({
+    ...state.grant.values,
+    errors: state.grant.errors,
+  }),
+  {
+    inputChange,
+    submitGrant,
+  },
+)(withStyles(s)(GrantForm));
