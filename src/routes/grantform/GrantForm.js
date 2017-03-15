@@ -85,7 +85,7 @@ const DatepickerWithError = (
   </div>
 );
 DatepickerWithError.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.object,
   placeholder: PropTypes.string,
   dateFormat: PropTypes.string,
   locale: PropTypes.string,
