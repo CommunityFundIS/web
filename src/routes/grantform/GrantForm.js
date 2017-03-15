@@ -224,9 +224,14 @@ class GrantForm extends Component {
               className={s.captcha}
             />
           </div>
+
           <div className={s.sendContainer}>
             <div className={s.send} onClick={() => submitGrant()}>Send</div>
           </div>
+          {errors.form &&
+            <div className={s.formErrorMessage}>
+              {errors.form.map(error => <p>{error}</p>)}
+            </div>}
         </div>
       </div>
     );

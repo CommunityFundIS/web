@@ -116,11 +116,15 @@ export function submitGrant() {
       log('got back', data, errors);
 
       if (errors) {
+        const errorMessages = errors.map(error => error.message);
+        dispatch(showValidationErrors({ form: errorMessages }));
         return false;
       }
     } catch (e) {
       logError('Failed to mutate ingredient', e);
-      // @TODO dispatch failure event
+      dispatch(
+        showValidationErrors({ form: ['Unknown server error. Sorry!'] }),
+      );
       return false;
     }
 
