@@ -4,9 +4,11 @@ import validator from 'validator';
 import {
   GRANT_INPUT_CHANGED,
   GRANT_FORM_VALIDATION_ERRORS,
+  GRANT_FORM_SUBMIT_SUCCESS,
 } from '../constants';
 import { log, logError } from '../logger';
 import { isDev } from '../config';
+import history from '../core/history';
 
 const validateInput = (field, value, onSubmit) => {
   if (isDev && field === 'googleToken') {
@@ -56,6 +58,15 @@ export function showValidationErrors(errors) {
   };
 }
 
+export function submitGrantSuccess(submissionId) {
+  return {
+    type: GRANT_FORM_SUBMIT_SUCCESS,
+    payload: {
+      submissionId,
+    },
+  };
+}
+
 export function submitGrant() {
   return async (dispatch, getStore, { graphqlRequest }) => {
     const {
@@ -95,8 +106,7 @@ export function submitGrant() {
     });
 
     if (Object.keys(validationErrors).length > 0) {
-      dispatch(showValidationErrors(validationErrors));
-      return false;
+      return dispatch(showValidationErrors(validationErrors));
     }
 
     const query = `
@@ -124,19 +134,19 @@ export function submitGrant() {
 
       if (errors) {
         const errorMessages = errors.map(error => error.message);
-        dispatch(showValidationErrors({ form: errorMessages }));
-        return false;
+        return dispatch(showValidationErrors({ form: errorMessages }));
       }
+
+      const submissionId = data.createSubmission.id;
+      log('success!');
+      await dispatch(submitGrantSuccess(submissionId));
+      history.push('/grant/success');
+      return true;
     } catch (e) {
       logError('Failed to mutate ingredient', e);
-      dispatch(
+      return dispatch(
         showValidationErrors({ form: ['Unknown server error. Sorry!'] }),
       );
-      return false;
     }
-
-    // @TODO dispatch success event
-    log('success!');
-    return true;
   };
 }

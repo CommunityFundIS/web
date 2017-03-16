@@ -1,0 +1,28 @@
+@import '../../components/variables.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 500px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-bottom: 40px;
+}
+
+.subHeading {
+  font-size: 1.5em;
+}
+
+.nextSteps {
+  margin: 10px 0 0;
+}
+
+.step {
+  margin-bottom: 15px;
+}

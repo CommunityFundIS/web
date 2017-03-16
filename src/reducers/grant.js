@@ -1,6 +1,7 @@
 import {
   GRANT_INPUT_CHANGED,
   GRANT_FORM_VALIDATION_ERRORS,
+  GRANT_FORM_SUBMIT_SUCCESS,
 } from '../constants';
 
 export default function grant(state = {}, action) {
@@ -18,6 +19,14 @@ export default function grant(state = {}, action) {
     }
     case GRANT_FORM_VALIDATION_ERRORS:
       return { ...state, errors: action.payload };
+    case GRANT_FORM_SUBMIT_SUCCESS: {
+      return {
+        ...state,
+        values: {},
+        errors: {},
+        submission: { ...state.values, id: action.payload.submissionId },
+      };
+    }
     default:
       return state;
   }
