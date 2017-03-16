@@ -106,8 +106,7 @@ export function submitGrant() {
     });
 
     if (Object.keys(validationErrors).length > 0) {
-      dispatch(showValidationErrors(validationErrors));
-      return false;
+      return dispatch(showValidationErrors(validationErrors));
     }
 
     const query = `
@@ -135,22 +134,19 @@ export function submitGrant() {
 
       if (errors) {
         const errorMessages = errors.map(error => error.message);
-        dispatch(showValidationErrors({ form: errorMessages }));
-        return false;
+        return dispatch(showValidationErrors({ form: errorMessages }));
       }
 
       const submissionId = data.createSubmission.id;
       log('success!');
-      dispatch(submitGrantSuccess(submissionId));
+      await dispatch(submitGrantSuccess(submissionId));
       history.push('/grant/success');
       return true;
     } catch (e) {
       logError('Failed to mutate ingredient', e);
-      dispatch(
+      return dispatch(
         showValidationErrors({ form: ['Unknown server error. Sorry!'] }),
       );
-
-      return false;
     }
   };
 }

@@ -18,7 +18,7 @@ export default [
     path: '/grant/success',
 
     async action({ store }) {
-      const { submission } = store.getState();
+      const { grant: { submission } } = store.getState();
 
       if (!submission) {
         return { redirect: '/' };
