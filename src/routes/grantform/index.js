@@ -17,7 +17,13 @@ export default [
   {
     path: '/grant/success',
 
-    async action() {
+    async action({ store }) {
+      const { submission } = store.getState();
+
+      if (!submission) {
+        return { redirect: '/' };
+      }
+
       return {
         title: 'Success',
         component: <GrantFormSuccess />,
