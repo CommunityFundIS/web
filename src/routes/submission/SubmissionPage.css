@@ -15,18 +15,26 @@
   margin-bottom: 40px;
 }
 
-.subHeading {
-  font-size: 1.5em;
-}
-
-.nextSteps {
-  margin: 10px 0 0;
-}
-
-.step {
+.panel {
   margin-bottom: 15px;
 }
 
-.yourSubmissionLink {
+.heading {
+  font-size: 16px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #2c82c9;
+  margin-bottom: 3px;
+}
+
+.date {
+  color: #909090;
+}
+
+.label {
   margin-right: 10px;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 7px;
 }
