@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import s from './GrantFormSuccess.css';
 import Link from '../../components/Link';
 
-const GrantFormSuccess = ({ email }) => {
+const GrantFormSuccess = ({ id, email }) => {
   const steps = [
     `We've sent an email to ${email} that contains this information.`,
     'Our team has received the details of your application and will begin voting as soon as possible.',
@@ -21,6 +21,9 @@ const GrantFormSuccess = ({ email }) => {
           ))}
         </ul>
         <p>
+          <Link className={s.yourSubmissionLink} to={`/submission/${id}/`}>
+            Your submission
+          </Link>
           <Link to="/">Back to front page</Link>
         </p>
       </div>
@@ -28,6 +31,7 @@ const GrantFormSuccess = ({ email }) => {
   );
 };
 GrantFormSuccess.propTypes = {
+  id: PropTypes.string,
   email: PropTypes.string,
 };
 
@@ -35,5 +39,5 @@ export default connect(
   (state /* , props */) => ({
     ...state.grant.submission,
   }),
-  {},
+  {}
 )(withStyles(s)(GrantFormSuccess));
