@@ -1,2 +1,2 @@
-docker kill postgres
-docker rm postgres
+docker kill postgres || true
+docker rm postgres || true
