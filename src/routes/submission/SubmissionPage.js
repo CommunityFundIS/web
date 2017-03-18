@@ -5,7 +5,7 @@ import moment from 'moment';
 import s from './SubmissionPage.css';
 
 const SubmissionDetails = (
-  { summary, date, description, askAmount, totalCost, name, email, phone }
+  { summary, date, description, askAmount, totalCost, name, email, phone },
 ) => (
   <div>
     <div className={s.panel}>
@@ -43,7 +43,7 @@ const SubmissionDetails = (
 SubmissionDetails.propTypes = {
   summary: PropTypes.string,
   description: PropTypes.string,
-  date: PropTypes.date,
+  date: PropTypes.string, // Could use React.PropTypes.instanceOf(Date)
   name: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,
@@ -66,5 +66,5 @@ export default connect(
   (state, props) => ({
     submission: state.submission[props.submissionId],
   }),
-  {}
+  {},
 )(withStyles(s)(SubmissionPage));
