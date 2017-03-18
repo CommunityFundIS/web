@@ -7,9 +7,16 @@ export default [
     path: '/submission/:id',
 
     async action({ params, store }) {
-      const submission = await store.dispatch(fetchSubmission(params.id));
+      const { id } = params;
+
+      await store.dispatch(fetchSubmission(id));
+
+      const state = store.getState();
+
+      const submission = state.submission[id];
+
       if (!submission) {
-        return { redirect: '/' };
+        return { redirect: '/404' };
       }
       return {
         title: `Submission: ${submission.summary}`,

@@ -23,20 +23,18 @@ export const fetchSubmission = id => async (dispatch, getStore, { graphqlRequest
         totalCost
       }
     }`;
-  log('query is', query);
 
   try {
     const { data, errors } = await graphqlRequest(query);
     log('got back', data, errors);
 
     if (errors) {
-      return null;
+      // @TODO handle better
+      logError(errors);
+    } else if (data.submission) {
+      dispatch(getSubmissionSuccess(data.submission));
     }
-
-    dispatch(getSubmissionSuccess(data.submission));
-    return data.submission;
   } catch (e) {
-    logError('Failed to mutate ingredient', e);
-    return null;
+    logError('Failed to fetch submission', e);
   }
 };
