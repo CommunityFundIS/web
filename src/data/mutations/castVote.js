@@ -5,7 +5,7 @@ import {
 import moment from 'moment';
 import SubmissionStatusType from '../types/SubmissionStatusType';
 import { Submission, User, Vote } from '../models';
-import { logError } from '../../logger';
+import { log, logError } from '../../logger';
 import { isDev, googleRecaptchaSecret } from '../../config';
 import fetch from '../../core/fetch';
 import {
@@ -52,11 +52,13 @@ const castVote = {
 
     // There is a race condition here that could result in two emails sent. Highly unlikely unless everyone votes at the same time
 
-    const resultSoFar = submissionResult(submissionId);
+    const resultSoFar = await submissionResult(submissionId);
+    log('Result so far', resultSoFar);
     if (resultSoFar !== 'pending') {
+      log('The votes are in!');
       await Submission.update(
         { decidedOn: moment(), result: resultSoFar },
-        { where: { id: submissionId } }
+        { where: { id: submissionId }, fields: ['decidedOn', 'result'] }
       );
 
       // TODO: Send email to applicant on result
