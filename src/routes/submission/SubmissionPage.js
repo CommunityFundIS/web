@@ -52,21 +52,44 @@ SubmissionDetails.propTypes = {
   totalCost: PropTypes.string,
 };
 
-const SubmissionPage = ({ submission }) => (
-  <div className={s.container}>
-    <div className={s.content}>
-      <SubmissionDetails {...submission} />
-      <VoteForm submissionId={submission.id} />
+const SubmissionStatus = ({ status }) => {
+  return (
+    <div>
+      <h2>Application Status</h2>
+      <div>Status: {status.result}</div>
+      <div>
+        {status.votes.map(vote => (
+          <span key={vote.id}>{vote.result === 'accepted' ? 'Y' : 'N'}</span>
+        ))}
+      </div>
+
     </div>
-  </div>
-);
+  );
+};
+
+const SubmissionPage = ({ currentUser, submission, status }) => {
+  const canVote = currentUser.isReviewer &&
+    status.result === 'pending' &&
+    status.votes.filter(vote => vote.userId === currentUser.id).length === 0;
+  return (
+    <div className={s.container}>
+      <div className={s.content}>
+        <SubmissionDetails {...submission} />
+        {canVote && <VoteForm submissionId={submission.id} />}
+        <SubmissionStatus status={status} />
+      </div>
+    </div>
+  );
+};
 SubmissionPage.propTypes = {
   submission: PropTypes.object,
 };
 
 export default connect(
   (state, props) => ({
+    currentUser: state.user,
     submission: state.submission[props.submissionId],
+    status: state.submissionStatus[props.submissionId],
   }),
   {}
 )(withStyles(s)(SubmissionPage));

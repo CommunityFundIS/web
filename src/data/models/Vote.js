@@ -16,7 +16,7 @@ const Vote = Model.define(
       allowNull: true,
     },
     result: {
-      type: DataType.ENUM('accept', 'reject'),
+      type: DataType.ENUM('accepted', 'rejected'),
     },
   },
   {

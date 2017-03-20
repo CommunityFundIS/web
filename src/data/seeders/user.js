@@ -7,7 +7,7 @@ export const up = async () => {
   await User.sync();
 
   await User.bulkCreate(
-    [0, 1, 2].map(i => {
+    [0, 1, 2, 3, 4].map(i => {
       return {
         email: `test${i}@test.com`,
         name: `Reviewer ${i}`,

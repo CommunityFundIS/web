@@ -1,5 +1,6 @@
 import { VOTE_ADD_COMMENT, VOTE_CAST_VOTE_ERROR } from '../constants';
 import { log, logError } from '../logger';
+import { getSubmissionStatusSuccess } from './submission';
 
 export function addComment(submissionId, comment) {
   return {
@@ -21,7 +22,15 @@ function castVoteError(submissionId, error) {
   };
 }
 
-export function castVote(submissionId, result) {
+export function acceptSubmission(submissionId) {
+  return castVote(submissionId, 'accepted');
+}
+
+export function rejectSubmission(submissionId) {
+  return castVote(submissionId, 'rejected');
+}
+
+function castVote(submissionId, result) {
   return async (dispatch, getStore, { graphqlRequest }) => {
     const {
       castVote,
@@ -38,7 +47,13 @@ export function castVote(submissionId, result) {
           ${commentParameter}
           result: "${result}"
         ) {
-          id
+          result
+          votes {
+            id
+            comment
+            result
+            userId
+          }
         }
       }
     `;
@@ -53,7 +68,7 @@ export function castVote(submissionId, result) {
         return dispatch(castVoteError(submissionId, errorMessages.join(',')));
       }
 
-      return true;
+      return dispatch(getSubmissionStatusSuccess(submissionId, data.castVote));
     } catch (e) {
       logError('Failed to mutate ingredient', e);
       return dispatch(castVoteError(submissionId, 'Error when casting vote'));

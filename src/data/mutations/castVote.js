@@ -3,14 +3,18 @@ import {
   GraphQLNonNull as NonNull,
 } from 'graphql';
 import moment from 'moment';
-import SubmissionType from '../types/SubmissionType';
+import SubmissionStatusType from '../types/SubmissionStatusType';
 import { Submission, User, Vote } from '../models';
 import { logError } from '../../logger';
 import { isDev, googleRecaptchaSecret } from '../../config';
 import fetch from '../../core/fetch';
+import {
+  getSubmissionStatus,
+  submissionResult,
+} from '../queries/submissionStatus';
 
 const castVote = {
-  type: SubmissionType,
+  type: SubmissionStatusType,
   args: {
     submissionId: { type: new NonNull(StringType) },
     comment: { type: StringType },
@@ -30,14 +34,12 @@ const castVote = {
 
     const user = await User.findById(req.user.id);
 
-    if (!user.isReviewer) {
+    if (!user || !user.isReviewer) {
       throw Error('Unauthorized');
     }
 
-    let vote;
-
     try {
-      vote = await Vote.create({
+      await Vote.create({
         submissionId,
         comment,
         result,
@@ -48,7 +50,19 @@ const castVote = {
       throw e;
     }
 
-    return vote;
+    // There is a race condition here that could result in two emails sent. Highly unlikely unless everyone votes at the same time
+
+    const resultSoFar = submissionResult(submissionId);
+    if (resultSoFar !== 'pending') {
+      await Submission.update(
+        { decidedOn: moment(), result: resultSoFar },
+        { where: { id: submissionId } }
+      );
+
+      // TODO: Send email to applicant on result
+    }
+
+    return getSubmissionStatus({ submissionId, anonymized: false });
   },
 };
 

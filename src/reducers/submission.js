@@ -1,11 +1,27 @@
-import { GET_SUBMISSION_SUCCESS } from '../constants';
+import {
+  GET_SUBMISSION_SUCCESS,
+  GET_SUBMISSION_STATUS_SUCCESS,
+} from '../constants';
 
-export default function grant(state = {}, action) {
+export function submission(state = {}, action) {
   switch (action.type) {
     case GET_SUBMISSION_SUCCESS: {
       return {
         ...state,
-        [action.payload.id]: action.payload,
+        [action.payload.submission.id]: action.payload.submission,
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+export function submissionStatus(state = {}, action) {
+  switch (action.type) {
+    case GET_SUBMISSION_STATUS_SUCCESS: {
+      return {
+        ...state,
+        [action.payload.submissionId]: action.payload.status,
       };
     }
     default:

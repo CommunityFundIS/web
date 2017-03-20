@@ -23,11 +23,16 @@ export const up = async () => {
     isReviewer: true,
   });
 
-  const comments = ['Complete non-sense', "Best submission I've seen"];
-  const answers = ['accept', 'reject'];
+  const comments = [
+    'Complete non-sense',
+    "Best submission I've seen",
+    null,
+    null,
+  ];
+  const answers = ['accepted', 'rejected', 'accepted', 'rejected'];
 
   await Vote.bulkCreate(
-    reviewers.slice(0, 2).map((reviewer, i) => {
+    reviewers.slice(1, 5).map((reviewer, i) => {
       const comment = comments[i];
       const result = answers[i];
 

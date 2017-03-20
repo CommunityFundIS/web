@@ -1,10 +1,23 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
-import { addComment, castVote } from '../../actions/castVote';
+import {
+  addComment,
+  acceptSubmission,
+  rejectSubmission,
+} from '../../actions/castVote';
 import s from './VoteForm.css';
 
-const VoteForm = ({ submissionId, comment, error, addComment, castVote }) => (
+const VoteForm = (
+  {
+    submissionId,
+    comment,
+    error,
+    addComment,
+    acceptSubmission,
+    rejectSubmission,
+  }
+) => (
   <div className={s.voteForm}>
     <h3>Your vote</h3>
     <textarea
@@ -16,18 +29,12 @@ const VoteForm = ({ submissionId, comment, error, addComment, castVote }) => (
     />
 
     <div className={s.acceptContainer}>
-      <div
-        className={s.accept}
-        onClick={() => castVote(submissionId, 'accept')}
-      >
+      <div className={s.accept} onClick={() => acceptSubmission(submissionId)}>
         Accept
       </div>
     </div>
     <div className={s.rejectContainer}>
-      <div
-        className={s.reject}
-        onClick={() => castVote(submissionId, 'reject')}
-      >
+      <div className={s.reject} onClick={() => rejectSubmission(submissionId)}>
         Reject
       </div>
     </div>
@@ -44,6 +51,7 @@ export default connect(
   },
   {
     addComment,
-    castVote,
+    acceptSubmission,
+    rejectSubmission,
   }
 )(withStyles(s)(VoteForm));

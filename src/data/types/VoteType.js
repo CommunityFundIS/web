@@ -11,6 +11,7 @@ const VoteType = new ObjectType({
     id: { type: new NonNull(ID) },
     comment: { type: StringType },
     result: { type: new NonNull(StringType) },
+    userId: { type: StringType },
   },
 });
 

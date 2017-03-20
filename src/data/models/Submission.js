@@ -42,6 +42,14 @@ const Submission = Model.define(
       type: DataType.NUMERIC(),
       allowNull: false,
     },
+    decidedOn: {
+      type: DataType.DATE(),
+      allowNull: true,
+    },
+    result: {
+      type: DataType.ENUM('accepted', 'rejected'),
+      allowNull: true,
+    },
   },
   {
     indexes: [{ fields: ['id'] }],
