@@ -19,7 +19,7 @@ const VoteForm = (
   }
 ) => (
   <div className={s.voteForm}>
-    <h3>Your vote</h3>
+    <h2 className={s.heading}>Your vote</h2>
     <textarea
       type="text"
       value={comment}
@@ -28,15 +28,13 @@ const VoteForm = (
       onChange={({ target: { value } }) => addComment(submissionId, value)}
     />
 
-    <div className={s.acceptContainer}>
-      <div className={s.accept} onClick={() => acceptSubmission(submissionId)}>
+    <div className={s.buttonContainer}>
+      <a className={s.accept} onClick={() => acceptSubmission(submissionId)}>
         Accept
-      </div>
-    </div>
-    <div className={s.rejectContainer}>
-      <div className={s.reject} onClick={() => rejectSubmission(submissionId)}>
+      </a>
+      <a className={s.reject} onClick={() => rejectSubmission(submissionId)}>
         Reject
-      </div>
+      </a>
     </div>
     {error && <div className={s.error}>{error}</div>}
   </div>
