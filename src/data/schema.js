@@ -15,6 +15,7 @@ import {
 import me from './queries/me';
 import submission from './queries/submission';
 import createSubmission from './mutations/createSubmission';
+import castVote from './mutations/castVote';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -28,6 +29,7 @@ const schema = new Schema({
     name: 'Mutation',
     fields: {
       createSubmission,
+      castVote,
     },
   }),
 });

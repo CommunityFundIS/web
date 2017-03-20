@@ -3,9 +3,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import s from './SubmissionPage.css';
+import VoteForm from './VoteForm';
 
 const SubmissionDetails = (
-  { summary, date, description, askAmount, totalCost, name, email, phone },
+  { summary, date, description, askAmount, totalCost, name, email, phone }
 ) => (
   <div>
     <div className={s.panel}>
@@ -55,6 +56,7 @@ const SubmissionPage = ({ submission }) => (
   <div className={s.container}>
     <div className={s.content}>
       <SubmissionDetails {...submission} />
+      <VoteForm submissionId={submission.id} />
     </div>
   </div>
 );
@@ -66,5 +68,5 @@ export default connect(
   (state, props) => ({
     submission: state.submission[props.submissionId],
   }),
-  {},
+  {}
 )(withStyles(s)(SubmissionPage));
