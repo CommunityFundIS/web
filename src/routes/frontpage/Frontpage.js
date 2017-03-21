@@ -16,11 +16,7 @@ class Frontpage extends Component {
             <div className={s.slogan}>
               We enable community builders by helping out with the money.
             </div>
-            <Link
-              className={s.applyButton}
-              style={{ marginTop: '40px' }}
-              to="/grant"
-            >
+            <Link className={s.applyButton} style={{ marginTop: '40px' }} to="/grant">
               Apply for a grant
             </Link>
           </div>
@@ -34,7 +30,10 @@ class Frontpage extends Component {
                   The Community Fund helps community builders plan events around their passion.
                 </div>
                 <div className={s.showcaseText}>
-                  We{'\''}re here to enable the tech and startup community grow closer and better, by making events, meetups, and other initiatives easier to execute.
+                  We
+                  {"'"}
+                  re here to enable the tech and startup community grow closer and better,
+                  by making events, meetups, and other initiatives easier to execute.
                 </div>
                 <div className={s.showcaseText}>
                   Our partners provide funding, experience,
@@ -50,7 +49,9 @@ class Frontpage extends Component {
         <div className={s.thirdContainer}>
           <Parallax bgImage="img/lyingimg.png" strength={200} className={s.parallax}>
             <div className={s.testemonyContainer}>
-              <div className={s.testimonyHeadline}>WE COULDN{'\''}T DO THIS WITHOUT OUR PARTNERS</div>
+              <div className={s.testimonyHeadline}>
+                WE COULDN{"'"}T DO THIS WITHOUT OUR PARTNERS
+              </div>
             </div>
           </Parallax>
         </div>
@@ -87,12 +88,14 @@ class Frontpage extends Component {
 
             </div>
             <div className={s.calculatorContainer}>
-              <div className={`${s.calculatorText} ${s.calculatorTextUpper}`} >
+              <div className={`${s.calculatorText} ${s.calculatorTextUpper}`}>
                 We hand out up to&nbsp;
                 <div className={s.calculatorCost}>200.000kr.</div>
                 &nbsp;in grants per month
               </div>
-              <Link className={`${s.applyButton} ${s.calculatorTryButton}`} to="/grants">Apply for a grant</Link>
+              <Link className={`${s.applyButton} ${s.calculatorTryButton}`} to="/grants">
+                Apply for a grant
+              </Link>
             </div>
           </div>
         </div>
