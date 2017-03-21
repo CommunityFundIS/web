@@ -1,0 +1,58 @@
+
+.voteForm {
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-size: 16px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #2c82c9;
+  margin-bottom: 3px;
+}
+
+.description {
+  margin-top: 10px;
+  height: 30px;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 30px;
+}
+
+.accept {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  margin-top: -25px;
+  margin-right: 10px;
+  background: #2677c2;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.reject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  margin-top: -25px;
+  background: #ffc14b;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.error {
+  color: #ffc14b;
+}

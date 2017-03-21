@@ -1,12 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import { Submission } from '../models';
+import moment from 'moment';
+import { Submission, Vote, User } from '../models';
 
 export const up = async () => {
   console.log('Submission: Seeding');
 
   await Submission.sync();
+  await Vote.sync();
 
-  await Submission.create({
+  const submission = await Submission.create({
     name: 'Kristjan',
     email: 'kristjan@foo.com',
     phone: '6961234',
@@ -16,6 +18,29 @@ export const up = async () => {
     askAmount: 30000,
     totalCost: 100000,
   });
+
+  const reviewers = await User.findAll({
+    isReviewer: true,
+  });
+
+  const comments = [
+    'Complete non-sense',
+    "Best submission I've seen",
+    null,
+    null,
+  ];
+  const answers = ['accepted', 'rejected', 'accepted', 'rejected'];
+
+  await Vote.bulkCreate(
+    reviewers.slice(1, 5).map((reviewer, i) => {
+      return {
+        userId: reviewer.id,
+        comment: comments[i],
+        result: answers[i],
+        submissionId: submission.id,
+      };
+    })
+  );
 
   console.log('Submission: Done seeding');
 };

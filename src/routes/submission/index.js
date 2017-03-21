@@ -14,7 +14,6 @@ export default [
       const state = store.getState();
 
       const submission = state.submission[id];
-
       if (!submission) {
         return { redirect: '/404' };
       }

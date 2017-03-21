@@ -6,12 +6,16 @@ export const up = async () => {
 
   await User.sync();
 
-  await User.create({
-    email: 'test@test.com',
-    name: 'Test',
-    isReviewer: true,
-    password: User.generateHash('test'),
-  });
+  await User.bulkCreate(
+    [0, 1, 2, 3, 4].map(i => {
+      return {
+        email: `test${i}@test.com`,
+        name: `Reviewer ${i}`,
+        isReviewer: true,
+        password: User.generateHash('test'),
+      };
+    })
+  );
 
   console.log('User: Done seeding');
 };

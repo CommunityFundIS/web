@@ -3,9 +3,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import s from './SubmissionPage.css';
+import VoteForm from './VoteForm';
 
 const SubmissionDetails = (
-  { summary, date, description, askAmount, totalCost, name, email, phone },
+  { summary, date, description, askAmount, totalCost, name, email, phone }
 ) => (
   <div>
     <div className={s.panel}>
@@ -51,20 +52,42 @@ SubmissionDetails.propTypes = {
   totalCost: PropTypes.string,
 };
 
-const SubmissionPage = ({ submission }) => (
-  <div className={s.container}>
-    <div className={s.content}>
-      <SubmissionDetails {...submission} />
+const SubmissionPage = ({ currentUser, submission, status }) => {
+  const canVote = currentUser.isReviewer &&
+    status.result === 'pending' &&
+    status.votes.filter(vote => vote.userId === currentUser.id).length === 0;
+  return (
+    <div className={s.container}>
+      <div className={s.content}>
+        <SubmissionDetails {...submission} />
+        {canVote && <VoteForm submissionId={submission.id} />}
+        <div>
+          <h2 className={s.heading}>Application Status</h2>
+          <div>Status: {status.result}</div>
+          <div>
+            {status.votes.map(vote => (
+              <span key={vote.id}>
+                {vote.result === 'accepted' ? 'Y' : 'N'}
+              </span>
+            ))}
+          </div>
+
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 SubmissionPage.propTypes = {
+  currentUser: PropTypes.object,
   submission: PropTypes.object,
+  status: PropTypes.object,
 };
 
 export default connect(
   (state, props) => ({
+    currentUser: state.user,
     submission: state.submission[props.submissionId],
+    status: state.submissionStatus[props.submissionId],
   }),
-  {},
+  {}
 )(withStyles(s)(SubmissionPage));

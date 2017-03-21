@@ -46,11 +46,13 @@ app.use(bodyParser.json());
 //
 // Authentication
 // -----------------------------------------------------------------------------
-app.use(expressJwt({
-  secret: auth.jwt.secret,
-  credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
-}));
+app.use(
+  expressJwt({
+    secret: auth.jwt.secret,
+    credentialsRequired: false,
+    getToken: req => req.cookies.id_token,
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -65,21 +67,20 @@ if (process.env.NODE_ENV !== 'production') {
 app.get('/login', (req, res, next) => {
   const isLoggedIn = req.isAuthenticated && req.isAuthenticated();
   if (isLoggedIn) {
-    return res.redirect('/home');
+    return res.redirect('/');
   }
   return next();
 });
 
 app.get('/', (req, res, next) => {
-  const isLoggedIn = req.isAuthenticated && req.isAuthenticated();
-  if (isLoggedIn) return res.redirect('/home');
   return next();
 });
 
 app.post('/login/username', (req, res, next) => {
   passport.authenticate('local', (err, user /* ,info */) => {
     if (err) {
-      if (err.type === 'invalidPassword') return res.redirect('/login?error=noMatch2');
+      if (err.type === 'invalidPassword')
+        return res.redirect('/login?error=noMatch2');
 
       return res.redirect('/login?error=general');
     }
@@ -106,38 +107,46 @@ app.get('/profile', ensureLoggedIn(), (req, res) => {
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-app.use('/graphql', expressGraphQL(req => {
-  if (!req.user && req.body.token) {
-    try {
-      const { id } = jwt.decode(req.body.token);
-      req.user = { id }; // eslint-disable-line no-param-reassign
-    } catch (err) {
-      logError(err);
+app.use(
+  '/graphql',
+  expressGraphQL(req => {
+    if (!req.user && req.body.token) {
+      try {
+        const { id } = jwt.decode(req.body.token);
+        req.user = { id }; // eslint-disable-line no-param-reassign
+      } catch (err) {
+        logError(err);
+      }
     }
-  }
-  return {
-    schema,
-    graphiql: process.env.NODE_ENV !== 'production',
-    rootValue: { req },
-    pretty: process.env.NODE_ENV !== 'production',
-  };
-}));
+    return {
+      schema,
+      graphiql: process.env.NODE_ENV !== 'production',
+      rootValue: { req },
+      pretty: process.env.NODE_ENV !== 'production',
+    };
+  })
+);
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    const store = configureStore({
-      user: req.user,
-    }, {
-      cookie: req.headers.cookie,
-    });
+    const store = configureStore(
+      {
+        user: req.user,
+      },
+      {
+        cookie: req.headers.cookie,
+      }
+    );
 
-    store.dispatch(setRuntimeVariable({
-      name: 'initialNow',
-      value: Date.now(),
-    }));
+    store.dispatch(
+      setRuntimeVariable({
+        name: 'initialNow',
+        value: Date.now(),
+      })
+    );
 
     const css = new Set();
 
@@ -146,10 +155,14 @@ app.get('*', async (req, res, next) => {
     let token;
 
     if (req.user) {
-      token = jwt.sign({
-        id: req.user.id,
-        isReviewer: req.user.isReviewer,
-      }, auth.jwt.secret, { expiresIn });
+      token = jwt.sign(
+        {
+          id: req.user.id,
+          isReviewer: req.user.isReviewer,
+        },
+        auth.jwt.secret,
+        { expiresIn }
+      );
     }
 
     // Global (context) variables that can be easily accessed from any React component
@@ -180,12 +193,11 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
+    data.children = ReactDOM.renderToString(
+      <App context={context}>{route.component}</App>
+    );
     data.style = [...css].join('');
-    data.scripts = [
-      assets.vendor.js,
-      assets.client.js,
-    ];
+    data.scripts = [assets.vendor.js, assets.client.js];
     data.state = context.store.getState();
     if (assets[route.chunk]) {
       data.scripts.push(assets[route.chunk].js);
@@ -206,7 +218,8 @@ const pe = new PrettyError();
 pe.skipNodeFiles();
 pe.skipPackage('express');
 
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+app.use((err, req, res, next) => {
+  // eslint-disable-line no-unused-vars
   console.log(pe.render(err)); // eslint-disable-line no-console
   const html = ReactDOM.renderToStaticMarkup(
     <Html
@@ -215,7 +228,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       style={errorPageStyle._getCss()} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>,
+    </Html>
   );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);
