@@ -1,9 +1,31 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Parallax } from 'react-parallax';
 import Link from '../../components/Link';
+import { partners, sponsors, supporters } from './backers.js';
 
 import s from './Frontpage.css';
+
+const Company = ({ name, url, logo, description }, index) => (
+  <div key={index} className={s.backerContainer}>
+    <div className={s.backerImageContainer}>
+      <img className={s.backerImage} src={logo} alt={name} />
+    </div>
+    <div className={s.backerBox}>
+      <div className={s.backerInfo}>
+        <a href={url} target="_blank" rel="noopener noreferrer" className={s.backerName}>{name}</a>
+        <div className={s.backerText}>{description}</div>
+      </div>
+    </div>
+  </div>
+);
+
+Company.propTypes = {
+  name: PropTypes.string,
+  url: PropTypes.string,
+  logo: PropTypes.string,
+  description: PropTypes.string,
+};
 
 class Frontpage extends Component {
   render() {
@@ -11,10 +33,10 @@ class Frontpage extends Component {
       <div className={s.container}>
         <div className={s.firstContainer}>
           <div className={s.wrapper}>
-            <img className={s.logo} src="/img/tcf.png" alt="logo" />
+            <img className={s.logo} src="/logos/transparent_logo.png" alt="logo" />
             <div className={s.headline}>PLANNING A COMMUNITY EVENT?</div>
             <div className={s.slogan}>
-              We enable community builders by helping out with the money.
+              We support the community by easing the access to capital for events.
             </div>
             <Link className={s.applyButton} style={{ marginTop: '40px' }} to="/grant">
               Apply for a grant
@@ -57,43 +79,24 @@ class Frontpage extends Component {
         </div>
         <div className={s.fourthContainer}>
           <div className={s.wrapper}>
-            <div className={s.testimonyContainer}>
-              <div className={s.clientBox}>
-                <div className={s.clientInfo}>
-                  <div className={s.clientName}>TEMPO</div>
-                  <div className={s.clientTitle}>Founding Partner</div>
-                  <div className={s.clientText}>
-                    Tempo is an Icelandic company that builds productivity software
-                  </div>
-                </div>
-              </div>
-              <div className={s.clientImageContainer}>
-                <img className={s.clientImage} src="/img/tempo.png" alt="tempo" />
-              </div>
+            {/* <h1 className={s.backerCategory}>Operators</h1> */}
 
-            </div>
-            <div className={s.testimonyContainer}>
-              <div className={s.clientBox}>
-                <div className={s.clientInfo}>
-                  <div className={s.clientName}>BERINGER FINANCE</div>
-                  <div className={s.clientTitle}>Founding Partner</div>
-                  <div className={s.clientText}>
-                    Beringer Finance is the biggest investment bank focused on tech in the Nordics
-                  </div>
-                </div>
-              </div>
-              <div className={s.clientImageContainer}>
-                <img className={s.clientImage} src="/img/beringer.png" alt="beringer" />
-              </div>
+            <h1 className={s.backerCategory}>Financial Partners</h1>
+            {partners.map(Company)}
 
-            </div>
+            <h1 className={s.backerCategory}>Sponsors</h1>
+            {sponsors.map(Company)}
+
+            <h1 className={s.backerCategory}>Supporters</h1>
+            {supporters.map(Company)}
+
             <div className={s.calculatorContainer}>
               <div className={`${s.calculatorText} ${s.calculatorTextUpper}`}>
                 We hand out up to&nbsp;
                 <div className={s.calculatorCost}>200.000kr.</div>
                 &nbsp;in grants per month
               </div>
-              <Link className={`${s.applyButton} ${s.calculatorTryButton}`} to="/grants">
+              <Link className={`${s.applyButton} ${s.calculatorTryButton}`} to="/grant">
                 Apply for a grant
               </Link>
             </div>
@@ -106,14 +109,14 @@ class Frontpage extends Component {
 
               <div style={{ flex: 8 }} />
 
-              <div className={s.footerItemWrapper}>
+              {/* <div className={s.footerItemWrapper}>
                 <a className={s.footerItemInner} href="https://grassroots.com/Press.zip">
                   <img className={s.pressIcon} src="/img/press@2x.png" alt="press" />
                   Press
                 </a>
-              </div>
+              </div> */}
               <div className={s.footerItemWrapper}>
-                <a className={s.footerItemInner} href="mailto:david@watchboxapp.com">
+                <a className={s.footerItemInner} href="mailto:hello@communityfund.co">
                   <img className={s.contactIcon} src="/img/contact@2x.png" alt="contact" />
                   Contact Us
                 </a>
@@ -128,7 +131,7 @@ class Frontpage extends Component {
               <div style={{ flex: 8 }} />
             </div>
             <div className={s.copyright}>
-              © Grassroots Fund&nbsp;{new Date().getFullYear()}&nbsp;
+              © Community Fund&nbsp;{new Date().getFullYear()}&nbsp;
             </div>
           </div>
         </div>
