@@ -25,20 +25,34 @@ const VoteForm = (
       value={comment}
       placeholder="Comment"
       className={s.description}
-      onChange={({ target: { value } }) => addComment(submissionId, value)}
+      onChange={event => addComment(submissionId, event.target.value)}
     />
 
     <div className={s.buttonContainer}>
-      <a className={s.accept} onClick={() => acceptSubmission(submissionId)}>
+      <button
+        className={s.accept}
+        onClick={() => acceptSubmission(submissionId)}
+      >
         Accept
-      </a>
-      <a className={s.reject} onClick={() => rejectSubmission(submissionId)}>
+      </button>
+      <button
+        className={s.reject}
+        onClick={() => rejectSubmission(submissionId)}
+      >
         Reject
-      </a>
+      </button>
     </div>
     {error && <div className={s.error}>{error}</div>}
   </div>
 );
+VoteForm.propTypes = {
+  submissionId: PropTypes.string.isRequired,
+  comment: PropTypes.string,
+  error: PropTypes.string,
+  addComment: PropTypes.func.isRequired,
+  acceptSubmission: PropTypes.func.isRequired,
+  rejectSubmission: PropTypes.func.isRequired,
+};
 
 export default connect(
   (state, props) => {
