@@ -28,6 +28,8 @@ import models from './data/models';
 
 const app = express();
 
+const COOKIE_TOKEN_NAME = 'id_token';
+
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
@@ -43,6 +45,18 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  const token = req.query && req.query.token;
+  if (token && !req.cookies[COOKIE_TOKEN_NAME]) {
+    req.cookies[COOKIE_TOKEN_NAME] = token;
+    res.cookie(COOKIE_TOKEN_NAME, token, {
+      maxAge: 1000 * 15 * 60,
+      httpOnly: true,
+    });
+  }
+  next();
+});
+
 //
 // Authentication
 // -----------------------------------------------------------------------------
@@ -50,8 +64,8 @@ app.use(
   expressJwt({
     secret: auth.jwt.secret,
     credentialsRequired: false,
-    getToken: req => req.cookies.id_token,
-  })
+    getToken: req => req.cookies[COOKIE_TOKEN_NAME],
+  }),
 );
 
 app.use(passport.initialize());
@@ -72,29 +86,33 @@ app.get('/login', (req, res, next) => {
   return next();
 });
 
-app.get('/', (req, res, next) => {
-  return next();
-});
+app.get('/', (req, res, next) => next());
 
 app.post('/login/username', (req, res, next) => {
   passport.authenticate('local', (err, user /* ,info */) => {
     if (err) {
-      if (err.type === 'invalidPassword')
+      if (err.type === 'invalidPassword') {
         return res.redirect('/login?error=noMatch2');
+      }
 
       return res.redirect('/login?error=general');
     }
-    if (!user) return res.redirect('/login?error=noMatch');
+    if (!user) {
+      return res.redirect('/login?error=noMatch');
+    }
 
     const expiresIn = 60 * 60 * 24 * 180; // 180 days
     const token = jwt.sign(user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+    res.cookie(COOKIE_TOKEN_NAME, token, {
+      maxAge: 1000 * expiresIn,
+      httpOnly: true,
+    });
     return res.redirect('/');
   })(req, res, next);
 });
 
 app.get('/logout', (req, res) => {
-  res.clearCookie('id_token');
+  res.clearCookie(COOKIE_TOKEN_NAME);
   req.logout();
   res.redirect('/');
 });
@@ -124,7 +142,7 @@ app.use(
       rootValue: { req },
       pretty: process.env.NODE_ENV !== 'production',
     };
-  })
+  }),
 );
 
 //
@@ -138,14 +156,14 @@ app.get('*', async (req, res, next) => {
       },
       {
         cookie: req.headers.cookie,
-      }
+      },
     );
 
     store.dispatch(
       setRuntimeVariable({
         name: 'initialNow',
         value: Date.now(),
-      })
+      }),
     );
 
     const css = new Set();
@@ -161,7 +179,7 @@ app.get('*', async (req, res, next) => {
           isReviewer: req.user.isReviewer,
         },
         auth.jwt.secret,
-        { expiresIn }
+        { expiresIn },
       );
     }
 
@@ -193,9 +211,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>
-    );
+    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.style = [...css].join('');
     data.scripts = [assets.vendor.js, assets.client.js];
     data.state = context.store.getState();
@@ -228,7 +244,7 @@ app.use((err, req, res, next) => {
       style={errorPageStyle._getCss()} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>
+    </Html>,
   );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);
