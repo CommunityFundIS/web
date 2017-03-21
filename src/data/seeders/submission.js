@@ -33,13 +33,10 @@ export const up = async () => {
 
   await Vote.bulkCreate(
     reviewers.slice(1, 5).map((reviewer, i) => {
-      const comment = comments[i];
-      const result = answers[i];
-
       return {
         userId: reviewer.id,
-        comment,
-        result,
+        comment: comments[i],
+        result: answers[i],
         submissionId: submission.id,
       };
     })
