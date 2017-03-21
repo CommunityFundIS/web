@@ -17,6 +17,7 @@ To run the project:
         export DB_NAME="communityfund"
         export DB_USER="communityfund_user"
         export DB_PASSWORD="communityfund_password"
+        export JWT_SECRET="super_secret"
 3. Run start
 
         yarn start:all
