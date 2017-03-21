@@ -3,7 +3,7 @@ export const partners = [
     name: 'Investa',
     url: 'http://investa.is',
     logo: '/logos/investa.png',
-    description: 'Tempo is an Icelandic company that builds productivity software',
+    description: 'Investa er fjárfestingafélag sem fjárfestir í íslenskum sprotafyrirtækjum sem eiga góða möguleika á að hasla sér völl erlendis.',
   },
   {
     name: 'SUT',
