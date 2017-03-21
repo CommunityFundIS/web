@@ -63,7 +63,7 @@ const submissionStatus = {
       type: new NonNull(ID),
     },
   },
-  resolve: async ({ req }, { submissionId }) =>
+  resolve: ({ req }, { submissionId }) =>
     getSubmissionStatus({ submissionId, anonymized: !req.user }),
 };
 
