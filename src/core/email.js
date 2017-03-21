@@ -2,7 +2,7 @@
 import { createTransport } from 'nodemailer';
 import { AWS_SES } from '../config';
 
-export const sendEmail = async (recipient, subject, html) => {
+const sendEmail = async (recipient, subject, html) => {
   const mailOptions = {
     html,
     from: 'Community Fund <hello@communityfund.co>',
