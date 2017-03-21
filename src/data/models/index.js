@@ -7,5 +7,9 @@ function sync(...args) {
   return db.sync(...args);
 }
 
+Submission.hasMany(Vote, { as: 'Votes' });
+Vote.belongsTo(Submission);
+Vote.belongsTo(User);
+
 export default { sync };
 export { User, Submission, Vote };

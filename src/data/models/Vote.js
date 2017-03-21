@@ -1,7 +1,5 @@
 import DataType from 'sequelize';
 import Model from '../db';
-import User from './User';
-import Submission from './Submission';
 
 const Vote = Model.define(
   'vote',
@@ -26,11 +24,7 @@ const Vote = Model.define(
         fields: ['submissionId', 'userId'],
       },
     ],
-  }
+  },
 );
-
-Submission.hasMany(Vote, { as: 'Votes' });
-Vote.belongsTo(Submission);
-Vote.belongsTo(User);
 
 export default Vote;
