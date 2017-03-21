@@ -1,6 +1,6 @@
 import { GraphQLID as ID, GraphQLNonNull as NonNull } from 'graphql';
 import SubmissionStatusType from '../types/SubmissionStatusType';
-import { Vote, Submission, User } from '../models';
+import { Vote, Submission } from '../models';
 
 export const submissionResult = async submissionId => {
   const BOARD_MEMBERS = 5;
@@ -21,34 +21,38 @@ export const submissionResult = async submissionId => {
     return 'accepted';
   } else if (remainingVotes < MIN_AMOUNT_OF_VOTES) {
     return 'rejected';
-  } else {
-    return 'pending';
   }
+
+  return 'pending';
 };
 
 export const getSubmissionStatus = async ({ submissionId, anonymized }) => {
-  const submission = await Submission.findById(submissionId);
+  const [submission, allVotes] = await Promise.all([
+    Submission.findById(submissionId),
+    Vote.findAll({
+      where: {
+        submissionId,
+      },
+    }),
+  ]);
 
   if (!submission) {
     throw Error("Submission doesn't exist");
   }
 
-  let votesForSubmission = await Vote.findAll({
-    where: {
-      submissionId,
-    },
-  });
-
+  let votes;
   if (anonymized) {
-    votesForSubmission = votesForSubmission.map(vote => {
+    votes = allVotes.map(vote => {
       vote.userId = null;
       return vote;
     });
+  } else {
+    votes = allVotes;
   }
 
   return {
     result: submission.result || 'pending',
-    votes: votesForSubmission,
+    votes,
   };
 };
 
