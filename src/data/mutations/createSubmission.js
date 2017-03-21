@@ -12,7 +12,7 @@ import sendEmail from '../../core/email';
 export const sendEmailToReviewer = async (reviewer, submission) => {
   log('Sending grant review email', reviewer.email, submission.Id);
 
-  const expiresIn = 60 * 60 * 24 * 15; // 10 days
+  const expiresIn = 60 * 60 * 24 * 15; // 15 days
   const token = jwt.sign(
     {
       id: reviewer.id,
