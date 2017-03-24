@@ -13,7 +13,9 @@ const Company = ({ name, url, logo, description }, index) => (
     </div>
     <div className={s.backerBox}>
       <div className={s.backerInfo}>
-        <a href={url} target="_blank" rel="noopener noreferrer" className={s.backerName}>{name}</a>
+        <a href={url} target="_blank" rel="noopener noreferrer" className={s.backerName}>
+          {name}
+        </a>
         <div className={s.backerText}>{description}</div>
       </div>
     </div>
@@ -79,8 +81,6 @@ class Frontpage extends Component {
         </div>
         <div className={s.fourthContainer}>
           <div className={s.wrapper}>
-            {/* <h1 className={s.backerCategory}>Operators</h1> */}
-
             <h1 className={s.backerCategory}>Financial Partners</h1>
             {partners.map(Company)}
 
@@ -108,13 +108,6 @@ class Frontpage extends Component {
             <div className={s.footerItems}>
 
               <div style={{ flex: 8 }} />
-
-              {/* <div className={s.footerItemWrapper}>
-                <a className={s.footerItemInner} href="https://grassroots.com/Press.zip">
-                  <img className={s.pressIcon} src="/img/press@2x.png" alt="press" />
-                  Press
-                </a>
-              </div> */}
               <div className={s.footerItemWrapper}>
                 <a className={s.footerItemInner} href="mailto:hello@communityfund.co">
                   <img className={s.contactIcon} src="/img/contact@2x.png" alt="contact" />
