@@ -2,15 +2,16 @@
 
 const flatten = arrayOfArrays => [].concat([], ...arrayOfArrays);
 
-const joinRoutes = routes => flatten(
-  routes.map(route => {
-    if (!Array.isArray(route)) {
-      return [route];
-    }
+const joinRoutes = routes =>
+  flatten(
+    routes.map(route => {
+      if (!Array.isArray(route)) {
+        return [route];
+      }
 
-    return route;
-  }),
-);
+      return route;
+    }),
+  );
 
 // The top-level (parent) route
 export default {
@@ -20,8 +21,10 @@ export default {
   children: joinRoutes([
     require('./frontpage').default,
     require('./grantform').default,
+    require('./team').default,
     require('./submission').default,
     require('./login').default,
+    ...require('./content-pages').default,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ]),

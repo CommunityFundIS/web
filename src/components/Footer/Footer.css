@@ -1,38 +1,57 @@
 @import '../variables.css';
 
-.root {
-  background: #333;
+.footer {
+  height: 200px;
+  width: 100%;
+  background: #404040;
+  border-top: 4px solid #2c2c2c;
+}
+
+.items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+}
+
+.item {
+  display: flex;
+  flex: 2 1 100px;
+  align-items: flex-end;
+  height: 100px;
+}
+
+.itemInner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 100px;
+  font-size: 16px;
   color: #fff;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 20px 15px;
-  max-width: var(--max-content-width);
-  text-align: center;
-}
-
-.text {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.spacer {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.text,
-.link {
-  padding: 2px 5px;
-  font-size: 1em;
-}
-
-.link,
-.link:active,
-.link:visited {
-  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
+  cursor: pointer;
 }
 
-.link:hover {
-  color: rgba(255, 255, 255, 1);
+.contactIcon {
+  width: 43px;
+  height: 32px;
+  margin-bottom: 18px;
+}
+
+.teamIcon {
+  width: 40px;
+  height: 53px;
+  margin-bottom: 12px;
+}
+
+.copyright {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  color: #818486;
+  font-size: 12px;
 }

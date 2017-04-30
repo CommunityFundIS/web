@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Footer.css';
@@ -15,17 +6,29 @@ import Link from '../Link';
 class Footer extends React.Component {
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <span className={s.text}>© Your Company</span>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/">Home</Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/admin">Admin</Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/privacy">Privacy</Link>
-          <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/not-found">Not Found</Link>
+      <div className={s.footer}>
+        <div className={s.items}>
+          <div style={{ flex: 8 }} />
+          <div className={s.item}>
+            <a className={s.itemInner} href="mailto:hello@communityfund.co">
+              <img
+                className={s.contactIcon}
+                src="/img/contact@2x.png"
+                alt="contact"
+              />
+              Contact Us
+            </a>
+          </div>
+          <div className={s.item}>
+            <Link to="/team" className={s.itemInner}>
+              <img className={s.teamIcon} src="/img/team@2x.png" alt="team" />
+              The Team
+            </Link>
+          </div>
+          <div style={{ flex: 8 }} />
+        </div>
+        <div className={s.copyright}>
+          © Community Fund&nbsp;{new Date().getFullYear()}&nbsp;
         </div>
       </div>
     );
