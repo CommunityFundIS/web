@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Parallax } from 'react-parallax';
 import Link from '../../components/Link';
+import Footer from '../../components/Footer';
 import { partners, sponsors, supporters } from './backers.js';
 
 import s from './Frontpage.css';
@@ -13,9 +14,14 @@ const Company = ({ name, url, logo, description }, index) => (
     </div>
     <div className={s.backerBox}>
       <div className={s.backerInfo}>
-        <a href={url} target="_blank" rel="noopener noreferrer" className={s.backerName}>
+        {/* <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={s.backerName}
+        >
           {name}
-        </a>
+        </a> */}
         <div className={s.backerText}>{description}</div>
       </div>
     </div>
@@ -35,12 +41,20 @@ class Frontpage extends Component {
       <div className={s.container}>
         <div className={s.firstContainer}>
           <div className={s.wrapper}>
-            <img className={s.logo} src="/logos/transparent_logo.png" alt="logo" />
+            <img
+              className={s.logo}
+              src="/logos/transparent_logo.png"
+              alt="logo"
+            />
             <div className={s.headline}>PLANNING A COMMUNITY EVENT?</div>
             <div className={s.slogan}>
               We support the community by easing the access to capital for events.
             </div>
-            <Link className={s.applyButton} style={{ marginTop: '40px' }} to="/grant">
+            <Link
+              className={s.applyButton}
+              style={{ marginTop: '40px' }}
+              to="/grant"
+            >
               Apply for a grant
             </Link>
           </div>
@@ -65,16 +79,24 @@ class Frontpage extends Component {
                 </div>
               </div>
               <div className={s.showcaseRight}>
-                <img className={s.hands} src="/img/community_hands.png" alt="hands" />
+                <img
+                  className={s.hands}
+                  src="/img/community_hands.png"
+                  alt="hands"
+                />
               </div>
             </div>
           </div>
         </div>
         <div className={s.thirdContainer}>
-          <Parallax bgImage="img/lyingimg.png" strength={200} className={s.parallax}>
+          <Parallax
+            bgImage="img/lyingimg.png"
+            strength={200}
+            className={s.parallax}
+          >
             <div className={s.testemonyContainer}>
               <div className={s.testimonyHeadline}>
-                WE COULDN{"'"}T DO THIS WITHOUT OUR PARTNERS
+                HERE ARE OUR AWESOME PARTNERS
               </div>
             </div>
           </Parallax>
@@ -96,38 +118,16 @@ class Frontpage extends Component {
                 <div className={s.calculatorCost}>200.000kr.</div>
                 &nbsp;in grants per month
               </div>
-              <Link className={`${s.applyButton} ${s.calculatorTryButton}`} to="/grant">
+              <Link
+                className={`${s.applyButton} ${s.calculatorTryButton}`}
+                to="/grant"
+              >
                 Apply for a grant
               </Link>
             </div>
           </div>
         </div>
-        <div className={s.footerBreaker} />
-        <div className={s.footer}>
-          <div className={`${s.wrapper} ${s.footerWrapper}`}>
-            <div className={s.footerItems}>
-
-              <div style={{ flex: 8 }} />
-              <div className={s.footerItemWrapper}>
-                <a className={s.footerItemInner} href="mailto:hello@communityfund.co">
-                  <img className={s.contactIcon} src="/img/contact@2x.png" alt="contact" />
-                  Contact Us
-                </a>
-              </div>
-              <div className={s.footerItemWrapper}>
-                <div className={s.footerItemInner}>
-                  <img className={s.teamIcon} src="/img/team@2x.png" alt="team" />
-                  The Team
-                </div>
-              </div>
-
-              <div style={{ flex: 8 }} />
-            </div>
-            <div className={s.copyright}>
-              © Community Fund&nbsp;{new Date().getFullYear()}&nbsp;
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     );
   }

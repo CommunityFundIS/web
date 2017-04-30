@@ -8,11 +8,18 @@ import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { inputChange, submitGrant } from '../../actions/grant';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import s from './GrantForm.css';
 
-const InputWithError = (
-  { type, value, placeholder, className, errorMessage, onChange },
-) => (
+const InputWithError = ({
+  type,
+  value,
+  placeholder,
+  className,
+  errorMessage,
+  onChange,
+}) => (
   <div className={className}>
     <input
       type={type}
@@ -36,9 +43,14 @@ InputWithError.propTypes = {
   onChange: PropTypes.func,
 };
 
-const TextareaWithError = (
-  { type, value, placeholder, className, errorMessage, onChange },
-) => (
+const TextareaWithError = ({
+  type,
+  value,
+  placeholder,
+  className,
+  errorMessage,
+  onChange,
+}) => (
   <div>
     <textarea
       type={type}
@@ -66,9 +78,15 @@ TextareaWithError.propTypes = {
   onChange: PropTypes.func,
 };
 
-const DatepickerWithError = (
-  { value, placeholder, dateFormat, locale, className, errorMessage, onChange },
-) => (
+const DatepickerWithError = ({
+  value,
+  placeholder,
+  dateFormat,
+  locale,
+  className,
+  errorMessage,
+  onChange,
+}) => (
   <div className={className}>
     <DatePicker
       selected={value}
@@ -125,6 +143,7 @@ class GrantForm extends Component {
 
     return (
       <div className={s.container}>
+        <Header />
         <div className={s.content}>
           <div className={s.labelContainer}>
             <div className={s.label}>Contact</div>
@@ -233,6 +252,7 @@ class GrantForm extends Component {
               {errors.form.map(error => <p>{error}</p>)}
             </div>}
         </div>
+        <Footer />
       </div>
     );
   }

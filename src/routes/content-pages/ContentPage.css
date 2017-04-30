@@ -1,0 +1,38 @@
+@import '../../components/variables.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 400px;
+  margin-top: 40px;
+}
+
+.person {
+  display: flex;
+  flex: 1 250px;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  img {
+    width: 250px;
+    height: 250px;
+    border-radius: 125px;
+    border: 5px solid white;
+  }
+
+  h2 {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 300;
+  }
+}
