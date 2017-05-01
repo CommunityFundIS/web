@@ -10,10 +10,12 @@ class NotFound extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <p>Sorry, the page you were trying to view does not exist.</p>
-        </div>
+        <h1>404 - Page not found</h1>
+        <img
+          src="/img/404.gif"
+          alt="notfound"
+          style={{ height: '60vh', maxHeight: '300px' }}
+        />
       </div>
     );
   }
