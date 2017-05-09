@@ -3,28 +3,28 @@ export const partners = [
     name: 'Investa',
     url: 'http://investa.is',
     logo: '/logos/investa.png',
-    description: 'Investa er fjárfestingafélag sem fjárfestir í íslenskum sprotafyrirtækjum sem eiga góða möguleika á að hasla sér völl erlendis.',
+    description: 'Investa is an early stage investment company that invests in companies with global potential.',
   },
   {
     name: 'SUT',
     url: 'http://www.si.is/hugverk-og-thjonusta/sut/',
     logo: '/logos/SUT.png',
-    description: 'Tilgangur stjórnar SUT er að þróa og kynna UT fyrirtæki þannig að UT verði einn áhugaverðasti iðnaður landsins.',
+    description: 'SUT is the industry group for the information technology sector in Iceland.',
   },
   {
     name: 'Tempo',
     url: 'https://tempo.io',
     logo: '/logos/tempo.png',
-    description: 'Our mission critical tools adapt to how software development and business teams work—from startup to enterprise—for real team empowerment, overview, and alignment. Collaborate, plan and schedule resources, manage budgets, and track work seamlessly within your daily workflow.',
+    description: 'Tempo is a cloud-first software company that helps teams at 10,000 companies—SMBs and large-scale enterprises—collaborate, plan and schedule resources, manage budgets, and track time directly from their daily workflow.',
   },
 ];
 
 export const sponsors = [
   {
-    name: 'Frumtak',
+    name: 'Frumtak Ventures',
     url: 'https://frumtak.is',
     logo: '/logos/frumtak.png',
-    description: 'The fund invests in early stage innovative companies that are post seed and show great potential for growth. The fund invests primarily in Iceland but is allowed to invest abroad as allowed by law in connection with its portfolio investments to ensure success in foreign markets.',
+    description: 'Frumtak Ventures invest in early stage innovative companies that are post seed and show great potential for growth. The fund invests primarily in Iceland but is allowed to invest abroad as allowed by law in connection with its portfolio investments to ensure success in foreign markets.',
   },
   {
     name: 'Kaptio',
@@ -34,6 +34,12 @@ export const sponsors = [
   },
 ];
 export const supporters = [
+  {
+    name: 'Lagahvoll',
+    url: 'http://www.lagahvoll.is/',
+    logo: '/logos/lagahvoll.png',
+    description: 'Lagahvoll is a lawfirm specialised in corporate and contract law.',
+  },
   {
     name: 'Northstack',
     url: 'http://northstack.is',

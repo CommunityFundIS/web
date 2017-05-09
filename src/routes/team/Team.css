@@ -16,16 +16,31 @@
   margin-top: 40px;
 }
 
+.personCategory {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 200;
+  margin-top: 20px;
+}
+
+.headerText {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
 .person {
   display: flex;
-  flex: 1 250px;
+  flex: 1 150px;
   flex-direction: column;
   align-items: center;
   margin: 20px;
 
   img {
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     border-radius: 125px;
     border: 5px solid white;
   }

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Parallax } from 'react-parallax';
 import Link from '../../components/Link';
 import Footer from '../../components/Footer';
 import { partners, sponsors, supporters } from './backers.js';
@@ -52,7 +51,7 @@ class Frontpage extends Component {
             </div>
             <Link
               className={s.applyButton}
-              style={{ marginTop: '40px' }}
+              style={{ marginTop: '40px', marginBottom: '40px' }}
               to="/grant"
             >
               Apply for a grant
@@ -77,6 +76,9 @@ class Frontpage extends Component {
                   Our partners provide funding, experience,
                   and connections to make your event a complete success.
                 </div>
+                <div className={s.showcaseText}>
+                  <Link to="/about">About us</Link> | <Link to="/guidelines">Guidelines</Link> | <Link to="/Team">Team</Link>
+                </div>
               </div>
               <div className={s.showcaseRight}>
                 <img
@@ -89,17 +91,11 @@ class Frontpage extends Component {
           </div>
         </div>
         <div className={s.thirdContainer}>
-          <Parallax
-            bgImage="img/lyingimg.png"
-            strength={200}
-            className={s.parallax}
-          >
-            <div className={s.testemonyContainer}>
-              <div className={s.testimonyHeadline}>
-                HERE ARE OUR AWESOME PARTNERS
-              </div>
+          <div className={s.testemonyContainer}>
+            <div className={s.testimonyHeadline}>
+              HERE ARE OUR AWESOME PARTNERS
             </div>
-          </Parallax>
+          </div>
         </div>
         <div className={s.fourthContainer}>
           <div className={s.wrapper}>
