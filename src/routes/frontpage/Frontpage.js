@@ -9,18 +9,16 @@ import s from './Frontpage.css';
 const Company = ({ name, url, logo, description }, index) => (
   <div key={index} className={s.backerContainer}>
     <div className={s.backerImageContainer}>
-      <img className={s.backerImage} src={logo} alt={name} />
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img className={s.backerImage} src={logo} alt={name} />
+      </a>
     </div>
     <div className={s.backerBox}>
       <div className={s.backerInfo}>
-        {/* <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={s.backerName}
-        >
-          {name}
-        </a> */}
         <div className={s.backerText}>{description}</div>
       </div>
     </div>
@@ -47,7 +45,7 @@ class Frontpage extends Component {
             />
             <div className={s.headline}>PLANNING A COMMUNITY EVENT?</div>
             <div className={s.slogan}>
-              We support the community by easing the access to capital for events.
+              We support the Icelandic tech community by easing the access to capital for events.
             </div>
             <Link
               className={s.applyButton}

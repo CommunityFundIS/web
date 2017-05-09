@@ -14,39 +14,39 @@ class Team extends Component {
         <div className={s.content}>
           <div className={s.person}>
             <img
-              src="/img/Team/hjalli.jpg"
-              alt="Kristinn Árni Lár Hróbjartsson"
+              src="/img/team/hjalli.jpg"
+              alt="Hjálmar Gíslason"
             />
             <h2>Hjálmar Gíslason</h2>
             <h2>Investa</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
+              src="/img/team/arndis.png"
+              alt="Arndís Ósk Jónsdóttir"
             />
             <h2>Arndís Ósk Jónsdóttir</h2>
             <h2>Tempo</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/vignir.png"
-              alt="Kristján Ingi Mikaelsson"
+              src="/img/team/vignir.png"
+              alt="Vignir Örn Guðmundsson"
             />
             <h2>Vignir Örn Guðmundsson</h2>
             <h2>SUT</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
+              src="/img/team/gudbjorg.jpg"
+              alt="Guðbjörg Rist Jónsdóttir"
             />
             <h2>Guðbjörg Rist Jónsdóttir</h2>
             <h2>Northstack</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
+              src="/img/team/kristjanmik.jpg"
               alt="Kristján Ingi Mikaelsson"
             />
             <h2>Kristján Ingi Mikaelsson</h2>
@@ -57,14 +57,14 @@ class Team extends Component {
         <div className={s.content}>
           <div className={s.person}>
             <img
-              src="/img/Team/kiddi_kassi.png"
+              src="/img/team/kiddi_kassi.png"
               alt="Kristinn Árni Lár Hróbjartsson"
             />
             <h2>Kristinn Árni Lár Hróbjartsson</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
+              src="/img/team/kristjanmik.jpg"
               alt="Kristján Ingi Mikaelsson"
             />
             <h2>Kristján Ingi Mikaelsson</h2>
