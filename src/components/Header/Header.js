@@ -5,7 +5,7 @@ import Link from '../Link';
 
 class Header extends React.Component {
   static propTypes = {
-    style: PropTypes.obj,
+    style: PropTypes.object,
   };
   render() {
     return (
