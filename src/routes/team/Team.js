@@ -12,14 +12,14 @@ class Team extends Component {
         <div className={s.content}>
           <div className={s.person}>
             <img
-              src="/img/Team/kiddi_kassi.png"
+              src="/img/team/kiddi_kassi.png"
               alt="Kristinn Árni Lár Hróbjartsson"
             />
             <h2>Kristinn Árni Lár Hróbjartsson  - Operator</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
+              src="/img/team/kristjanmik.jpg"
               alt="Kristján Ingi Mikaelsson"
             />
             <h2>Kristján Ingi Mikaelsson - Operator</h2>

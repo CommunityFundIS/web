@@ -10,7 +10,9 @@ import s from './Frontpage.css';
 const Company = ({ name, url, logo, description }, index) => (
   <div key={index} className={s.backerContainer}>
     <div className={s.backerImageContainer}>
-      <img className={s.backerImage} src={logo} alt={name} />
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <img className={s.backerImage} src={logo} alt={name} />
+      </a>
     </div>
     <div className={s.backerBox}>
       <div className={s.backerInfo}>
