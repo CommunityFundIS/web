@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
 import Link from '../Link';
 
 class Header extends React.Component {
+  static propTypes = {
+    style: PropTypes.obj,
+  };
   render() {
     return (
-      <div className={s.container}>
+      <div className={s.container} style={this.props.style || null}>
         <Link to="/">
           <img
             className={s.logo}

@@ -143,7 +143,7 @@ class GrantForm extends Component {
 
     return (
       <div className={s.container}>
-        <Header />
+        <Header style={{ marginLeft: '18px' }} />
         <div className={s.content}>
           <div className={s.labelContainer}>
             <div className={s.label}>Contact</div>
