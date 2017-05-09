@@ -11,7 +11,23 @@ class Team extends Component {
         <Header />
         <div className={s.headerText}>TEAM</div>
         <div className={s.personCategory}>Grant review board</div>
-        <div className={s.content}>
+        <div className={s.people}>
+          <div className={s.person}>
+            <img
+              src="/img/Team/kristjanmik.jpg"
+              alt="Kristján Ingi Mikaelsson"
+            />
+            <h2>Arndís Ósk Jónsdóttir</h2>
+            <h2>Tempo</h2>
+          </div>
+          <div className={s.person}>
+            <img
+              src="/img/Team/kristjanmik.jpg"
+              alt="Kristján Ingi Mikaelsson"
+            />
+            <h2>Guðbjörg Rist Jónsdóttir</h2>
+            <h2>Northstack</h2>
+          </div>
           <div className={s.person}>
             <img
               src="/img/Team/hjalli.jpg"
@@ -25,36 +41,17 @@ class Team extends Component {
               src="/img/Team/kristjanmik.jpg"
               alt="Kristján Ingi Mikaelsson"
             />
-            <h2>Arndís Ósk Jónsdóttir</h2>
-            <h2>Tempo</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/Team/vignir.png"
-              alt="Kristján Ingi Mikaelsson"
-            />
-            <h2>Vignir Örn Guðmundsson</h2>
-            <h2>SUT</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
-            />
-            <h2>Guðbjörg Rist Jónsdóttir</h2>
-            <h2>Northstack</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
-            />
             <h2>Kristján Ingi Mikaelsson</h2>
             <h2>Community Fund</h2>
           </div>
+          <div className={s.person}>
+            <img src="/img/Team/vignir.png" alt="Kristján Ingi Mikaelsson" />
+            <h2>Vignir Örn Guðmundsson</h2>
+            <h2>SUT</h2>
+          </div>
         </div>
         <div className={s.personCategory}>Operations</div>
-        <div className={s.content}>
+        <div className={s.people}>
           <div className={s.person}>
             <img
               src="/img/team/kiddi_kassi.png"
