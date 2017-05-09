@@ -20,14 +20,6 @@ const Company = ({ name, url, logo, description }, index) => (
     </div>
     <div className={s.backerBox}>
       <div className={s.backerInfo}>
-        {/* <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={s.backerName}
-        >
-          {name}
-        </a> */}
         <div className={s.backerText}>{description}</div>
       </div>
     </div>
@@ -52,7 +44,7 @@ class Frontpage extends Component {
             <div>
               <div className={s.headline}>PLANNING A COMMUNITY EVENT?</div>
               <div className={s.slogan}>
-                We support the community by easing the access to capital for events.
+                We support the Icelandic tech community by easing the access to capital for events.
               </div>
             </div>
             <Link

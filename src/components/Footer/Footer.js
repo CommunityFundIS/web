@@ -25,6 +25,12 @@ class Footer extends React.Component {
               The Team
             </Link>
           </div>
+          <div className={s.item}>
+            <Link to="/about" className={s.itemInner}>
+              <img className={s.teamIcon} src="/img/press@2x.png" alt="about" />
+              About
+            </Link>
+          </div>
           <div style={{ flex: 8 }} />
         </div>
         <div className={s.copyright}>
