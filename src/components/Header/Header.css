@@ -1,4 +1,4 @@
-@import '../variables.css';
+@import '../../components/variables.css';
 
 .container {
   width: 100%;
@@ -9,5 +9,12 @@
   min-width: 200px;
   max-width: 400px;
   margin-top: 40px;
-  margin-left: 10vw;
+}
+
+.link {
+  margin-left: 20px;
+  font-size: 1.2em;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
 }

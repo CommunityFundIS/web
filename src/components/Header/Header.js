@@ -14,6 +14,9 @@ class Header extends React.Component {
             alt="logo"
           />
         </Link>
+        <Link to="/about" className={s.link}>About us</Link>
+        <Link to="/guidelines" className={s.link}>Guidelines</Link>
+        <Link to="/Team" className={s.link}>Team</Link>
       </div>
     );
   }
