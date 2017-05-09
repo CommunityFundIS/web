@@ -38,7 +38,7 @@ export const supporters = [
     name: 'Lagahvoll',
     url: 'http://www.lagahvoll.is/',
     logo: '/logos/lagahvoll.png',
-    description: 'Lagahvoll is a lawfirm specialised in corporate and contract law.',
+    description: 'Lagahvoll advised on the incorporation of Community Fund. Lagahvoll is a law firm which offers specialised legal services with an emphasis on corporate and financial law. The firm has advised on and/or been involved in numerous start-ups in Iceland and did also advise on the incorporation of the first private equity fund in Iceland.',
   },
   {
     name: 'Northstack',

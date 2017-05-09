@@ -15,15 +15,15 @@ class Team extends Component {
           <div className={s.person}>
             <img
               src="/img/Team/hjalli.jpg"
-              alt="Kristinn Árni Lár Hróbjartsson"
+              alt="Hjálmar Gíslason"
             />
             <h2>Hjálmar Gíslason</h2>
             <h2>Investa</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
+              src="/img/Team/arndis.png"
+              alt="Arndís Ósk Jónsdóttir"
             />
             <h2>Arndís Ósk Jónsdóttir</h2>
             <h2>Tempo</h2>
@@ -31,15 +31,15 @@ class Team extends Component {
           <div className={s.person}>
             <img
               src="/img/Team/vignir.png"
-              alt="Kristján Ingi Mikaelsson"
+              alt="Vignir Örn Guðmundsson"
             />
             <h2>Vignir Örn Guðmundsson</h2>
             <h2>SUT</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
+              src="/img/Team/gudbjorg.jpg"
+              alt="Guðbjörg Rist Jónsdóttir"
             />
             <h2>Guðbjörg Rist Jónsdóttir</h2>
             <h2>Northstack</h2>
