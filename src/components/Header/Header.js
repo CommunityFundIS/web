@@ -5,7 +5,7 @@ import Link from '../Link';
 
 class Header extends React.Component {
   static propTypes = {
-    style: PropTypes.object,
+    style: PropTypes.object
   };
   render() {
     return (
@@ -17,9 +17,9 @@ class Header extends React.Component {
             alt="logo"
           />
         </Link>
-        <Link to="/about" className={s.link}>About us</Link>
+        {/* <Link to="/about" className={s.link}>About us</Link>
         <Link to="/guidelines" className={s.link}>Guidelines</Link>
-        <Link to="/Team" className={s.link}>Team</Link>
+        <Link to="/Team" className={s.link}>Team</Link> */}
       </div>
     );
   }

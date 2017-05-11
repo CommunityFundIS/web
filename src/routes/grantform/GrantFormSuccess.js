@@ -3,16 +3,18 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import s from './GrantFormSuccess.css';
 import Link from '../../components/Link';
+import Header from '../../components/Header';
 
 const GrantFormSuccess = ({ id, email }) => {
   const steps = [
-    `We've sent an email to ${email} that contains this information.`,
+    `We've sent a copy of this application to your email (${email})`,
     'Our team has received the details of your application and will begin voting as soon as possible.',
-    "Finally, we'll send you an email when we've decided on your submission.",
+    "Finally, we'll contact you when we've decided on your submission."
   ];
   return (
     <div className={s.container}>
       <div className={s.content}>
+        <Header />
         <h1>Thank you for your application!</h1>
         <h2 className={s.subHeading}>What will happen now?</h2>
         <ul className={s.nextSteps}>
@@ -32,12 +34,12 @@ const GrantFormSuccess = ({ id, email }) => {
 };
 GrantFormSuccess.propTypes = {
   id: PropTypes.string,
-  email: PropTypes.string,
+  email: PropTypes.string
 };
 
 export default connect(
   (state /* , props */) => ({
-    ...state.grant.submission,
+    ...state.grant.submission
   }),
   {}
 )(withStyles(s)(GrantFormSuccess));

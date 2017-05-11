@@ -2,28 +2,40 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Header from '../../components/Header';
 import s from './SubmissionPage.css';
 import VoteForm from './VoteForm';
 
-const SubmissionDetails = (
-  { summary, date, description, askAmount, totalCost, name, email, phone }
-) => (
-  <div>
+const SubmissionDetails = ({
+  summary,
+  date,
+  description,
+  askAmount,
+  totalCost,
+  name,
+  email,
+  phone
+}) => (
+  <div style={{ marginTop: '30px' }}>
     <div className={s.panel}>
+      <h2 className={s.subHeading}>Application</h2>
       <h2 className={s.heading}>{summary}</h2>
       <p className={s.date}>
-        {moment(date).format('MMMM Do YYYY')}
+        Hosted at: {moment(date).format('MMMM Do YYYY')}
       </p>
+      <h2 className={s.heading} style={{ marginTop: '15px' }}>
+        Event description
+      </h2>
       <p className={s.description}>{description}</p>
     </div>
     <div className={s.panel}>
       <h2 className={s.heading}>Amount:</h2>
       <div>
-        {askAmount} kr of {totalCost} kr
+        {askAmount} kr. of {totalCost} kr.
       </div>
     </div>
     <div className={s.panel}>
-      <h2 className={s.heading}>Contact:</h2>
+      <h2 className={s.heading}>Applicant:</h2>
       <ul>
         <li>
           <span className={s.label}>Name:</span>
@@ -49,21 +61,24 @@ SubmissionDetails.propTypes = {
   email: PropTypes.string,
   phone: PropTypes.string,
   askAmount: PropTypes.string,
-  totalCost: PropTypes.string,
+  totalCost: PropTypes.string
 };
 
 const SubmissionPage = ({ currentUser, submission, status }) => {
-  const canVote = currentUser.isReviewer &&
+  const canVote =
+    currentUser.isReviewer &&
     status.result === 'pending' &&
     status.votes.filter(vote => vote.userId === currentUser.id).length === 0;
   return (
     <div className={s.container}>
       <div className={s.content}>
+        <Header />
         <SubmissionDetails {...submission} />
         {canVote && <VoteForm submissionId={submission.id} />}
         <div>
           <h2 className={s.heading}>Application Status</h2>
           <div>Status: {status.result}</div>
+          {status.votes.length > 0 && <h2 className={s.heading}>Votes</h2>}
           <div>
             {status.votes.map(vote => (
               <span key={vote.id}>
@@ -80,14 +95,14 @@ const SubmissionPage = ({ currentUser, submission, status }) => {
 SubmissionPage.propTypes = {
   currentUser: PropTypes.object,
   submission: PropTypes.object,
-  status: PropTypes.object,
+  status: PropTypes.object
 };
 
 export default connect(
   (state, props) => ({
     currentUser: state.user,
     submission: state.submission[props.submissionId],
-    status: state.submissionStatus[props.submissionId],
+    status: state.submissionStatus[props.submissionId]
   }),
   {}
 )(withStyles(s)(SubmissionPage));

@@ -79,6 +79,7 @@
 .secondWrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
   padding-top: 42px;
   padding-bottom: 50px;
 }
@@ -95,6 +96,75 @@
 .hands {
   width: auto;
   max-height: 300px;
+}
+
+.newsletterHeading {
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+.newsletterContainer {
+  display: flex;
+}
+
+.input {
+  display: flex;
+  width: 200px;
+  height: 44px;
+  padding: 3px 15px;
+  background: white;
+  border: none;
+  border-radius: 3px;
+  transition: box-shadow 0.25s;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  font-size: 1.2em;
+  color: #aaa;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.input::-moz-placeholder {
+  color: #aaa;
+}
+
+.input:-ms-input-placeholder {
+  color: #aaa;
+}
+
+.input:-moz-placeholder {
+  color: #aaa;
+}
+
+.subscribe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 50px;
+  margin-left: 10px;
+  background: #319462;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.12em;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+}
+
+.subscribe:hover {
+  background: #31a862;
 }
 
 @media (max-width: 700px) {

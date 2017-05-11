@@ -1,4 +1,7 @@
-import { GraphQLString as StringType, GraphQLNonNull as NonNull } from 'graphql';
+import {
+  GraphQLString as StringType,
+  GraphQLNonNull as NonNull
+} from 'graphql';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import SubmissionType from '../types/SubmissionType';
@@ -7,22 +10,23 @@ import { log, logError } from '../../logger';
 import { host, isDev, googleRecaptchaSecret, auth } from '../../config';
 import fetch from '../../core/fetch';
 import reviewTemplate from '../emailTemplates/review.handlebars';
+import applicantTemplate from '../emailTemplates/applicant.handlebars';
 import sendEmail from '../../core/email';
 
 export const sendEmailToReviewer = async (reviewer, submission) => {
-  log('Sending grant review email', reviewer.email, submission.Id);
+  log('Sending grant review email', reviewer.email, submission.id);
 
   const expiresIn = 60 * 60 * 24 * 15; // 15 days
   const token = jwt.sign(
     {
       id: reviewer.id,
-      isReviewer: reviewer.isReviewer,
+      isReviewer: reviewer.isReviewer
     },
     auth.jwt.secret,
-    { expiresIn },
+    { expiresIn }
   );
 
-  const reviewUrl = `http://${host}/submission/${submission.id}?token=${token}`;
+  const reviewUrl = `https://${host}/submission/${submission.id}?token=${token}`;
   log(reviewUrl);
 
   const html = reviewTemplate({
@@ -32,10 +36,23 @@ export const sendEmailToReviewer = async (reviewer, submission) => {
     email: submission.email,
     askAmount: submission.askAmount,
     totalCost: submission.totalCost,
-    reviewUrl,
+    reviewUrl
   });
 
-  sendEmail(reviewer.email, 'New grant application', html);
+  return sendEmail(reviewer.email, 'New grant application', html);
+};
+
+export const sendEmailToApplicant = async (email, submission) => {
+  log('Sending applicant email', email, submission.id);
+
+  const applicantUrl = `https://${host}/submission/${submission.id}`;
+  log(applicantUrl);
+
+  const html = applicantTemplate({
+    applicantUrl
+  });
+
+  return sendEmail(email, 'Your grant application', html);
 };
 
 const createSubmission = {
@@ -49,7 +66,7 @@ const createSubmission = {
     description: { type: new NonNull(StringType) },
     askAmount: { type: new NonNull(StringType) },
     totalCost: { type: new NonNull(StringType) },
-    googleToken: { type: new NonNull(StringType) },
+    googleToken: { type: new NonNull(StringType) }
   },
   resolve: async (
     { req },
@@ -62,8 +79,8 @@ const createSubmission = {
       description,
       askAmount,
       totalCost,
-      googleToken,
-    },
+      googleToken
+    }
   ) => {
     // Only validate with recaptcha if we are on prod. To Pass the authentication
     // the googleRecaptchaSecret needs to be passed into the process.
@@ -74,8 +91,8 @@ const createSubmission = {
         method: 'post',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       });
 
       if (request.status !== 200) {
@@ -102,7 +119,7 @@ const createSubmission = {
         summary,
         description,
         askAmount,
-        totalCost,
+        totalCost
       });
     } catch (e) {
       logError(e);
@@ -113,14 +130,17 @@ const createSubmission = {
     // TODO: Send email to applicant
 
     const reviewers = await User.findAll({
-      isReviewer: true,
+      isReviewer: true
     });
 
     // Send review email to all reviewers
-    await Promise.all(reviewers.map(reviewer => sendEmailToReviewer(reviewer, submission)));
+    reviewers.map(reviewer => sendEmailToReviewer(reviewer, submission));
+
+    // Send email to applicant
+    sendEmailToApplicant(email, submission);
 
     return submission;
-  },
+  }
 };
 
 export default createSubmission;

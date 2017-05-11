@@ -1,22 +1,5 @@
-@import '../../components/variables.css';
-
-.container {
-  display: flex;
-  justify-content: center;
-}
-
-.content {
-  width: 500px;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  padding-left: 80px;
-  padding-right: 80px;
-  margin-bottom: 40px;
-}
-
-.panel {
-  margin-bottom: 15px;
+.voteForm {
+  margin-bottom: 20px;
 }
 
 .heading {
@@ -26,15 +9,50 @@
   margin-bottom: 3px;
 }
 
-.date {
-  color: #909090;
+.comment {
+  margin-top: 10px;
+  height: 100px;
+  width: 300px;
 }
 
-.label {
+.buttonContainer {
+  display: flex;
+  margin-top: 30px;
+}
+
+.accept {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  margin-top: -25px;
   margin-right: 10px;
-  font-weight: bold;
+  background: #2677c2;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
 }
 
-.description {
-  margin-top: 7px;
+.reject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  margin-top: -25px;
+  background: #ffc14b;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.error {
+  color: #ffc14b;
 }

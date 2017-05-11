@@ -30,11 +30,25 @@ Company.propTypes = {
   name: PropTypes.string,
   url: PropTypes.string,
   logo: PropTypes.string,
-  description: PropTypes.string,
+  description: PropTypes.string
 };
 
 class Frontpage extends Component {
+  constructor(props) {
+    super(props);
+
+    // @TODO move this to redux
+    this.state = {
+      email: ''
+    };
+
+    this.emailChange = this.emailChange.bind(this);
+  }
+  emailChange(email) {
+    this.setState({ email });
+  }
   render() {
+    const { email } = this.state;
     return (
       <div className={s.container}>
         <div className={s.firstContainer}>
@@ -72,6 +86,36 @@ class Frontpage extends Component {
                 Our partners provide funding, experience,
                 and connections to make your event a complete success.
               </p>
+
+              <h3 className={s.newsletterHeading}>
+                Subscribe to our newsletter
+              </h3>
+              <form
+                action="//communityfund.us14.list-manage.com/subscribe/post?u=60fd5c50c834ceb92626f21d8&amp;id=62b8379d4e"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                className={s.newsletterContainer}
+              >
+                <input
+                  type="email"
+                  value={email}
+                  name="EMAIL"
+                  id="mce-EMAIL"
+                  placeholder="Email address"
+                  className={s.input}
+                  required
+                  onChange={e => this.emailChange(e.target.value)}
+                />
+                <input
+                  type="submit"
+                  value="Subscribe"
+                  name="subscribe"
+                  id="mc-embedded-subscribe"
+                  className={s.subscribe}
+                />
+              </form>
             </div>
             <img
               className={s.hands}

@@ -10,9 +10,10 @@
   margin-bottom: 3px;
 }
 
-.description {
+.comment {
   margin-top: 10px;
-  height: 30px;
+  height: 100px;
+  width: 300px;
 }
 
 .buttonContainer {

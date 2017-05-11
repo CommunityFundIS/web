@@ -27,7 +27,7 @@ const config = {
     path: path.resolve(__dirname, '../build/public/assets'),
     publicPath: '/assets/',
     sourcePrefix: '  ',
-    pathinfo: isVerbose,
+    pathinfo: isVerbose
   },
 
   module: {
@@ -35,9 +35,7 @@ const config = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        include: [
-          path.resolve(__dirname, '../src'),
-        ],
+        include: [path.resolve(__dirname, '../src')],
         query: {
           // https://github.com/babel/babel-loader#options
           cacheDirectory: isDebug,
@@ -54,27 +52,31 @@ const config = {
             // JSX, Flow
             // https://github.com/babel/babel/tree/master/packages/babel-preset-react
             'react',
-            ...isDebug ? [] : [
-              // Optimize React code for the production build
-              // https://github.com/thejameskyle/babel-react-optimize
-              'react-optimize',
-            ],
+            ...(isDebug
+              ? []
+              : [
+                  // Optimize React code for the production build
+                  // https://github.com/thejameskyle/babel-react-optimize
+                'react-optimize'
+              ])
           ],
           plugins: [
             // Externalise references to helpers and builtins,
             // automatically polyfilling your code without polluting globals.
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime
             'transform-runtime',
-            ...!isDebug ? [] : [
-              // Adds component stack to warning messages
-              // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
-              'transform-react-jsx-source',
-              // Adds __self attribute to JSX which React will use for some warnings
-              // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
-              'transform-react-jsx-self',
-            ],
-          ],
-        },
+            ...(!isDebug
+              ? []
+              : [
+                  // Adds component stack to warning messages
+                  // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
+                'transform-react-jsx-source',
+                  // Adds __self attribute to JSX which React will use for some warnings
+                  // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
+                'transform-react-jsx-self'
+              ])
+          ]
+        }
       },
       {
         test: /\.css/,
@@ -86,52 +88,54 @@ const config = {
             sourceMap: isDebug,
             // CSS Modules https://github.com/css-modules/css-modules
             modules: true,
-            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+            localIdentName: isDebug
+              ? '[name]-[local]-[hash:base64:5]'
+              : '[hash:base64:5]',
             // CSS Nano http://cssnano.co/options/
             minimize: !isDebug,
-            discardComments: { removeAll: true },
+            discardComments: { removeAll: true }
           })}`,
-          'postcss-loader?pack=default',
-        ],
+          'postcss-loader?pack=default'
+        ]
       },
       {
         test: /\.md$/,
-        loader: path.resolve(__dirname, './lib/markdown-loader.js'),
+        loader: path.resolve(__dirname, './lib/markdown-loader.js')
       },
       {
         test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'json-loader'
       },
       {
         test: /\.txt$/,
-        loader: 'raw-loader',
+        loader: 'raw-loader'
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
-        },
+          name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]'
+        }
       },
       {
         test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
         loader: 'url-loader',
         query: {
           name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
-          limit: 10000,
-        },
+          limit: 10000
+        }
       },
       {
         test: /\.handlebars$/,
-        loader: 'handlebars-loader',
-      },
-    ],
+        loader: 'handlebars-loader'
+      }
+    ]
   },
 
   resolve: {
     root: path.resolve(__dirname, '../src'),
     modulesDirectories: ['node_modules'],
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json']
   },
 
   // Don't attempt to continue if there are any errors.
@@ -149,7 +153,7 @@ const config = {
     chunks: isVerbose,
     chunkModules: isVerbose,
     cached: isVerbose,
-    cachedAssets: isVerbose,
+    cachedAssets: isVerbose
   },
 
   // The list of plugins for PostCSS
@@ -209,12 +213,12 @@ const config = {
             '>1%',
             'last 4 versions',
             'Firefox ESR',
-            'not ie < 9', // React doesn't support IE8 anyway
-          ],
-        }),
-      ],
+            'not ie < 9' // React doesn't support IE8 anyway
+          ]
+        })
+      ]
     };
-  },
+  }
 };
 
 //
@@ -223,24 +227,23 @@ const config = {
 
 const clientConfig = extend(true, {}, config, {
   entry: {
-    client: './client.js',
+    client: './client.js'
   },
 
   output: {
     filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
-    chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
+    chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js'
   },
 
   target: 'web',
 
   plugins: [
-
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': true,
-      __DEV__: isDebug,
+      __DEV__: isDebug
     }),
 
     // Emit a file with assets paths
@@ -248,42 +251,44 @@ const clientConfig = extend(true, {}, config, {
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
-      processOutput: x => `module.exports = ${JSON.stringify(x, null, 2)};`,
+      processOutput: x => `module.exports = ${JSON.stringify(x, null, 2)};`
     }),
 
     // Move modules that occur in multiple entry chunks to a new entry chunk (the commons chunk).
     // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: module => /node_modules/.test(module.resource),
+      minChunks: module => /node_modules/.test(module.resource)
     }),
 
-    ...isDebug ? [] : [
-      // Assign the module and chunk ids by occurrence count
-      // Consistent ordering of modules required if using any hashing ([hash] or [chunkhash])
-      // https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin
-      new webpack.optimize.OccurrenceOrderPlugin(true),
+    ...(isDebug
+      ? []
+      : [
+          // Assign the module and chunk ids by occurrence count
+          // Consistent ordering of modules required if using any hashing ([hash] or [chunkhash])
+          // https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin
+        new webpack.optimize.OccurrenceOrderPlugin(true),
 
-      // Search for equal or similar files and deduplicate them in the output
-      // https://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-      new webpack.optimize.DedupePlugin(),
+          // Search for equal or similar files and deduplicate them in the output
+          // https://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
+        new webpack.optimize.DedupePlugin(),
 
-      // Minimize all JavaScript output of chunks
-      // https://github.com/mishoo/UglifyJS2#compressor-options
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true, // React doesn't support IE8
-          warnings: isVerbose,
-        },
-        mangle: {
-          screw_ie8: true,
-        },
-        output: {
-          comments: false,
-          screw_ie8: true,
-        },
-      }),
-    ],
+          // Minimize all JavaScript output of chunks
+          // https://github.com/mishoo/UglifyJS2#compressor-options
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            screw_ie8: true, // React doesn't support IE8
+            warnings: isVerbose
+          },
+          mangle: {
+            screw_ie8: true
+          },
+          output: {
+            comments: false,
+            screw_ie8: true
+          }
+        })
+      ])
   ],
 
   // Choose a developer tool to enhance debugging
@@ -297,8 +302,8 @@ const clientConfig = extend(true, {}, config, {
   node: {
     fs: 'empty',
     net: 'empty',
-    tls: 'empty',
-  },
+    tls: 'empty'
+  }
 });
 
 //
@@ -307,12 +312,12 @@ const clientConfig = extend(true, {}, config, {
 
 const serverConfig = extend(true, {}, config, {
   entry: {
-    server: './server.js',
+    server: './server.js'
   },
 
   output: {
     filename: '../../server.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
 
   target: 'node',
@@ -324,7 +329,7 @@ const serverConfig = extend(true, {}, config, {
         request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
         !request.match(/\.(css|less|scss|sss)$/i);
       callback(null, Boolean(isExternal));
-    },
+    }
   ],
 
   plugins: [
@@ -333,7 +338,7 @@ const serverConfig = extend(true, {}, config, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': false,
-      __DEV__: isDebug,
+      __DEV__: isDebug
     }),
 
     // Do not create separate chunks of the server bundle
@@ -342,8 +347,10 @@ const serverConfig = extend(true, {}, config, {
 
     // Adds a banner to the top of each generated chunk
     // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
-    new webpack.BannerPlugin('require("source-map-support").install();',
-      { raw: true, entryOnly: false }),
+    new webpack.BannerPlugin('require("source-map-support").install();', {
+      raw: true,
+      entryOnly: false
+    })
   ],
 
   node: {
@@ -352,10 +359,10 @@ const serverConfig = extend(true, {}, config, {
     process: false,
     Buffer: false,
     __filename: false,
-    __dirname: false,
+    __dirname: false
   },
 
-  devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
+  devtool: isDebug ? 'cheap-module-source-map' : 'source-map'
 });
 
 export default [clientConfig, serverConfig];
