@@ -14,14 +14,17 @@ import s from './Frontpage.css';
 const Company = ({ name, url, logo, description }, index) => (
   <div key={index} className={s.backerContainer}>
     <div className={s.backerImageContainer}>
-      <a href={url} target="_blank" rel="noopener noreferrer">
+      <a
+        href={url}
+        className={s.backerLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img className={s.backerImage} src={logo} alt={name} />
       </a>
     </div>
     <div className={s.backerBox}>
-      <div className={s.backerInfo}>
-        <div className={s.backerText}>{description}</div>
-      </div>
+      <div className={s.backerText}>{description}</div>
     </div>
   </div>
 );
@@ -141,7 +144,9 @@ class Frontpage extends Component {
             {partners.map(Company)}
 
             <h1 className={s.backerCategory}>Sponsors</h1>
-            {sponsors.map(Company)}
+            <div>
+              {sponsors.map(Company)}
+            </div>
 
             <h1 className={s.backerCategory}>Supporters</h1>
             {supporters.map(Company)}

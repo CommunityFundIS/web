@@ -18,13 +18,13 @@ class Team extends Component {
             <h2>Tempo</h2>
           </div>
           <div className={s.person}>
-            <img src="/img/Team/gudbjorg.jpg" alt="Guðbjörg Rist Jónsdóttir" />
+            <img src="/img/team/gudbjorg.jpg" alt="Guðbjörg Rist Jónsdóttir" />
             <h2>Guðbjörg Rist Jónsdóttir</h2>
             <h2>Northstack</h2>
           </div>
           <div className={s.person}>
             <img
-              src="/img/Team/hjalli.jpg"
+              src="/img/team/hjalli.jpg"
               alt="Kristinn Árni Lár Hróbjartsson"
             />
             <h2>Hjálmar Gíslason</h2>
@@ -39,7 +39,7 @@ class Team extends Component {
             <h2>Community Fund</h2>
           </div>
           <div className={s.person}>
-            <img src="/img/Team/vignir.png" alt="Vignir Örn Guðmundsson" />
+            <img src="/img/team/vignir.png" alt="Vignir Örn Guðmundsson" />
             <h2>Vignir Örn Guðmundsson</h2>
             <h2>SUT</h2>
           </div>

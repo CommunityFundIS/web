@@ -239,56 +239,41 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
   margin-top: 25px;
   margin-bottom: 25px;
-  max-width: 800px;
-}
-
-.backerBox {
-  display: flex;
-  flex-direction: column;
-  flex: 11;
-  margin-left: 30px;
-}
-
-.backerInfo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-/*
-.backerName {
-  margin-right: 10px;
-  font-size: 30px;
-  color: #2c82c9;
-  font-family: 'RisingSunHeavy', sans-serif;
-  text-decoration: none;
-}
-*/
-
-.backerText {
-  min-width: 300px;
-  margin-top: 5px;
-  font-size: 20px;
-  color: #909090;
-  line-height: 28px;
 }
 
 .backerImageContainer {
   display: flex;
-  flex: 3;
+}
+
+.backerLink {
+  display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  min-width: 300px;
 }
 
 .backerImage {
   width: 165px;
-  height: auto;
-  margin-left: 50px;
+}
+
+.backerBox {
+  display: flex;
+  align-items: center;
+  flex: 3;
+  margin-left: 30px;
+}
+
+.backerText {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  font-size: 20px;
+  color: #909090;
+  line-height: 28px;
 }
 
 .handoutContainer {
