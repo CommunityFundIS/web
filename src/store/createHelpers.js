@@ -6,10 +6,10 @@ function createGraphqlRequest(fetchKnowingCookie) {
       method: 'post',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ query, variables }),
-      credentials: 'include',
+      credentials: 'include'
     };
     const resp = await fetchKnowingCookie('/graphql', fetchConfig);
     if (resp.status !== 200) throw new Error(resp.statusText);
@@ -27,7 +27,7 @@ function createFetchKnowingCookie({ cookie }) {
       if (isLocalUrl && options.credentials === 'include') {
         const headers = {
           ...options.headers,
-          cookie,
+          cookie
         };
         return fetch(url, { ...options, headers });
       }
@@ -46,6 +46,6 @@ export default function createHelpers(config) {
   return {
     fetch: fetchKnowingCookie,
     graphqlRequest,
-    history: config.history,
+    history: config.history
   };
 }

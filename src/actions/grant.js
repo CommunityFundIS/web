@@ -90,9 +90,9 @@ export function submitGrantSuccess(submissionId) {
 
 export function submitGrant() {
   return async (dispatch, getStore, { graphqlRequest }) => {
-    const { grant } = getStore();
+    const store = getStore();
 
-    const values = grant.values || {};
+    const values = store.grant.values || {};
     const {
       name,
       phone,
@@ -118,7 +118,7 @@ export function submitGrant() {
       'totalCost',
       'googleToken'
     ].forEach(field => {
-      const error = validateInput(field, values[field], true);
+      const error = validateInput(store, field, values[field], true);
       if (error) {
         validationErrors[field] = error;
       }
@@ -128,15 +128,16 @@ export function submitGrant() {
       return dispatch(showValidationErrors(validationErrors));
     }
 
+    // @TODO we should use some graphql plugin to make the queries
     const query = `
-      mutation{
+      mutation M($description: String! $summary: String!){
         createSubmission(
           name:"${name}",
           phone:"${phone}",
           email:"${email}",
           date:"${date.format('DD/MM/YYYY')}",
-          summary:"${summary}",
-          description:"${description}",
+          summary: $summary,
+          description: $description,
           askAmount:"${askAmount}",
           totalCost:"${totalCost}",
           googleToken:"${!isDev ? googleToken : ''}",
@@ -148,7 +149,10 @@ export function submitGrant() {
     log('query is', query);
 
     try {
-      const { data, errors } = await graphqlRequest(query);
+      const { data, errors } = await graphqlRequest(query, {
+        description,
+        summary
+      });
       log('got back', data, errors);
 
       if (errors) {
