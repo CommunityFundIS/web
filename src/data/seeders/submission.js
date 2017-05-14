@@ -16,18 +16,20 @@ export const up = async () => {
     summary: 'Some summary',
     description: 'Some description',
     askAmount: 30000,
-    totalCost: 100000,
+    totalCost: 100000
   });
 
   const reviewers = await User.findAll({
-    isReviewer: true,
+    where: {
+      isReviewer: true
+    }
   });
 
   const comments = [
     'Complete non-sense',
     "Best submission I've seen",
     null,
-    null,
+    null
   ];
   const answers = ['accepted', 'rejected', 'accepted', 'rejected'];
 
@@ -37,7 +39,7 @@ export const up = async () => {
         userId: reviewer.id,
         comment: comments[i],
         result: answers[i],
-        submissionId: submission.id,
+        submissionId: submission.id
       };
     })
   );

@@ -23,7 +23,7 @@
   color: #545457;
   font-size: 21px;
   font-weight: 600;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
 }
 
 .form {
@@ -39,7 +39,7 @@
 .label {
   display: inline-block;
   margin-bottom: 5px;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
   font-weight: 600;
   font-size: 12px;
   color: #8d8d96;
@@ -87,7 +87,7 @@
 .button {
   height: 40px;
   padding: 10px 20px;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
   font-size: 15px;
   border: 0 none;
   text-shadow: none;
@@ -110,7 +110,7 @@
 .forgot {
   padding: 8px 0;
   color: #2b77a3;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
   font-weight: 300;
   font-size: 15px;
   cursor: pointer;
@@ -125,14 +125,14 @@
 
 .noAccount {
   color: white;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
   font-weight: 300;
   font-size: 18px;
 }
 
 .signupLink {
   color: white;
-  font-family: var(--font-family-source);
+  font-family: var(--lato);
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;

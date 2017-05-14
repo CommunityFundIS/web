@@ -128,18 +128,16 @@ const createSubmission = {
       throw e;
     }
 
-    // TODO: Send email to applicant
-
     const reviewers = await User.findAll({
-      isReviewer: true
+      where: {
+        isReviewer: true
+      }
     });
 
-    // Send review email to all reviewers
     reviewers.map(reviewer => sendEmailToReviewer(reviewer, submission));
 
     const firstName = (name || '').split(' ')[0];
 
-    // Send email to applicant
     sendEmailToApplicant(email, firstName, submission);
 
     return submission;

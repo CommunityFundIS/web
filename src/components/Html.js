@@ -35,8 +35,27 @@ class Html extends React.Component {
             name="viewport"
             content="width=device-width,initial-scale=1,maximum-scale=1,minimal-ui"
           />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="theme-color" content="#ffffff" />
           <meta
             name="description"
             content="Community Fund support the Icelandic tech community by easing the access to capital for events."
@@ -45,7 +64,6 @@ class Html extends React.Component {
             name="keywords"
             content="community, grants, community fund, iceland, tech, developers"
           />
-          <link rel="icon" type="image/png" href="/favicon.png" />
           <meta property="og:title" content="Community Fund" />
           <meta property="og:site_name" content="communityfund.co" />
           <meta property="og:url" content="https://communityfund.co" />
@@ -56,7 +74,7 @@ class Html extends React.Component {
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://communityfund.co/og_large.png"
+            content="https://communityfund.co/img/og_large.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Community Fund" />
@@ -66,7 +84,7 @@ class Html extends React.Component {
           />
           <meta
             name="twitter:image"
-            content="https://communityfund.co/og_large.png"
+            content="https://communityfund.co/img/og_large.png"
           />
           {style &&
             <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
@@ -104,7 +122,7 @@ class Html extends React.Component {
           <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" />
           <script
             dangerouslySetInnerHTML={{
-              __html: "WebFont.load({ google: { families: [/*'Roboto:300,400,500',*/'Source+Sans+Pro:300,400,600,700'] }});"
+              __html: "WebFont.load({ google: { families: ['Lato:300,400,600,700'] }});"
             }}
           />
         </body>

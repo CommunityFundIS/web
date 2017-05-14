@@ -11,6 +11,53 @@ import {
   submissionResult
 } from '../queries/submissionStatus';
 
+import { host } from '../../config';
+
+import operatorStatusTemplate
+  from '../emailTemplates/operatorStatus.handlebars';
+
+import sendEmail from '../../core/email';
+
+const sendEmailToOperator = async (operator, submission, status) => {
+  log(
+    'Sending submission status email to operator',
+    operator.email,
+    submission.id,
+    status
+  );
+
+  const url = `https://${host}/submission/${submission.id}`;
+
+  const html = operatorStatusTemplate({
+    id: submission.id,
+    name: submission.name,
+    phone: submission.phone,
+    email: submission.email,
+    askAmount: submission.askAmount,
+    totalCost: submission.totalCost,
+    status,
+    url
+  });
+
+  return sendEmail(
+    operator.email,
+    'Community Fund - Application Reviewed',
+    html
+  );
+};
+
+const sendEmailToOperators = async (submission, status) => {
+  const operators = await User.findAll({
+    where: {
+      isOperator: true
+    }
+  });
+
+  return Promise.all(
+    operators.map(operator => sendEmailToOperator(operator, submission), status)
+  );
+};
+
 const castVote = {
   type: SubmissionStatusType,
   args: {
@@ -39,19 +86,30 @@ const castVote = {
       throw e;
     }
 
+    const submission = Submission.findOne({
+      where: {
+        id: submissionId
+      }
+    });
+
+    const alreadyHasResults = submission.result;
+
     // There is a race condition here that could result in two emails sent.
     // Highly unlikely unless everyone votes at the same time
 
     const resultSoFar = await submissionResult(submissionId);
     log('Result so far', resultSoFar);
-    if (resultSoFar !== 'pending') {
+
+    if (!alreadyHasResults && resultSoFar !== 'pending') {
       log('The votes are in!');
       await Submission.update(
         { decidedOn: moment(), result: resultSoFar },
         { where: { id: submissionId }, fields: ['decidedOn', 'result'] }
       );
 
-      // TODO: Send email to applicant on result
+      // Send email to operators
+      log('going to send operator emails');
+      sendEmailToOperators(submission, resultSoFar);
     }
 
     return getSubmissionStatus({ submissionId, anonymized: false });

@@ -5,8 +5,7 @@
    * Typography
    * ======================================================================== */
 
-  --font-family-base: 'Roboto', sans-serif;
-  --font-family-source: 'Source Sans Pro', Helvetica Nueue, Helvetica, sans-serif;
+  --lato: 'Lato', Helvetica Nueue, Helvetica, sans-serif;
 
   /*
    * Layout
@@ -83,7 +82,7 @@ table {
    ========================================================================== */
 
 html {
-  font-family: var(--font-family-source), sans-serif; /* 1 */
+  font-family: var(--lato), sans-serif; /* 1 */
   line-height: 1.15; /* 2 */
   -ms-text-size-adjust: 100%; /* 3 */
   -webkit-text-size-adjust: 100%; /* 3 */
@@ -326,7 +325,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: var(--font-family-source), sans-serif; /* 1 */
+  font-family: var(--lato), sans-serif; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */

@@ -8,18 +8,19 @@ export const submissionResult = async submissionId => {
 
   const votes = await Vote.findAll({
     where: {
-      submissionId,
-    },
+      submissionId
+    }
   });
 
-  const numberOfAccepted = votes.filter(
-    vote => vote.result === 'accepted'
-  ).length;
+  const numberOfAccepted = votes.filter(vote => vote.result === 'accepted')
+    .length;
   const remainingVotes = BOARD_MEMBERS - votes.length;
 
   if (numberOfAccepted >= MIN_AMOUNT_OF_VOTES) {
     return 'accepted';
-  } else if (remainingVotes < MIN_AMOUNT_OF_VOTES) {
+  }
+
+  if (remainingVotes === 0) {
     return 'rejected';
   }
 
@@ -31,9 +32,9 @@ export const getSubmissionStatus = async ({ submissionId, anonymized }) => {
     Submission.findById(submissionId),
     Vote.findAll({
       where: {
-        submissionId,
-      },
-    }),
+        submissionId
+      }
+    })
   ]);
 
   if (!submission) {
@@ -43,8 +44,9 @@ export const getSubmissionStatus = async ({ submissionId, anonymized }) => {
   let votes;
   if (anonymized) {
     votes = allVotes.map(vote => {
-      vote.userId = null;
-      return vote;
+      const obj = { ...vote };
+      obj.userId = null;
+      return obj;
     });
   } else {
     votes = allVotes;
@@ -52,7 +54,7 @@ export const getSubmissionStatus = async ({ submissionId, anonymized }) => {
 
   return {
     result: submission.result || 'pending',
-    votes,
+    votes
   };
 };
 
@@ -60,11 +62,11 @@ const submissionStatus = {
   type: SubmissionStatusType,
   args: {
     submissionId: {
-      type: new NonNull(ID),
-    },
+      type: new NonNull(ID)
+    }
   },
   resolve: ({ req }, { submissionId }) =>
-    getSubmissionStatus({ submissionId, anonymized: !req.user }),
+    getSubmissionStatus({ submissionId, anonymized: !req.user })
 };
 
 export default submissionStatus;
