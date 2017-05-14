@@ -24,7 +24,7 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, style, scripts, state, children } = this.props;
+    const { title, style, scripts, state, children } = this.props;
     return (
       <html className="no-js" lang="en">
         <head>
@@ -56,7 +56,7 @@ class Html extends React.Component {
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://communityfund.co/og2.jpg"
+            content="https://communityfund.co/og_large.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Community Fund" />
@@ -66,7 +66,7 @@ class Html extends React.Component {
           />
           <meta
             name="twitter:image"
-            content="https://communityfund.co/og2.jpg"
+            content="https://communityfund.co/og_large.png"
           />
           {style &&
             <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
