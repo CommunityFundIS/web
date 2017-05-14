@@ -1,5 +1,25 @@
-.voteForm {
-  margin-bottom: 20px;
+
+@import '../../components/variables.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.subHeading {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.panel {
+  margin-bottom: 15px;
 }
 
 .heading {
@@ -9,50 +29,15 @@
   margin-bottom: 3px;
 }
 
-.comment {
-  margin-top: 10px;
-  height: 100px;
-  width: 300px;
+.date {
+  color: #909090;
 }
 
-.buttonContainer {
-  display: flex;
-  margin-top: 30px;
-}
-
-.accept {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 30px;
-  margin-top: -25px;
+.label {
   margin-right: 10px;
-  background: #2677c2;
-  border-radius: 4px;
-  font-family: 'RisingSunDemiBold', sans-serif;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  border: 0;
+  font-weight: bold;
 }
 
-.reject {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 30px;
-  margin-top: -25px;
-  background: #ffc14b;
-  border-radius: 4px;
-  font-family: 'RisingSunDemiBold', sans-serif;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  border: 0;
-}
-
-.error {
-  color: #ffc14b;
+.description {
+  margin-top: 7px;
 }

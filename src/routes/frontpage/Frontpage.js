@@ -55,10 +55,11 @@ class Frontpage extends Component {
     return (
       <div className={s.container}>
         <div className={s.firstContainer}>
+          <div className={s.headerImageOverlay} />
           <div className={cx(s.wrapper, s.firstWrapper)}>
             <Header />
             <div style={{ flex: 0.5 }} />
-            <div>
+            <div style={{ zIndex: 10 }}>
               <div className={s.headline}>PLANNING A COMMUNITY EVENT?</div>
               <div className={s.slogan}>
                 We support the Icelandic tech community by easing the access to capital for events.
@@ -130,7 +131,8 @@ class Frontpage extends Component {
         <div className={s.thirdContainer}>
           <Parallax bgImage={rvkImage} strength={140} className={s.parallax}>
             <div className={s.parallaxContainer}>
-              <h1>
+              <div className={s.parallaxImageOverlay} />
+              <h1 style={{ zIndex: '10' }}>
                 HERE ARE OUR AWESOME PARTNERS
               </h1>
             </div>

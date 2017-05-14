@@ -1,21 +1,17 @@
 /* eslint-disable no-console */
-import {
-  up as seedUser,
-  down as flushUser,
-} from './seeders/user';
+import { up as seedUser, down as flushUser } from './seeders/user';
 
 import {
   up as seedSubmission,
-  down as flushSubmission,
+  down as flushSubmission
 } from './seeders/submission';
+
+import { db } from '../config';
 
 const up = async () => {
   console.log('Starting to seed');
   try {
-    await Promise.all([
-      seedUser(),
-      seedSubmission(),
-    ]);
+    await Promise.all([seedUser(), seedSubmission()]);
   } catch (e) {
     console.error('Failed to seed', e);
     process.exit(1);
@@ -28,10 +24,7 @@ const up = async () => {
 const down = async () => {
   console.log('Starting to flush');
   try {
-    await Promise.all([
-      flushUser(),
-      flushSubmission(),
-    ]);
+    await Promise.all([flushUser(), flushSubmission()]);
   } catch (e) {
     console.error('Failed to flush', e);
     process.exit(1);
@@ -41,6 +34,10 @@ const down = async () => {
   process.exit(0);
 };
 
+console.log('db config', db);
+if (db.database.indexOf('prod') !== -1) {
+  throw Error("Can't seed the production database");
+}
 
 const command = process.argv[2];
 if (command === 'up') {

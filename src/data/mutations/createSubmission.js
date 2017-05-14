@@ -42,13 +42,14 @@ export const sendEmailToReviewer = async (reviewer, submission) => {
   return sendEmail(reviewer.email, 'New grant application', html);
 };
 
-export const sendEmailToApplicant = async (email, submission) => {
+export const sendEmailToApplicant = async (email, name, submission) => {
   log('Sending applicant email', email, submission.id);
 
   const applicantUrl = `https://${host}/submission/${submission.id}`;
   log(applicantUrl);
 
   const html = applicantTemplate({
+    name,
     applicantUrl
   });
 
@@ -136,8 +137,10 @@ const createSubmission = {
     // Send review email to all reviewers
     reviewers.map(reviewer => sendEmailToReviewer(reviewer, submission));
 
+    const firstName = (name || '').split(' ')[0];
+
     // Send email to applicant
-    sendEmailToApplicant(email, submission);
+    sendEmailToApplicant(email, firstName, submission);
 
     return submission;
   }

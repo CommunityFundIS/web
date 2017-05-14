@@ -44,7 +44,7 @@ class Team extends Component {
             <h2>SUT</h2>
           </div>
         </div>
-        <div className={s.personCategory}>Operations</div>
+        <div className={s.personCategory}>Operators</div>
         <div className={s.people}>
           <div className={s.person}>
             <img

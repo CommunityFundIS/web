@@ -51,7 +51,7 @@ app.use((req, res, next) => {
     req.cookies[COOKIE_TOKEN_NAME] = token;
     res.cookie(COOKIE_TOKEN_NAME, token, {
       maxAge: 1000 * 15 * 60,
-      httpOnly: true,
+      httpOnly: true
     });
   }
   next();
@@ -64,8 +64,8 @@ app.use(
   expressJwt({
     secret: auth.jwt.secret,
     credentialsRequired: false,
-    getToken: req => req.cookies[COOKIE_TOKEN_NAME],
-  }),
+    getToken: req => req.cookies[COOKIE_TOKEN_NAME]
+  })
 );
 
 app.use(passport.initialize());
@@ -105,7 +105,7 @@ app.post('/login/username', (req, res, next) => {
     const token = jwt.sign(user, auth.jwt.secret, { expiresIn });
     res.cookie(COOKIE_TOKEN_NAME, token, {
       maxAge: 1000 * expiresIn,
-      httpOnly: true,
+      httpOnly: true
     });
     return res.redirect('/');
   })(req, res, next);
@@ -140,9 +140,9 @@ app.use(
       schema,
       graphiql: process.env.NODE_ENV !== 'production',
       rootValue: { req },
-      pretty: process.env.NODE_ENV !== 'production',
+      pretty: process.env.NODE_ENV !== 'production'
     };
-  }),
+  })
 );
 
 //
@@ -152,18 +152,18 @@ app.get('*', async (req, res, next) => {
   try {
     const store = configureStore(
       {
-        user: req.user,
+        user: req.user
       },
       {
-        cookie: req.headers.cookie,
-      },
+        cookie: req.headers.cookie
+      }
     );
 
     store.dispatch(
       setRuntimeVariable({
         name: 'initialNow',
-        value: Date.now(),
-      }),
+        value: Date.now()
+      })
     );
 
     const css = new Set();
@@ -176,10 +176,10 @@ app.get('*', async (req, res, next) => {
       token = jwt.sign(
         {
           id: req.user.id,
-          isReviewer: req.user.isReviewer,
+          isReviewer: req.user.isReviewer
         },
         auth.jwt.secret,
-        { expiresIn },
+        { expiresIn }
       );
     }
 
@@ -196,13 +196,13 @@ app.get('*', async (req, res, next) => {
       },
       // Initialize a new Redux store
       // http://redux.js.org/docs/basics/UsageWithReact.html
-      store,
+      store
     };
 
     const route = await UniversalRouter.resolve(routes, {
       ...context,
       path: req.path,
-      query: req.query,
+      query: req.query
     });
 
     if (route.redirect) {
@@ -211,7 +211,9 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
+    data.children = ReactDOM.renderToString(
+      <App context={context}>{route.component}</App>
+    );
     data.style = [...css].join('');
     data.scripts = [assets.vendor.js, assets.client.js];
     data.state = context.store.getState();
@@ -244,7 +246,7 @@ app.use((err, req, res, next) => {
       style={errorPageStyle._getCss()} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>,
+    </Html>
   );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);

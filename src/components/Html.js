@@ -20,7 +20,7 @@ class Html extends React.Component {
     style: PropTypes.string,
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     state: PropTypes.object,
-    children: PropTypes.string,
+    children: PropTypes.string
   };
 
   render() {
@@ -31,38 +31,80 @@ class Html extends React.Component {
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <title>{title}</title>
-          <meta name="description" content={description} />
-          <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimal-ui" />
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-          {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,maximum-scale=1,minimal-ui"
+          />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+          <meta
+            name="description"
+            content="Community Fund support the Icelandic tech community by easing the access to capital for events."
+          />
+          <meta
+            name="keywords"
+            content="community, grants, community fund, iceland, tech, developers"
+          />
+          <link rel="icon" type="image/png" href="/favicon.png" />
+          <meta property="og:title" content="Community Fund" />
+          <meta property="og:site_name" content="communityfund.co" />
+          <meta property="og:url" content="https://communityfund.co" />
+          <meta
+            property="og:description"
+            content="Community Fund support the Icelandic tech community by easing the access to capital for events."
+          />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:image"
+            content="https://communityfund.co/og2.jpg"
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Community Fund" />
+          <meta
+            name="twitter:description"
+            content="Community Fund support the Icelandic tech community by easing the access to capital for events."
+          />
+          <meta
+            name="twitter:image"
+            content="https://communityfund.co/og2.jpg"
+          />
+          {style &&
+            <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
         </head>
         <body>
           <div
-            dangerouslySetInnerHTML={{ __html: `<!-- Last update: ${lastUpdate} -->` }} style={{ display: 'none' }}
+            dangerouslySetInnerHTML={{
+              __html: `<!-- Last update: ${lastUpdate} -->`
+            }}
+            style={{ display: 'none' }}
           />
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-          {state && (
+          {state &&
             <script
-              dangerouslySetInnerHTML={{ __html:
-              `window.APP_STATE=${serialize(state, { isJSON: true })}` }}
-            />
-          )}
-          {scripts && scripts.map(script => <script key={script} src={script} />)}
+              dangerouslySetInnerHTML={{
+                __html: `window.APP_STATE=${serialize(state, { isJSON: true })}`
+              }}
+            />}
+          {scripts &&
+            scripts.map(script => <script key={script} src={script} />)}
           {analytics.google.trackingId &&
             <script
-              dangerouslySetInnerHTML={{ __html:
-              'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
-              `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')` }}
-            />
-          }
+              dangerouslySetInnerHTML={{
+                __html: 'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
+                  `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')`
+              }}
+            />}
           {analytics.google.trackingId &&
-            <script src="https://www.google-analytics.com/analytics.js" async defer />
-          }
+            <script
+              src="https://www.google-analytics.com/analytics.js"
+              async
+              defer
+            />}
 
           <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" />
           <script
             dangerouslySetInnerHTML={{
-              __html: 'WebFont.load({ google: { families: [/*\'Roboto:300,400,500\',*/\'Source+Sans+Pro:300,400,600,700\'] }});',
+              __html: "WebFont.load({ google: { families: [/*'Roboto:300,400,500',*/'Source+Sans+Pro:300,400,600,700'] }});"
             }}
           />
         </body>
