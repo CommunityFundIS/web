@@ -92,7 +92,7 @@ class Frontpage extends Component {
               </p>
 
               <h3 className={s.newsletterHeading}>
-                Subscribe to our newsletter
+                Sign up for our newsletter
               </h3>
               <form
                 action="//communityfund.us14.list-manage.com/subscribe/post?u=60fd5c50c834ceb92626f21d8&amp;id=62b8379d4e"
@@ -140,7 +140,7 @@ class Frontpage extends Component {
         </div>
         <div className={s.fourthContainer}>
           <div className={s.wrapper}>
-            <h1 className={s.backerCategory} style={{ marginTop: '30px' }}>
+            <h1 className={s.backerCategory} style={{ marginTop: '50px' }}>
               Financial Partners
             </h1>
             {partners.map(Company)}

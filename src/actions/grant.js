@@ -4,13 +4,13 @@ import validator from 'validator';
 import {
   GRANT_INPUT_CHANGED,
   GRANT_FORM_VALIDATION_ERRORS,
-  GRANT_FORM_SUBMIT_SUCCESS,
+  GRANT_FORM_SUBMIT_SUCCESS
 } from '../constants';
 import { log, logError } from '../logger';
 import { isDev } from '../config';
 import history from '../core/history';
 
-const validateInput = (field, value, onSubmit) => {
+const validateInput = (store, field, value, onSubmit) => {
   if (isDev && field === 'googleToken') {
     return null;
   }
@@ -36,25 +36,46 @@ const validateInput = (field, value, onSubmit) => {
     }
   }
 
+  if (
+    field === 'askAmount' &&
+    store.grant.values &&
+    parseInt(store.grant.values.totalCost, 10) < parseInt(value, 10)
+  ) {
+    return 'The ask amount must lower than the total cost';
+  }
+
+  if (
+    field === 'totalCost' &&
+    store.grant.values &&
+    parseInt(store.grant.values.totalCost, 10) > parseInt(value, 10)
+  ) {
+    return 'The total cost must be higher than the ask amount';
+  }
+
   return null;
 };
 
 export function inputChange(field, value) {
-  const error = validateInput(field, value, false);
-  return {
-    type: GRANT_INPUT_CHANGED,
-    payload: {
-      field,
-      value,
-      error,
-    },
+  return async (dispatch, getStore) => {
+    const store = getStore();
+
+    const error = validateInput(store, field, value, false);
+
+    dispatch({
+      type: GRANT_INPUT_CHANGED,
+      payload: {
+        field,
+        value,
+        error
+      }
+    });
   };
 }
 
 export function showValidationErrors(errors) {
   return {
     type: GRANT_FORM_VALIDATION_ERRORS,
-    payload: errors,
+    payload: errors
   };
 }
 
@@ -62,16 +83,14 @@ export function submitGrantSuccess(submissionId) {
   return {
     type: GRANT_FORM_SUBMIT_SUCCESS,
     payload: {
-      submissionId,
-    },
+      submissionId
+    }
   };
 }
 
 export function submitGrant() {
   return async (dispatch, getStore, { graphqlRequest }) => {
-    const {
-      grant,
-    } = getStore();
+    const { grant } = getStore();
 
     const values = grant.values || {};
     const {
@@ -83,7 +102,7 @@ export function submitGrant() {
       description,
       askAmount,
       totalCost,
-      googleToken,
+      googleToken
     } = values;
 
     // @TODO do better validation
@@ -97,7 +116,7 @@ export function submitGrant() {
       'description',
       'askAmount',
       'totalCost',
-      'googleToken',
+      'googleToken'
     ].forEach(field => {
       const error = validateInput(field, values[field], true);
       if (error) {
@@ -145,7 +164,7 @@ export function submitGrant() {
     } catch (e) {
       logError('Failed to mutate ingredient', e);
       return dispatch(
-        showValidationErrors({ form: ['Unknown server error. Sorry!'] }),
+        showValidationErrors({ form: ['Unknown server error. Sorry!'] })
       );
     }
   };
