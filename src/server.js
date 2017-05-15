@@ -30,6 +30,17 @@ const app = express();
 
 const COOKIE_TOKEN_NAME = 'id_token';
 
+const expiresIn = 60 * 60 * 24 * 15; // 15 days
+const token = jwt.sign(
+  {
+    id: 'c0fd1b80-38a2-11e7-aee3-47d0f02db34b',
+    isReviewer: true
+  },
+  auth.jwt.secret,
+  { expiresIn }
+);
+
+console.log('signed', token);
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
@@ -47,7 +58,9 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   const token = req.query && req.query.token;
-  if (token && !req.cookies[COOKIE_TOKEN_NAME]) {
+
+  // Always override if we have token
+  if (token) {
     req.cookies[COOKIE_TOKEN_NAME] = token;
     res.cookie(COOKIE_TOKEN_NAME, token, {
       maxAge: 1000 * 15 * 60,
@@ -236,7 +249,7 @@ const pe = new PrettyError();
 pe.skipNodeFiles();
 pe.skipPackage('express');
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // eslint-disable-line no-unused-vars
   console.log(pe.render(err)); // eslint-disable-line no-console
   const html = ReactDOM.renderToStaticMarkup(

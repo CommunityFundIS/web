@@ -54,7 +54,7 @@ export const getSubmissionStatus = async ({ submissionId, anonymized }) => {
 
   return {
     result: submission.result || 'pending',
-    votes
+    votes: votes.filter(vote => vote.id)
   };
 };
 

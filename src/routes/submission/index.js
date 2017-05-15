@@ -19,8 +19,8 @@ export default [
       }
       return {
         title: `Submission: ${submission.summary}`,
-        component: <SubmissionPage submissionId={submission.id} />,
+        component: <SubmissionPage submissionId={submission.id} />
       };
-    },
-  },
+    }
+  }
 ];

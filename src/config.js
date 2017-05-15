@@ -17,7 +17,7 @@ const dbObj = {
   port: process.env.DB_PORT,
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  password: process.env.DB_PASSWORD
 };
 
 export const db = dbObj;
@@ -28,16 +28,16 @@ export const googleRecaptchaSecret = process.env.GOOGLE_RECAPTCHA_SECRET;
 
 export const AWS_SES = {
   user: process.env.AWS_SES_USER,
-  password: process.env.AWS_SES_PASSWORD,
+  password: process.env.AWS_SES_PASSWORD
 };
 
 export const analytics = {
   // https://analytics.google.com/
   google: {
-    trackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
-  },
+    trackingId: process.env.GOOGLE_TRACKING_ID // UA-XXXXX-X
+  }
 };
 
 export const auth = {
-  jwt: { secret: process.env.JWT_SECRET },
+  jwt: { secret: process.env.JWT_SECRET }
 };
