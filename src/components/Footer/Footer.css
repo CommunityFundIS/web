@@ -47,6 +47,12 @@
   margin-bottom: 12px;
 }
 
+.guidelinesIcon {
+  width: 53px;
+  height: 53px;
+  margin-bottom: 12px;
+}
+
 .copyright {
   display: flex;
   justify-content: center;

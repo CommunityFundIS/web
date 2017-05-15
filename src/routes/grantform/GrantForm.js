@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { inputChange, submitGrant } from '../../actions/grant';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Link from '../../components/Link';
 import s from './GrantForm.css';
 
 const InputWithError = ({
@@ -18,7 +19,7 @@ const InputWithError = ({
   placeholder,
   className,
   errorMessage,
-  onChange,
+  onChange
 }) => (
   <div className={className}>
     <input
@@ -40,7 +41,7 @@ InputWithError.propTypes = {
   placeholder: PropTypes.string,
   className: PropTypes.string,
   errorMessage: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 const TextareaWithError = ({
@@ -49,7 +50,7 @@ const TextareaWithError = ({
   placeholder,
   className,
   errorMessage,
-  onChange,
+  onChange
 }) => (
   <div>
     <textarea
@@ -59,7 +60,7 @@ const TextareaWithError = ({
       className={classNames(
         s.input,
         className,
-        errorMessage ? s.inputError : null,
+        errorMessage ? s.inputError : null
       )}
       onChange={onChange}
     />
@@ -75,7 +76,7 @@ TextareaWithError.propTypes = {
   placeholder: PropTypes.string,
   className: PropTypes.string,
   errorMessage: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 const DatepickerWithError = ({
@@ -85,7 +86,7 @@ const DatepickerWithError = ({
   locale,
   className,
   errorMessage,
-  onChange,
+  onChange
 }) => (
   <div className={className}>
     <DatePicker
@@ -109,7 +110,7 @@ DatepickerWithError.propTypes = {
   locale: PropTypes.string,
   className: PropTypes.string,
   errorMessage: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 class GrantForm extends Component {
@@ -124,7 +125,7 @@ class GrantForm extends Component {
     totalCost: PropTypes.string,
     description: PropTypes.string,
     summary: PropTypes.string,
-    errors: PropTypes.object,
+    errors: PropTypes.object
   };
   render() {
     const {
@@ -138,13 +139,17 @@ class GrantForm extends Component {
       totalCost = '',
       description = '',
       summary = '',
-      errors = {},
+      errors = {}
     } = this.props;
 
     return (
       <div className={s.container}>
         <Header style={{ marginLeft: '18px' }} />
+        <h1 className={s.heading}>Grant Application</h1>
         <div className={s.content}>
+          <Link to="/guidelines" target="_blank">
+            Check out the guidelines before you apply!
+          </Link>
           <div className={s.labelContainer}>
             <div className={s.label}>Contact</div>
           </div>
@@ -261,10 +266,10 @@ class GrantForm extends Component {
 export default connect(
   (state /* , props */) => ({
     ...state.grant.values,
-    errors: state.grant.errors,
+    errors: state.grant.errors
   }),
   {
     inputChange,
-    submitGrant,
-  },
+    submitGrant
+  }
 )(withStyles(s)(GrantForm));

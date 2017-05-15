@@ -4,13 +4,13 @@ The following are the guidelines the grant review boards follows to support thei
 
 The Community Fund supports initiatives that focus on skill-sets that are essential to the tech community. These include, but are not limited to, the following:
 
-- Computer engineering / development and operations
-- User interface design
-- User experience design
-- Data analysis, warehousing, and development
-- Software testing
-- Product management
-- Tech-focused project management
+* Computer engineering / development and operations
+* User interface design
+* User experience design
+* Data analysis, warehousing, and development
+* Software testing
+* Product management
+* Tech-focused project management
 
 The Community Fund aims to answer all requests within 5 working days.
 

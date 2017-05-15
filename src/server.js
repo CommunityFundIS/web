@@ -30,17 +30,6 @@ const app = express();
 
 const COOKIE_TOKEN_NAME = 'id_token';
 
-const expiresIn = 60 * 60 * 24 * 15; // 15 days
-const token = jwt.sign(
-  {
-    id: 'c0fd1b80-38a2-11e7-aee3-47d0f02db34b',
-    isReviewer: true
-  },
-  auth.jwt.secret,
-  { expiresIn }
-);
-
-console.log('signed', token);
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.

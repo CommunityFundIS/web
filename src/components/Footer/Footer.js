@@ -14,15 +14,25 @@ class Footer extends React.Component {
               <img
                 className={s.contactIcon}
                 src="/img/contact@2x.png"
-                alt="contact"
+                alt="Contact"
               />
               Contact Us
             </a>
           </div>
           <div className={s.item}>
             <Link to="/team" className={s.itemInner}>
-              <img className={s.teamIcon} src="/img/team@2x.png" alt="team" />
+              <img className={s.teamIcon} src="/img/team@2x.png" alt="Team" />
               The Team
+            </Link>
+          </div>
+          <div className={s.item}>
+            <Link to="/guidelines" className={s.itemInner}>
+              <img
+                className={s.guidelinesIcon}
+                src="/img/guidelines.png"
+                alt="Guidelines"
+              />
+              Guidelines
             </Link>
           </div>
           {/* <div className={s.item}>
