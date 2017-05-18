@@ -31,7 +31,7 @@ const SubmissionDetails = ({
         <h2 className={s.heading} style={{ marginTop: '15px' }}>
           Event description
         </h2>
-        <p className={s.description}>{processedDescription}</p>
+        <div className={s.description}>{processedDescription}</div>
       </div>
       <div className={s.panel}>
         <h2 className={s.heading}>Amount:</h2>
