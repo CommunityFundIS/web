@@ -91,6 +91,10 @@ class Frontpage extends Component {
                 and connections to make your event a complete success.
               </p>
 
+              <p>
+                Read our <Link to="/grant">guidelines</Link> to learn more.
+              </p>
+
               <h3 className={s.newsletterHeading}>
                 Subscribe to our newsletter
               </h3>
@@ -155,9 +159,7 @@ class Frontpage extends Component {
 
             <div className={s.handoutContainer}>
               <p>
-                We hand out up to&nbsp;
-                <span className={s.handoutAmount}>200.000 kr.</span>
-                &nbsp;in grants per month
+                We answer within five working days.
               </p>
               <Link
                 className={s.applyButton}
