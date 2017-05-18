@@ -15,44 +15,50 @@ const SubmissionDetails = ({
   name,
   email,
   phone
-}) => (
-  <div style={{ marginTop: '30px' }}>
-    <div className={s.panel}>
-      <h2 className={s.subHeading}>Application</h2>
-      <h2 className={s.heading}>{summary}</h2>
-      <p className={s.date}>
-        Hosted at: {moment(date).format('MMMM Do YYYY')}
-      </p>
-      <h2 className={s.heading} style={{ marginTop: '15px' }}>
-        Event description
-      </h2>
-      <p className={s.description}>{description}</p>
-    </div>
-    <div className={s.panel}>
-      <h2 className={s.heading}>Amount:</h2>
-      <div>
-        {askAmount} kr. of {totalCost} kr.
+}) => {
+  const processedDescription = (description || '')
+    .split('\n')
+    .map(line => (line.length === 0 ? <br /> : <p>{line}</p>));
+
+  return (
+    <div style={{ marginTop: '30px' }}>
+      <div className={s.panel}>
+        <h2 className={s.subHeading}>Application</h2>
+        <h2 className={s.heading}>{summary}</h2>
+        <p className={s.date}>
+          Hosted at: {moment(date).format('MMMM Do YYYY')}
+        </p>
+        <h2 className={s.heading} style={{ marginTop: '15px' }}>
+          Event description
+        </h2>
+        <p className={s.description}>{processedDescription}</p>
+      </div>
+      <div className={s.panel}>
+        <h2 className={s.heading}>Amount:</h2>
+        <div>
+          {askAmount} kr. of {totalCost} kr.
+        </div>
+      </div>
+      <div className={s.panel}>
+        <h2 className={s.heading}>Applicant:</h2>
+        <ul>
+          <li>
+            <span className={s.label}>Name:</span>
+            {name}
+          </li>
+          <li>
+            <span className={s.label}>Email:</span>
+            <a href={`mailto:${email}`}>{email}</a>
+          </li>
+          <li>
+            <span className={s.label}>Phone:</span>
+            <a href={`tel:${phone}`}>{phone}</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <div className={s.panel}>
-      <h2 className={s.heading}>Applicant:</h2>
-      <ul>
-        <li>
-          <span className={s.label}>Name:</span>
-          {name}
-        </li>
-        <li>
-          <span className={s.label}>Email:</span>
-          <a href={`mailto:${email}`}>{email}</a>
-        </li>
-        <li>
-          <span className={s.label}>Phone:</span>
-          <a href={`tel:${phone}`}>{phone}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-);
+  );
+};
 SubmissionDetails.propTypes = {
   summary: PropTypes.string,
   description: PropTypes.string,
