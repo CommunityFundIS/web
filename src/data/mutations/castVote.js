@@ -13,8 +13,7 @@ import {
 
 import { host } from '../../config';
 
-import operatorStatusTemplate
-  from '../emailTemplates/operatorStatus.handlebars';
+import operatorStatusTemplate from '../emailTemplates/operatorStatus.handlebars';
 
 import sendEmail from '../../core/email';
 
@@ -46,10 +45,15 @@ const sendEmailToOperator = async (operator, submission, status) => {
   );
 };
 
-const sendEmailToOperators = async (submission, status) => {
+const sendEmailToOperators = async (submissionId, status) => {
   const operators = await User.findAll({
     where: {
       isOperator: true
+    }
+  });
+  const submission = await Submission.findOne({
+    where: {
+      id: submissionId
     }
   });
 
@@ -81,38 +85,37 @@ const castVote = {
         result,
         userId: user.id
       });
+
+      const submission = Submission.findOne({
+        where: {
+          id: submissionId
+        }
+      });
+
+      const alreadyHasResults = submission.result;
+
+      // There is a race condition here that could result in two emails sent.
+      // Highly unlikely unless everyone votes at the same time
+
+      const resultSoFar = await submissionResult(submissionId);
+      log('Result so far', resultSoFar);
+
+      if (!alreadyHasResults && resultSoFar !== 'pending') {
+        log('The votes are in!');
+        await Submission.update(
+          { decidedOn: moment(), result: resultSoFar },
+          { where: { id: submissionId } }
+        );
+
+        // Send email to operators
+        await sendEmailToOperators(submissionId, resultSoFar);
+      }
+
+      return getSubmissionStatus({ submissionId, anonymized: false });
     } catch (e) {
       logError(e);
       throw e;
     }
-
-    const submission = Submission.findOne({
-      where: {
-        id: submissionId
-      }
-    });
-
-    const alreadyHasResults = submission.result;
-
-    // There is a race condition here that could result in two emails sent.
-    // Highly unlikely unless everyone votes at the same time
-
-    const resultSoFar = await submissionResult(submissionId);
-    log('Result so far', resultSoFar);
-
-    if (!alreadyHasResults && resultSoFar !== 'pending') {
-      log('The votes are in!');
-      await Submission.update(
-        { decidedOn: moment(), result: resultSoFar },
-        { where: { id: submissionId }, fields: ['decidedOn', 'result'] }
-      );
-
-      // Send email to operators
-      log('going to send operator emails');
-      sendEmailToOperators(submission, resultSoFar);
-    }
-
-    return getSubmissionStatus({ submissionId, anonymized: false });
   }
 };
 
