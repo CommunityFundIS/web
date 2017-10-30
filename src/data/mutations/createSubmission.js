@@ -11,7 +11,24 @@ import { host, isDev, googleRecaptchaSecret, auth } from '../../config';
 import fetch from '../../core/fetch';
 import reviewTemplate from '../emailTemplates/review.handlebars';
 import applicantTemplate from '../emailTemplates/applicant.handlebars';
+import newApplicationCFTemplate from '../emailTemplates/newApplicationCF.handlebars';
 import sendEmail from '../../core/email';
+
+export const sendEmailToCF = async submission => {
+  log('Sending grant mail to hello@communityfund.co');
+
+  const html = newApplicationCFTemplate({
+    id: submission.id,
+    name: submission.name,
+    phone: submission.phone,
+    email: submission.email,
+    askAmount: submission.askAmount,
+    totalCost: submission.totalCost,
+    url: `https://${host}/submission/${submission.id}`
+  });
+
+  return sendEmail('hello@communityfund.co', 'New grant application', html);
+};
 
 export const sendEmailToReviewer = async (reviewer, submission) => {
   log('Sending grant review email', reviewer.email, submission.id);
@@ -139,7 +156,10 @@ const createSubmission = {
 
     const firstName = (name || '').split(' ')[0];
 
-    sendEmailToApplicant(email, firstName, submission);
+    await Promise.all([
+      sendEmailToApplicant(email, firstName, submission),
+      sendEmailToCF(submission)
+    ]);
 
     return submission;
   }
