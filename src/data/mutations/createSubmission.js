@@ -120,7 +120,8 @@ const createSubmission = {
         summary,
         description,
         askAmount,
-        totalCost
+        totalCost,
+        result: 'pending'
       });
     } catch (e) {
       logError(e);
