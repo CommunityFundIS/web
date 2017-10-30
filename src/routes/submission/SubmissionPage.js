@@ -16,22 +16,31 @@ const SubmissionDetails = ({
   email,
   phone
 }) => {
-  const processedDescription = (description || '')
-    .split('\n')
-    .map(line => (line.length === 0 ? <br /> : <p>{line}</p>));
+  const processedDescription = (description || '').split('\n').map(
+    (line, i) =>
+      line.length === 0
+        ? <br key={i} />
+        : <p key={i}>
+            {line}
+          </p>
+  );
 
   return (
     <div style={{ marginTop: '30px' }}>
       <div className={s.panel}>
         <h2 className={s.subHeading}>Application</h2>
-        <h2 className={s.heading}>{summary}</h2>
+        <h2 className={s.heading}>
+          {summary}
+        </h2>
         <p className={s.date}>
           Hosted at: {moment(date).format('MMMM Do YYYY')}
         </p>
         <h2 className={s.heading} style={{ marginTop: '15px' }}>
           Event description
         </h2>
-        <div className={s.description}>{processedDescription}</div>
+        <div className={s.description}>
+          {processedDescription}
+        </div>
       </div>
       <div className={s.panel}>
         <h2 className={s.heading}>Amount:</h2>
@@ -48,11 +57,15 @@ const SubmissionDetails = ({
           </li>
           <li>
             <span className={s.label}>Email:</span>
-            <a href={`mailto:${email}`}>{email}</a>
+            <a href={`mailto:${email}`}>
+              {email}
+            </a>
           </li>
           <li>
             <span className={s.label}>Phone:</span>
-            <a href={`tel:${phone}`}>{phone}</a>
+            <a href={`tel:${phone}`}>
+              {phone}
+            </a>
           </li>
         </ul>
       </div>
@@ -83,16 +96,17 @@ const SubmissionPage = ({ currentUser, submission, status }) => {
         {canVote && <VoteForm submissionId={submission.id} />}
         <div>
           <h2 className={s.heading}>Application Status</h2>
-          <div>Status: {status.result}</div>
+          <div>
+            Status: {status.result}
+          </div>
           {status.votes.length > 0 && <h2 className={s.heading}>Votes</h2>}
           <div>
-            {status.votes.map(vote => (
+            {status.votes.map(vote =>
               <span key={vote.id}>
                 {vote.result === 'accepted' ? 'Y' : 'N'}
               </span>
-            ))}
+            )}
           </div>
-
         </div>
       </div>
     </div>
