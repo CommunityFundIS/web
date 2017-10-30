@@ -7,8 +7,8 @@ export function addComment(submissionId, comment) {
     type: VOTE_ADD_COMMENT,
     payload: {
       submissionId,
-      comment,
-    },
+      comment
+    }
   };
 }
 
@@ -17,8 +17,8 @@ function castVoteError(submissionId, error) {
     type: VOTE_CAST_VOTE_ERROR,
     payload: {
       submissionId,
-      error,
-    },
+      error
+    }
   };
 }
 
@@ -32,9 +32,7 @@ export function rejectSubmission(submissionId) {
 
 function castVote(submissionId, result) {
   return async (dispatch, getStore, { graphqlRequest }) => {
-    const {
-      castVote,
-    } = getStore();
+    const { castVote } = getStore();
 
     const comment = castVote[submissionId] && castVote[submissionId].comment;
 
@@ -57,7 +55,6 @@ function castVote(submissionId, result) {
         }
       }
     `;
-    log('query is', query);
 
     try {
       const { data, errors } = await graphqlRequest(query);

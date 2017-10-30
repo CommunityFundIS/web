@@ -135,10 +135,7 @@
     "webpack-middleware": "^1.5.1"
   },
   "babel": {
-    "presets": [
-      "react",
-      "stage-0"
-    ],
+    "presets": ["react", "stage-0"],
     "plugins": [
       "syntax-trailing-function-commas",
       "transform-async-to-generator",
@@ -151,21 +148,14 @@
     ],
     "env": {
       "test": {
-        "plugins": [
-          "rewire"
-        ]
+        "plugins": ["rewire"]
       }
     }
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": [
-      "airbnb",
-      "plugin:css-modules/recommended"
-    ],
-    "plugins": [
-      "css-modules"
-    ],
+    "extends": ["airbnb", "plugin:css-modules/recommended"],
+    "plugins": ["css-modules"],
     "globals": {
       "__DEV__": true
     },
@@ -192,35 +182,22 @@
       "property-no-unknown": [
         true,
         {
-          "ignoreProperties": [
-            "composes"
-          ]
+          "ignoreProperties": ["composes"]
         }
       ],
       "selector-pseudo-class-no-unknown": [
         true,
         {
-          "ignorePseudoClasses": [
-            "global"
-          ]
+          "ignorePseudoClasses": ["global"]
         }
       ]
     }
   },
   "pre-commit": "lint:staged",
   "lint-staged": {
-    "*.{md,sh,txt,xml,html,json}": [
-      "editorconfig-tools fix",
-      "git add"
-    ],
-    "*.{js,jsx}": [
-      "git add"
-    ],
-    "*.{css,less,scss,sss}": [
-      "stylefmt",
-      "stylelint",
-      "git add"
-    ]
+    "*.{md,sh,txt,xml,html,json}": ["editorconfig-tools fix", "git add"],
+    "*.{js,jsx}": ["git add"],
+    "*.{css,less,scss,sss}": ["stylefmt", "stylelint", "git add"]
   },
   "scripts": {
     "start": "source .env && babel-node tools/run start",

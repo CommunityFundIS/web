@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -214,7 +215,9 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>
+      <App context={context}>
+        {route.component}
+      </App>
     );
     data.style = [...css].join('');
     data.scripts = [assets.vendor.js, assets.client.js];

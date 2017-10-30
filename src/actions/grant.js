@@ -146,7 +146,6 @@ export function submitGrant() {
         }
       }
     `;
-    log('query is', query);
 
     try {
       const { data, errors } = await graphqlRequest(query, {
