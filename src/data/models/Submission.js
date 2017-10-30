@@ -7,52 +7,52 @@ const Submission = Model.define(
     id: {
       type: DataType.UUID,
       defaultValue: DataType.UUIDV1,
-      primaryKey: true,
+      primaryKey: true
     },
     name: {
       type: DataType.STRING(),
-      allowNull: false,
+      allowNull: false
     },
     email: {
       type: DataType.STRING(),
       validate: { isEmail: true },
-      allowNull: false,
+      allowNull: false
     },
     phone: {
       type: DataType.STRING(),
-      allowNull: false,
+      allowNull: false
     },
     date: {
       type: DataType.DATE(),
-      allowNull: false,
+      allowNull: false
     },
     summary: {
       type: DataType.TEXT(),
-      allowNull: false,
+      allowNull: false
     },
     description: {
       type: DataType.TEXT(),
-      allowNull: false,
+      allowNull: false
     },
     askAmount: {
       type: DataType.NUMERIC(),
-      allowNull: false,
+      allowNull: false
     },
     totalCost: {
       type: DataType.NUMERIC(),
-      allowNull: false,
+      allowNull: false
     },
     decidedOn: {
       type: DataType.DATE(),
-      allowNull: true,
+      allowNull: true
     },
     result: {
-      type: DataType.ENUM('accepted', 'rejected'),
-      allowNull: true,
-    },
+      type: DataType.ENUM('accepted', 'rejected', 'pending'),
+      allowNull: true
+    }
   },
   {
-    indexes: [{ fields: ['id'] }],
+    indexes: [{ fields: ['id'] }]
   }
 );
 
