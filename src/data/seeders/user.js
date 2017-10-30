@@ -12,10 +12,18 @@ export const up = async () => {
         email: `test${i}@test.com`,
         name: `Reviewer ${i}`,
         isReviewer: true,
-        password: User.generateHash('test'),
+        password: User.generateHash('test')
       };
     })
   );
+
+  await User.create({
+    email: `kristjanmik@gmail.com`,
+    name: `Operator 1`,
+    isReviewer: true,
+    isOperator: true,
+    password: User.generateHash('test')
+  });
 
   console.log('User: Done seeding');
 };
