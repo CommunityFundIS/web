@@ -42,7 +42,7 @@ export const sendEmailToReviewer = async (reviewer, submission) => {
     { expiresIn },
   );
 
-  const reviewUrl = `https://${host}/submission/${submission.id}?token=${token}`;
+  const reviewUrl = `https://${config.host}/submission/${submission.id}?token=${token}`;
   log(reviewUrl);
 
   const html = reviewTemplate({
@@ -61,7 +61,7 @@ export const sendEmailToReviewer = async (reviewer, submission) => {
 export const sendEmailToApplicant = async (email, name, submission) => {
   log('Sending applicant email', email, submission.id);
 
-  const applicantUrl = `https://${host}/submission/${submission.id}`;
+  const applicantUrl = `https://${config.host}/submission/${submission.id}`;
   log(applicantUrl);
 
   const html = applicantTemplate({

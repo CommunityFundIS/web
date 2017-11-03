@@ -37,7 +37,8 @@ class Html extends React.Component {
   };
 
   render() {
-    let { title, description, styles, scripts, app, children } = this.props;
+    const { styles, scripts, app, children } = this.props;
+    let { title, description } = this.props;
 
     title = title || 'Community Fund';
     description =

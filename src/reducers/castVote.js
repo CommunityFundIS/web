@@ -1,8 +1,4 @@
-import {
-  VOTE_ADD_COMMENT,
-  VOTE_CAST_VOTE,
-  VOTE_CAST_VOTE_ERROR,
-} from '../constants';
+import { VOTE_ADD_COMMENT, VOTE_CAST_VOTE_ERROR } from '../constants';
 
 export default function castVote(state = {}, action) {
   switch (action.type) {

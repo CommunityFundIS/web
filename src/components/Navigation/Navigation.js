@@ -19,6 +19,9 @@ class Navigation extends React.Component {
   static propTypes = {
     className: PropTypes.string,
   };
+  static defaultProps = {
+    className: null,
+  };
 
   render() {
     return (

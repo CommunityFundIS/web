@@ -7,7 +7,7 @@ import cx from 'classnames';
 import Link from '../../components/Link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { partners, sponsors, supporters } from './backers.js';
+import { partners, sponsors, supporters } from './backers';
 
 import rvkImage from '../../../public/img/rvk3.png';
 import s from './Frontpage.css';
@@ -35,6 +35,13 @@ Company.propTypes = {
   url: PropTypes.string,
   logo: PropTypes.string,
   description: PropTypes.string,
+};
+
+Company.defaultProps = {
+  name: '',
+  url: '',
+  logo: null,
+  description: '',
 };
 
 class Frontpage extends Component {

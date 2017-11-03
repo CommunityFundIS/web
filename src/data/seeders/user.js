@@ -1,8 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { User } from '../models';
+import { log } from '../../logger';
 
 export const up = async () => {
-  console.log('User: Seeding');
+  log('User: Seeding');
 
   await User.sync();
 
@@ -23,15 +24,15 @@ export const up = async () => {
     password: User.generateHash('test'),
   });
 
-  console.log('User: Done seeding');
+  log('User: Done seeding');
 };
 
 export const down = async () => {
-  console.log('User: Flushing');
+  log('User: Flushing');
 
   await User.sync();
 
   await User.truncate();
 
-  console.log('User: Done Flushing');
+  log('User: Done Flushing');
 };

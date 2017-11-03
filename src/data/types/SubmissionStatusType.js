@@ -1,7 +1,5 @@
 import {
   GraphQLObjectType as ObjectType,
-  GraphQLID as ID,
-  GraphQLString as StringType,
   GraphQLNonNull as NonNull,
   GraphQLEnumType as EnumType,
   GraphQLList as List,

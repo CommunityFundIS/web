@@ -316,13 +316,6 @@
   font-family: var(--lato);
 }
 
-.handoutAmount {
-  color: #ffc14b;
-  font-size: 32px;
-  font-weight: 800;
-  font-family: var(--lato);
-}
-
 @media (max-width: 880px) {
   .backerBox {
     margin-top: 15px;

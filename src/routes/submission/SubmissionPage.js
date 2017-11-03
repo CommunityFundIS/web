@@ -18,11 +18,10 @@ const SubmissionDetails = ({
   email,
   phone,
 }) => {
-  const processedDescription = (description || '')
-    .split('\n')
-    .map(
-      (line, i) => (line.length === 0 ? <br key={i} /> : <p key={i}>{line}</p>),
-    );
+  const processedDescription = (description || '').split('\n').map(
+    // eslint-disable-next-line react/no-array-index-key
+    (line, i) => (line.length === 0 ? <br key={i} /> : <p key={i}>{line}</p>),
+  );
 
   return (
     <div style={{ marginTop: '30px' }}>
@@ -74,6 +73,17 @@ SubmissionDetails.propTypes = {
   totalCost: PropTypes.string,
 };
 
+SubmissionDetails.defaultProps = {
+  summary: null,
+  description: null,
+  date: null,
+  name: null,
+  email: null,
+  phone: null,
+  askAmount: null,
+  totalCost: null,
+};
+
 const SubmissionPage = ({ currentUser, submission, status }) => {
   const canVote =
     currentUser.isReviewer &&
@@ -102,7 +112,7 @@ const SubmissionPage = ({ currentUser, submission, status }) => {
   );
 };
 SubmissionPage.propTypes = {
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.shape(),
   submission: PropTypes.object,
   status: PropTypes.object,
 };

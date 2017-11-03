@@ -6,7 +6,10 @@ import Link from '../Link';
 
 class Header extends React.Component {
   static propTypes = {
-    style: PropTypes.shape()
+    style: PropTypes.shape(),
+  };
+  static defaultProps = {
+    style: {},
   };
   render() {
     return (

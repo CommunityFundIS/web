@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { createTransport } from 'nodemailer';
 import config from '../config';
+import { log } from '../logger';
 
 const sendEmail = async (recipient, subject, html) => {
   const mailOptions = {
@@ -23,9 +24,9 @@ const sendEmail = async (recipient, subject, html) => {
   // send mail with defined transport object
   transport.sendMail(mailOptions, (error /* , response */) => {
     if (error) {
-      console.log(error);
+      log(error);
     } else {
-      console.log('Email sent');
+      log('Email sent');
     }
 
     transport.close(); // shut down the connection pool, no more messages

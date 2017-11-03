@@ -9,8 +9,8 @@ const submission = {
       type: new NonNull(ID),
     },
   },
-  resolve: async ({ req }, { id }) =>
-    await Submission.findOne({
+  resolve: (_, { id }) =>
+    Submission.findOne({
       where: {
         id,
       },

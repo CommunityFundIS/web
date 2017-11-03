@@ -18,6 +18,9 @@ class Page extends React.Component {
     title: PropTypes.string,
     html: PropTypes.string.isRequired,
   };
+  static defaultProps = {
+    title: null,
+  };
 
   render() {
     const { title, html } = this.props;

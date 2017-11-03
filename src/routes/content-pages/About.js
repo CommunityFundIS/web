@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default () => {
-  const ContentPage = require('./ContentPage');
-  const content = require('./about.md');
+  const ContentPage = import('./ContentPage');
+  const content = import('./about.md');
 
   return {
     chunks: ['about'],

@@ -7,8 +7,8 @@ export function addComment(submissionId, comment) {
     type: VOTE_ADD_COMMENT,
     payload: {
       submissionId,
-      comment
-    }
+      comment,
+    },
   };
 }
 
@@ -17,8 +17,8 @@ function castVoteError(submissionId, error) {
     type: VOTE_CAST_VOTE_ERROR,
     payload: {
       submissionId,
-      error
-    }
+      error,
+    },
   };
 }
 

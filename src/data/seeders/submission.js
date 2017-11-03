@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import moment from 'moment';
 import { Submission, Vote, User } from '../models';
+import { log } from '../../logger';
 
 export const up = async () => {
-  console.log('Submission: Seeding');
+  log('Submission: Seeding');
 
   await Submission.sync();
   await Vote.sync();
@@ -42,15 +42,15 @@ export const up = async () => {
     })),
   );
 
-  console.log('Submission: Done seeding');
+  log('Submission: Done seeding');
 };
 
 export const down = async () => {
-  console.log('Submission: Flushing');
+  log('Submission: Flushing');
 
   await Submission.sync();
 
   await Submission.truncate();
 
-  console.log('Submission: Done Flushing');
+  log('Submission: Done Flushing');
 };
