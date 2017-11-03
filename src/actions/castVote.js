@@ -7,8 +7,8 @@ export function addComment(submissionId, comment) {
     type: VOTE_ADD_COMMENT,
     payload: {
       submissionId,
-      comment,
-    },
+      comment
+    }
   };
 }
 
@@ -17,24 +17,17 @@ function castVoteError(submissionId, error) {
     type: VOTE_CAST_VOTE_ERROR,
     payload: {
       submissionId,
-      error,
-    },
+      error
+    }
   };
-}
-
-export function acceptSubmission(submissionId) {
-  return castVote(submissionId, 'accepted');
-}
-
-export function rejectSubmission(submissionId) {
-  return castVote(submissionId, 'rejected');
 }
 
 function castVote(submissionId, result) {
   return async (dispatch, getStore, { graphqlRequest }) => {
-    const { castVote } = getStore();
+    const store = getStore();
+    const vote = store.castVote;
 
-    const comment = castVote[submissionId] && castVote[submissionId].comment;
+    const comment = vote[submissionId] && vote[submissionId].comment;
 
     const commentParameter = comment ? `comment: "${comment}",` : '';
 
@@ -71,4 +64,12 @@ function castVote(submissionId, result) {
       return dispatch(castVoteError(submissionId, 'Error when casting vote'));
     }
   };
+}
+
+export function acceptSubmission(submissionId) {
+  return castVote(submissionId, 'accepted');
+}
+
+export function rejectSubmission(submissionId) {
+  return castVote(submissionId, 'rejected');
 }

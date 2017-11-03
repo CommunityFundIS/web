@@ -34,12 +34,12 @@ const context = {
   },
   // Universal HTTP client
   fetch: createFetch(fetch, {
-    baseUrl: window.App.apiUrl,
+    baseUrl: window.App.apiUrl
   }),
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
   store: configureStore(window.App.state, { history }),
-  storeSubscription: null,
+  storeSubscription: null
 };
 
 const container = document.getElementById('app');
@@ -58,7 +58,7 @@ async function onLocationChange(location, action) {
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
-    scrollY: window.pageYOffset,
+    scrollY: window.pageYOffset
   };
   // Delete stored scroll position for next page if any
   if (action === 'PUSH') {
@@ -74,7 +74,7 @@ async function onLocationChange(location, action) {
     const route = await router.resolve({
       ...context,
       pathname: location.pathname,
-      query: queryString.parse(location.search),
+      query: queryString.parse(location.search)
     });
 
     // Prevent multiple page renders during the routing process
@@ -88,7 +88,6 @@ async function onLocationChange(location, action) {
     }
 
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
-    console.log(isInitialRender, ReactDOM.hydrate, ReactDOM.render);
     appInstance = renderReactApp(
       <App context={context}>{route.component}</App>,
       container,
@@ -135,7 +134,7 @@ async function onLocationChange(location, action) {
         if (window.ga) {
           window.ga('send', 'pageview', createPath(location));
         }
-      },
+      }
     );
   } catch (error) {
     if (__DEV__) {

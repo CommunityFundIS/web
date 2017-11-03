@@ -254,8 +254,7 @@
 
 .backerContainer {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   width: 100%;
   margin-top: 25px;
   margin-bottom: 25px;
@@ -307,9 +306,8 @@
 
 .handoutContainer > p {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: center;
-  flex-wrap: wrap;
   width: 100%;
   margin-top: 40px;
   font-size: 1.8em;

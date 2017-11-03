@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {
   addComment,
   acceptSubmission,
-  rejectSubmission,
+  rejectSubmission
 } from '../../actions/castVote';
 import s from './VoteForm.css';
 
@@ -16,7 +16,7 @@ const VoteForm = ({
   error,
   addComment,
   acceptSubmission,
-  rejectSubmission,
+  rejectSubmission
 }) => (
   <div className={s.voteForm}>
     <h2 className={s.heading}>Your vote</h2>
@@ -51,19 +51,24 @@ VoteForm.propTypes = {
   error: PropTypes.string,
   addComment: PropTypes.func.isRequired,
   acceptSubmission: PropTypes.func.isRequired,
-  rejectSubmission: PropTypes.func.isRequired,
+  rejectSubmission: PropTypes.func.isRequired
+};
+
+VoteForm.defaultProps = {
+  comment: '',
+  error: null
 };
 
 export default connect(
   (state, props) => {
     const castVoteForm = state.castVote[props.submissionId] || {};
     return {
-      ...castVoteForm,
+      ...castVoteForm
     };
   },
   {
     addComment,
     acceptSubmission,
-    rejectSubmission,
-  },
+    rejectSubmission
+  }
 )(withStyles(s)(VoteForm));
