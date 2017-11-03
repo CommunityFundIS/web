@@ -1,19 +1,17 @@
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-@import '../variables.css';
+@import '../../../node_modules/normalize.css/normalize.css';
 
-/*
- * normalize.css is imported in JS file.
- * If you import external CSS file from your internal CSS
- * then it will be inlined and processed with CSS modules.
- */
+/*! React Starter Kit | MIT License | https://www.reactstarterkit.com/ */
+
+@import '../variables.css';
 
 /*
  * Base styles
@@ -23,12 +21,8 @@ html {
   color: #222;
   font-weight: 100;
   font-size: 1em; /* ~16px; */
-  font-family: var(--font-family-base);
+  font-family: var(--lato);
   line-height: 1.375; /* ~22px */
-}
-
-body {
-  margin: 0;
 }
 
 a {

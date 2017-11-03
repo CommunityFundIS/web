@@ -1,0 +1,67 @@
+@import '../../components/variables.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.people {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.personCategory {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 200;
+  margin-top: 20px;
+}
+
+.headerText {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.person {
+  display: flex;
+  flex: 1 150px;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  margin: 20px;
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 125px;
+    border: 5px solid white;
+  }
+
+  h2 {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 400px) {
+  .person {
+    flex: 1 260px;
+    width: 260px;
+    height: 300px;
+
+    img {
+      width: 260px;
+      height: 260px;
+      border-radius: 140px;
+      border: 5px solid white;
+    }
+  }
+}

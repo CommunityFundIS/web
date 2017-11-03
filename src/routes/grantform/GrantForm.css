@@ -1,0 +1,169 @@
+@import '../../components/variables.css';
+
+:global {
+  /* We need to import the styles for the datepicker without processing them */
+  @import 'react-datepicker/dist/react-datepicker.css';
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: calc(100% - 20px);
+  max-width: 500px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px 40px;
+}
+
+.heading {
+  font-size: 1.8em;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.labelContainer {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-size: 19px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #95989a;
+}
+
+.inputError {
+  border: 1px solid #ffc14b !important;
+}
+
+.inputErrorMessage {
+  color: #fff;
+  background-color: #ffc14b;
+  padding: 10px;
+  margin-top: -3px;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+.input {
+  height: 40px;
+  padding-left: 10px;
+  border: 1px solid #c6cacc;
+  border-top: 0.1px solid #c6cacc;
+  border-radius: 1px;
+  outline: none;
+  background: #fafafa;
+  width: 100%;
+  font-size: 15px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #808080;
+  box-sizing: border-box;
+}
+
+.input::-webkit-input-placeholder {
+  color: #95989a;
+  font-family: 'RisingSunRegular', sans-serif;
+}
+
+.input::-moz-placeholder {
+  color: #95989a;
+  font-family: 'RisingSunRegular', sans-serif;
+}
+
+.input:-ms-input-placeholder {
+  color: #95989a;
+  font-family: 'RisingSunRegular', sans-serif;
+}
+
+.input:-moz-placeholder {
+  color: #95989a;
+  font-family: 'RisingSunRegular', sans-serif;
+}
+
+.contactContainer {
+  display: flex;
+  margin-top: 15px;
+}
+
+.email {
+  flex: 27;
+  margin-right: 10px;
+}
+
+.phone {
+  flex: 16;
+}
+
+.description {
+  margin-top: 10px;
+  padding-top: 10px;
+  height: 180px;
+}
+
+.date {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.costContainer {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.ask {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.totalCost {
+  flex: 1;
+}
+
+.sendContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.captchaContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.captcha {
+  margin-top: 20px;
+}
+
+.send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 50px;
+  margin-top: -25px;
+  background: #2677c2;
+  border-radius: 4px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.formErrorMessage {
+  padding-top: 10px;
+  text-align: center;
+}
+
+/* .success {
+  width: 84px;
+  height: 40px;
+} */

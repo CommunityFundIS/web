@@ -1,0 +1,12 @@
+@import '../../components/variables.css';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: #262626;
+  color: white;
+}

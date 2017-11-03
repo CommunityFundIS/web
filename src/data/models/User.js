@@ -1,37 +1,47 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import DataType from 'sequelize';
-import Model from '../sequelize';
+import bcrypt from 'bcryptjs';
+import Model from '../db';
 
 const User = Model.define(
-  'User',
+  'user',
   {
     id: {
       type: DataType.UUID,
       defaultValue: DataType.UUIDV1,
       primaryKey: true,
     },
-
     email: {
       type: DataType.STRING(255),
       validate: { isEmail: true },
+      unique: true,
+      allowNull: false,
     },
-
-    emailConfirmed: {
+    password: {
+      type: DataType.STRING(255),
+    },
+    name: {
+      type: DataType.STRING(255),
+    },
+    isReviewer: {
+      type: DataType.BOOLEAN,
+      defaultValue: false,
+    },
+    isOperator: {
       type: DataType.BOOLEAN,
       defaultValue: false,
     },
   },
   {
-    indexes: [{ fields: ['email'] }],
+    indexes: [{ fields: ['id', 'email'] }],
   },
 );
+
+User.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
+User.prototype.comparePassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 export default User;

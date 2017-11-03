@@ -15,9 +15,29 @@ if (process.env.BROWSER) {
   );
 }
 
-module.exports = {
+const port = process.env.PORT || 3000;
+
+const dbObj = {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+};
+
+export default {
+  db: dbObj,
+  isDev: process.env.NODE_ENV === 'development',
+
+  googleRecaptchaSecret: process.env.GOOGLE_RECAPTCHA_SECRET,
+
+  AWS_SES: {
+    user: process.env.AWS_SES_USER,
+    password: process.env.AWS_SES_PASSWORD,
+  },
   // Node.js app
-  port: process.env.PORT || 3000,
+  port,
+  host: process.env.WEBSITE_HOSTNAME || `localhost:${port}`,
 
   // API Gateway
   api: {
@@ -29,9 +49,6 @@ module.exports = {
       `http://localhost:${process.env.PORT || 3000}`,
   },
 
-  // Database
-  databaseUrl: process.env.DATABASE_URL || 'sqlite:database.sqlite',
-
   // Web analytics
   analytics: {
     // https://analytics.google.com/
@@ -40,7 +57,7 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
+    jwt: { secret: process.env.JWT_SECRET || 'kmaf042jhn0iqgn0iwrnoaemglk' },
 
     // https://developers.facebook.com/
     facebook: {

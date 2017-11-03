@@ -14,6 +14,8 @@ import config from '../config';
 
 /* eslint-disable react/no-danger */
 
+const lastUpdate = new Date();
+
 class Html extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -35,7 +37,13 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props;
+    let { title, description, styles, scripts, app, children } = this.props;
+
+    title = title || 'Community Fund';
+    description =
+      description ||
+      'Community Fund support the Icelandic tech community by easing the access to capital for events.';
+
     return (
       <html className="no-js" lang="en">
         <head>
@@ -43,11 +51,51 @@ class Html extends React.Component {
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <title>{title}</title>
           <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="theme-color" content="#ffffff" />
+          <meta
+            name="keywords"
+            content="community, grants, community fund, iceland, tech, developers"
+          />
+          <meta property="og:title" content={title} />
+          <meta property="og:site_name" content="communityfund.co" />
+          <meta property="og:url" content="https://communityfund.co" />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:image"
+            content="https://communityfund.co/img/og_large.png"
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={description} />
+          <meta
+            name="twitter:image"
+            content="https://communityfund.co/img/og_large.png"
+          />
+
           {scripts.map(script => (
             <link key={script} rel="preload" href={script} as="script" />
           ))}
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           {styles.map(style => (
             <style
               key={style.id}
@@ -57,6 +105,12 @@ class Html extends React.Component {
           ))}
         </head>
         <body>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `<!-- Last update: ${lastUpdate} -->`,
+            }}
+            style={{ display: 'none' }}
+          />
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
@@ -79,6 +133,13 @@ class Html extends React.Component {
               defer
             />
           )}
+          <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                "WebFont.load({ google: { families: ['Lato:300,400,600,700'] }});",
+            }}
+          />
         </body>
       </html>
     );

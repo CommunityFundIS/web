@@ -1,47 +1,59 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 @import '../../components/variables.css';
 
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
 }
 
 .container {
-  margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  width: 410px;
+  height: 324px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background: white;
 }
 
 .lead {
-  font-size: 1.25em;
+  width: calc(100% - 50px);
+  margin: 18px auto 27px;
+  color: #545457;
+  font-size: 21px;
+  font-weight: 600;
+  font-family: var(--lato);
+}
+
+.form {
+  width: 100%;
 }
 
 .formGroup {
+  width: calc(100% - 50px);
+  margin: 0 auto;
   margin-bottom: 15px;
 }
 
 .label {
-  display: block;
-  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 5px;
+  font-family: var(--lato);
+  font-weight: 600;
+  font-size: 12px;
+  color: #8d8d96;
 }
 
 .input {
   display: block;
   box-sizing: border-box;
-  margin: 5px 0 0;
   padding: 10px 16px;
   width: 100%;
-  height: 46px;
+  height: 40px;
   outline: 0;
-  border: 1px solid #ccc;
-  border-radius: 0;
+  border: 1px solid #d3d3db;
+  border-radius: 3px;
   background: #fff;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   color: #616161;
@@ -55,22 +67,35 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 116, 194, 0.6);
 }
 
-.button {
-  display: block;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 10px 16px;
+.breaker {
   width: 100%;
-  outline: 0;
-  border: 1px solid #373277;
-  border-radius: 0;
-  background: #373277;
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 1.3333333;
+  height: 1px;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  background: #eaecf1;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 50px);
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.button {
+  height: 40px;
+  padding: 10px 20px;
+  font-family: var(--lato);
+  font-size: 15px;
+  border: 0 none;
+  text-shadow: none;
+  background: #2776a6;
+  box-shadow: none;
   cursor: pointer;
+  border-radius: 25px;
+  color: white;
 }
 
 .button:hover {
@@ -82,75 +107,37 @@
   box-shadow: 0 0 8px rgba(0, 116, 194, 0.6);
 }
 
-.facebook {
-  border-color: #3b5998;
-  background: #3b5998;
-  composes: button;
+.forgot {
+  padding: 8px 0;
+  color: #2b77a3;
+  font-family: var(--lato);
+  font-weight: 300;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-.facebook:hover {
-  background: #2d4373;
+.signupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 410px;
 }
 
-.google {
-  border-color: #dd4b39;
-  background: #dd4b39;
-  composes: button;
+.noAccount {
+  color: white;
+  font-family: var(--lato);
+  font-weight: 300;
+  font-size: 18px;
 }
 
-.google:hover {
-  background: #c23321;
-}
-
-.twitter {
-  border-color: #55acee;
-  background: #55acee;
-  composes: button;
-}
-
-.twitter:hover {
-  background: #2795e9;
-}
-
-.icon {
-  display: inline-block;
-  margin: -2px 12px -2px 0;
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  fill: currentColor;
-}
-
-.lineThrough {
-  position: relative;
-  z-index: 1;
-  display: block;
-  margin-bottom: 15px;
-  width: 100%;
-  color: #757575;
-  text-align: center;
-  font-size: 80%;
-}
-
-.lineThrough::before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  margin-top: -5px;
-  margin-left: -20px;
-  width: 40px;
-  height: 10px;
-  background-color: #fff;
-  content: '';
-}
-
-.lineThrough::after {
-  position: absolute;
-  top: 49%;
-  z-index: -2;
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid #ddd;
-  content: '';
+.signupLink {
+  color: white;
+  font-family: var(--lato);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 3px;
+  border: 1px solid white;
 }

@@ -56,8 +56,8 @@ app.use(
   expressJwt({
     secret: config.auth.jwt.secret,
     credentialsRequired: false,
-    getToken: req => req.cookies.id_token
-  })
+    getToken: req => req.cookies.id_token,
+  }),
 );
 // Error handler for express-jwt
 app.use((err, req, res, next) => {
@@ -75,25 +75,26 @@ app.use(passport.initialize());
 if (__DEV__) {
   app.enable('trust proxy');
 }
+
 app.get(
   '/login/facebook',
   passport.authenticate('facebook', {
     scope: ['email', 'user_location'],
-    session: false
-  })
+    session: false,
+  }),
 );
 app.get(
   '/login/facebook/return',
   passport.authenticate('facebook', {
     failureRedirect: '/login',
-    session: false
+    session: false,
   }),
   (req, res) => {
     const expiresIn = 60 * 60 * 24 * 180; // 180 days
     const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect('/');
-  }
+  },
 );
 
 //
@@ -104,9 +105,15 @@ app.use(
   expressGraphQL(req => ({
     schema,
     graphiql: __DEV__,
-    rootValue: { request: req },
-    pretty: __DEV__
-  }))
+    rootValue: {
+      request: req,
+      fetch: createFetch(nodeFetch, {
+        baseUrl: config.api.serverUrl,
+        cookie: req.headers.cookie,
+      }),
+    },
+    pretty: __DEV__,
+  })),
 );
 
 //
@@ -119,23 +126,23 @@ app.get('*', async (req, res, next) => {
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie
+      cookie: req.headers.cookie,
     });
 
     const initialState = {
-      user: req.user || null
+      user: req.user || null,
     };
 
     const store = configureStore(initialState, {
-      fetch
+      fetch,
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
     store.dispatch(
       setRuntimeVariable({
         name: 'initialNow',
-        value: Date.now()
-      })
+        value: Date.now(),
+      }),
     );
 
     // Global (context) variables that can be easily accessed from any React component
@@ -150,13 +157,13 @@ app.get('*', async (req, res, next) => {
       fetch,
       // You can access redux through react-redux connect
       store,
-      storeSubscription: null
+      storeSubscription: null,
     };
 
     const route = await router.resolve({
       ...context,
       pathname: req.path,
-      query: req.query
+      query: req.query,
     });
 
     if (route.redirect) {
@@ -168,7 +175,7 @@ app.get('*', async (req, res, next) => {
     data.children = ReactDOM.renderToString(
       <App context={context} store={store}>
         {route.component}
-      </App>
+      </App>,
     );
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.scripts = [assets.vendor.js];
@@ -178,7 +185,7 @@ app.get('*', async (req, res, next) => {
     data.scripts.push(assets.client.js);
     data.app = {
       apiUrl: config.api.clientUrl,
-      state: context.store.getState()
+      state: context.store.getState(),
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
@@ -206,7 +213,7 @@ app.use((err, req, res, next) => {
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>
+    </Html>,
   );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);

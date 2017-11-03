@@ -10,9 +10,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from '../../components/Link';
+
 import s from './ErrorPage.css';
 
-class ErrorPage extends React.Component {
+class ErrorPage extends React.PureComponent {
   static propTypes = {
     error: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -37,8 +39,10 @@ class ErrorPage extends React.Component {
 
     return (
       <div>
-        <h1>Error</h1>
-        <p>Sorry, a critical error occurred on this page.</p>
+        <h1>Oops</h1>
+        <p>
+          This page cannot be found. Go to the <Link to="/">Homepage</Link>
+        </p>
       </div>
     );
   }

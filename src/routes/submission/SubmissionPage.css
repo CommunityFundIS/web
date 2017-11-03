@@ -1,0 +1,43 @@
+@import '../../components/variables.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.subHeading {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.panel {
+  margin-bottom: 15px;
+}
+
+.heading {
+  font-size: 16px;
+  font-family: 'RisingSunDemiBold', sans-serif;
+  color: #2c82c9;
+  margin-bottom: 3px;
+}
+
+.date {
+  color: #909090;
+}
+
+.label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 7px;
+  max-width: 500px;
+}
