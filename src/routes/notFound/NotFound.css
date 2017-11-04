@@ -1,4 +1,4 @@
-@import '../../components/variables.css';
+@import '../../components/variables.scss';
 
 .root {
   display: flex;

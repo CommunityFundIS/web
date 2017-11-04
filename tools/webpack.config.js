@@ -182,10 +182,6 @@ const config = {
           },
         ],
       },
-      {
-        test: /\.handlebars$/,
-        loader: 'handlebars-loader',
-      },
 
       // Rules for images
       {

@@ -38,7 +38,12 @@ const context = {
   }),
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
-  store: configureStore(window.App.state, { history }),
+  store: configureStore(window.App.state, {
+    history,
+    fetch: createFetch(fetch, {
+      baseUrl: window.App.apiUrl,
+    }),
+  }),
   storeSubscription: null,
 };
 

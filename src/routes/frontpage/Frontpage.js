@@ -10,7 +10,7 @@ import Header from '../../components/Header';
 import { partners, sponsors, supporters } from './backers';
 
 import rvkImage from '../../../public/img/rvk3.png';
-import s from './Frontpage.css';
+import s from './Frontpage.scss';
 
 const Company = ({ name, url, logo, description }, index) => (
   <div key={index} className={s.backerContainer}>

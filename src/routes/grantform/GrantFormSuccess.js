@@ -19,8 +19,8 @@ const GrantFormSuccess = ({ id, email }) => {
         <h1>Thank you for your application!</h1>
         <h2 className={s.subHeading}>What will happen now?</h2>
         <ul className={s.nextSteps}>
-          {steps.map((stepText, i) => (
-            <li key={i} className={s.step}>
+          {steps.map(stepText => (
+            <li key={stepText} className={s.step}>
               {stepText}
             </li>
           ))}
@@ -35,9 +35,10 @@ const GrantFormSuccess = ({ id, email }) => {
     </div>
   );
 };
+
 GrantFormSuccess.propTypes = {
-  id: PropTypes.string,
-  email: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default connect(

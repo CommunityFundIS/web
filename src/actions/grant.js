@@ -20,6 +20,9 @@ const validateInput = (store, field, value, onSubmit) => {
   if (field === 'date') {
     if (value.unix() < Date.now() / 1000) {
       return 'Past date';
+    } else if (value.unix() - 172800 < Date.now() / 1000) {
+      // We need more than two days
+      return 'We need more time to process the application';
     }
   }
 

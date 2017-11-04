@@ -113,8 +113,14 @@ const SubmissionPage = ({ currentUser, submission, status }) => {
 };
 SubmissionPage.propTypes = {
   currentUser: PropTypes.shape(),
-  submission: PropTypes.object,
-  status: PropTypes.object,
+  submission: PropTypes.shape(),
+  status: PropTypes.shape(),
+};
+
+SubmissionPage.defaultProps = {
+  currentUser: {},
+  submission: {},
+  status: {},
 };
 
 export default connect(

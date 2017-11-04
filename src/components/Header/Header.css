@@ -1,4 +1,4 @@
-@import '../../components/variables.css';
+@import '../../components/variables.scss';
 
 .container {
   width: 100%;

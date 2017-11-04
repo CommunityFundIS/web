@@ -1,7 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Login.css';
-import Link from '../../components/Link';
+import s from './Login.scss';
 
 class Login extends React.Component {
   render() {
@@ -11,27 +10,26 @@ class Login extends React.Component {
           <h1 className={s.lead}>Log in</h1>
           <form method="post" action="/login/username" className={s.form}>
             <div className={s.formGroup}>
-              <label className={s.label} htmlFor="usernameOrEmail">
+              <label className={s.label} htmlFor="username">
                 USERNAME:
+                <input
+                  className={s.input}
+                  id="username"
+                  type="text"
+                  name="username"
+                />
               </label>
-              <input
-                className={s.input}
-                id="username"
-                type="text"
-                name="username"
-                autoFocus
-              />
             </div>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="password">
                 PASSWORD:
+                <input
+                  className={s.input}
+                  id="password"
+                  type="password"
+                  name="password"
+                />
               </label>
-              <input
-                className={s.input}
-                id="password"
-                type="password"
-                name="password"
-              />
             </div>
             <div className={s.breaker} />
             <div className={s.buttonGroup}>

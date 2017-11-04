@@ -157,7 +157,7 @@ const createSubmission = {
 
     await Promise.all([
       sendEmailToApplicant(email, firstName, submission),
-      sendEmailToCF(submission),
+      !__DEV__ ? sendEmailToCF(submission) : Promise.resolve(),
     ]);
 
     return submission;

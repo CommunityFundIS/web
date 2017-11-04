@@ -5,8 +5,8 @@ import GrantFormSuccess from './GrantFormSuccess';
 
 export default [
   {
-    path: '/grant',
-    async action() {
+    path: '',
+    action() {
       return {
         title: 'Apply for a grant',
         component: <GrantForm />,
@@ -14,8 +14,8 @@ export default [
     },
   },
   {
-    path: '/grant/success',
-    async action({ store }) {
+    path: '/success',
+    action({ store }) {
       const { grant: { submission } } = store.getState();
 
       if (!submission) {

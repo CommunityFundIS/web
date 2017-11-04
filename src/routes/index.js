@@ -19,38 +19,20 @@ const routes = {
       path: '',
       load: () => import(/* webpackChunkName: 'frontpage' */ './frontpage'),
     },
-    // {
-    //   path: '/about',
-    //   load: () =>
-    //     import(/* webpackChunkName: 'about' */ './content-pages/About')
-    // },
-    // {
-    //   path: '/guidelines',
-    //   load: () =>
-    //     import(/* webpackChunkName: 'guidelines' */ './content-pages/Guidelines')
-    // },
-    // {
-    //   path: '/login',
-    //   load: () => import(/* webpackChunkName: 'login' */ './login')
-    // },
-    // {
-    //   path: '/register',
-    //   load: () => import(/* webpackChunkName: 'register' */ './register')
-    // },
-    // {
-    //   path: '/about',
-    //   load: () => import(/* webpackChunkName: 'about' */ './about')
-    // },
-    // {
-    //   path: '/privacy',
-    //   load: () => import(/* webpackChunkName: 'privacy' */ './privacy')
-    // },
-    // {
-    //   path: '/admin',
-    //   load: () => import(/* webpackChunkName: 'admin' */ './admin')
-    // },
-
-    ...import('./grantform'),
+    {
+      path: '/about',
+      load: () =>
+        import(/* webpackChunkName: 'about' */ './content-pages/About'),
+    },
+    {
+      path: '/guidelines',
+      load: () =>
+        import(/* webpackChunkName: 'guidelines' */ './content-pages/Guidelines'),
+    },
+    {
+      path: '/grant',
+      children: require('./grantform').default,
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

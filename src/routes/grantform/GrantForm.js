@@ -1,10 +1,10 @@
 /* eslint no-shadow: ["error", { "allow": ["inputChange","submitGrant"]}] */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReCAPTCHA from 'react-google-recaptcha';
+import DatePickerStyles from 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -12,7 +12,7 @@ import { inputChange, submitGrant } from '../../actions/grant';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Link from '../../components/Link';
-import s from './GrantForm.css';
+import s from './GrantForm.scss';
 
 const InputWithError = ({
   type,
@@ -33,6 +33,7 @@ const InputWithError = ({
     {errorMessage && <div className={s.inputErrorMessage}>{errorMessage}</div>}
   </div>
 );
+
 InputWithError.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
@@ -40,6 +41,15 @@ InputWithError.propTypes = {
   className: PropTypes.string,
   errorMessage: PropTypes.string,
   onChange: PropTypes.func,
+};
+
+InputWithError.defaultProps = {
+  type: 'text',
+  value: '',
+  placeholder: '',
+  className: null,
+  errorMessage: null,
+  onChange: () => {},
 };
 
 const TextareaWithError = ({
@@ -74,6 +84,15 @@ TextareaWithError.propTypes = {
   onChange: PropTypes.func,
 };
 
+TextareaWithError.defaultProps = {
+  type: 'text',
+  value: '',
+  placeholder: '',
+  className: null,
+  errorMessage: null,
+  onChange: () => {},
+};
+
 const DatepickerWithError = ({
   value,
   placeholder,
@@ -95,8 +114,9 @@ const DatepickerWithError = ({
     {errorMessage && <div className={s.inputErrorMessage}>{errorMessage}</div>}
   </div>
 );
+
 DatepickerWithError.propTypes = {
-  value: PropTypes.object,
+  value: PropTypes.shape(),
   placeholder: PropTypes.string,
   dateFormat: PropTypes.string,
   locale: PropTypes.string,
@@ -105,11 +125,20 @@ DatepickerWithError.propTypes = {
   onChange: PropTypes.func,
 };
 
+DatepickerWithError.defaultProps = {
+  value: null,
+  placeholder: 'Date',
+  dateFormat: 'DD/MM/YYYY',
+  locale: 'en',
+  className: null,
+  errorMessage: null,
+  onChange: () => {},
+};
 class GrantForm extends Component {
   static propTypes = {
     inputChange: PropTypes.func.isRequired,
     submitGrant: PropTypes.func.isRequired,
-    date: PropTypes.object,
+    date: PropTypes.shape(),
     name: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
@@ -117,21 +146,32 @@ class GrantForm extends Component {
     totalCost: PropTypes.string,
     description: PropTypes.string,
     summary: PropTypes.string,
-    errors: PropTypes.object,
+    errors: PropTypes.shape(),
+  };
+  static defaultProps = {
+    date: null,
+    name: '',
+    email: '',
+    phone: '',
+    askAmount: '',
+    totalCost: '',
+    description: '',
+    summary: '',
+    errors: {},
   };
   render() {
     const {
       inputChange,
       submitGrant,
-      date = null,
-      name = '',
-      email = '',
-      phone = '',
-      askAmount = '',
-      totalCost = '',
-      description = '',
-      summary = '',
-      errors = {},
+      date,
+      name,
+      email,
+      phone,
+      askAmount,
+      totalCost,
+      description,
+      summary,
+      errors,
     } = this.props;
 
     return (
@@ -180,10 +220,8 @@ class GrantForm extends Component {
 
           <DatepickerWithError
             value={date}
-            placeholder="Date"
             dateFormat="DD/MM/YYYY"
             onChange={value => inputChange('date', value)}
-            locale="en"
             className={s.date}
             errorMessage={errors.date}
           />
@@ -242,13 +280,19 @@ class GrantForm extends Component {
           </div>
 
           <div className={s.sendContainer}>
-            <div className={s.send} onClick={() => submitGrant()}>
+            <div
+              className={s.send}
+              onClick={() => submitGrant()}
+              role="button"
+              onKeyPress={({ key }) => key === 'Enter' && submitGrant()}
+              tabIndex={0}
+            >
               Send
             </div>
           </div>
           {errors.form && (
             <div className={s.formErrorMessage}>
-              {errors.form.map(error => <p>{error}</p>)}
+              {errors.form.map(error => <p key={error}>{error}</p>)}
             </div>
           )}
         </div>
@@ -267,4 +311,4 @@ export default connect(
     inputChange,
     submitGrant,
   },
-)(withStyles(s)(GrantForm));
+)(withStyles(s, DatePickerStyles)(GrantForm));

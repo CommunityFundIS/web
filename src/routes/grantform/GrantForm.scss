@@ -1,9 +1,4 @@
-@import '../../components/variables.css';
-
-:global {
-  /* We need to import the styles for the datepicker without processing them */
-  @import 'react-datepicker/dist/react-datepicker.css';
-}
+@import '../../components/variables.scss';
 
 .container {
   width: 100%;
@@ -34,7 +29,6 @@
 
 .label {
   font-size: 19px;
-  font-family: 'RisingSunDemiBold', sans-serif;
   color: #95989a;
 }
 
@@ -55,35 +49,29 @@
   height: 40px;
   padding-left: 10px;
   border: 1px solid #c6cacc;
-  border-top: 0.1px solid #c6cacc;
   border-radius: 1px;
   outline: none;
   background: #fafafa;
   width: 100%;
   font-size: 15px;
-  font-family: 'RisingSunDemiBold', sans-serif;
   color: #808080;
   box-sizing: border-box;
 }
 
 .input::-webkit-input-placeholder {
   color: #95989a;
-  font-family: 'RisingSunRegular', sans-serif;
 }
 
 .input::-moz-placeholder {
   color: #95989a;
-  font-family: 'RisingSunRegular', sans-serif;
 }
 
 .input:-ms-input-placeholder {
   color: #95989a;
-  font-family: 'RisingSunRegular', sans-serif;
 }
 
 .input:-moz-placeholder {
   color: #95989a;
-  font-family: 'RisingSunRegular', sans-serif;
 }
 
 .contactContainer {
@@ -152,7 +140,6 @@
   margin-top: -25px;
   background: #2677c2;
   border-radius: 4px;
-  font-family: 'RisingSunDemiBold', sans-serif;
   font-size: 16px;
   color: #fff;
   cursor: pointer;
