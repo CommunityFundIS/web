@@ -1,5 +1,9 @@
+@import '../../components/reset.scss';
 @import '../../components/variables.scss';
 
+body {
+  font-family: $lato;
+}
 .container {
   width: 100%;
   margin: auto;
@@ -39,7 +43,7 @@
 .headline {
   max-width: 550px;
   font-size: 3em;
-  font-family: --lato;
+  font-family: $lato;
   color: #fff;
   line-height: 60px;
   letter-spacing: 2px;
@@ -49,7 +53,7 @@
   margin-top: 35px;
   font-size: 1.2em;
   color: #fff;
-  font-family: --lato;
+  font-family: $lato;
 }
 
 @media (max-width: 768px) {
@@ -70,7 +74,7 @@
   text-decoration: none;
   border-radius: 4px;
   color: #fff;
-  font-family: --lato;
+  font-family: $lato;
   font-weight: 600;
   font-size: 16px;
   z-index: 10;
@@ -103,8 +107,15 @@
 }
 
 .hands {
-  width: auto;
-  max-height: 300px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: auto;
+    max-height: 300px;
+  }
 }
 
 .newsletterHeading {
@@ -216,7 +227,7 @@
   max-width: 700px;
   font-size: 2.6em;
   font-weight: 400;
-  font-family: --lato;
+  font-family: $lato;
   color: #fff;
   text-align: center;
   letter-spacing: 1px;
@@ -302,18 +313,19 @@
   margin-top: 80px;
   margin-bottom: 40px;
   background: #fff;
-}
+  box-shadow: 0 13px 20px 2px rgba(0, 0, 0, 0.05);
 
-.handoutContainer > p {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: 100%;
-  margin-top: 40px;
-  font-size: 1.8em;
-  line-height: 1.3em;
-  color: #646464;
-  font-family: --lato;
+  p {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+    font-size: 1.8em;
+    text-align: center;
+    line-height: 1.3em;
+    color: #646464;
+  }
 }
 
 @media (max-width: 880px) {

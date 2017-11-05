@@ -1,11 +1,9 @@
-
 .voteForm {
   margin-bottom: 20px;
 }
 
 .heading {
   font-size: 16px;
-  font-family: 'RisingSunDemiBold', sans-serif;
   color: #2c82c9;
   margin-bottom: 3px;
 }
@@ -31,7 +29,7 @@
   margin-right: 10px;
   background: #2677c2;
   border-radius: 4px;
-  font-family: 'RisingSunDemiBold', sans-serif;
+  font-family: $lato;
   font-size: 16px;
   color: #fff;
   cursor: pointer;
@@ -47,7 +45,7 @@
   margin-top: -25px;
   background: #ffc14b;
   border-radius: 4px;
-  font-family: 'RisingSunDemiBold', sans-serif;
+  font-family: $lato;
   font-size: 16px;
   color: #fff;
   cursor: pointer;

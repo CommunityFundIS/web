@@ -1,4 +1,4 @@
-# Grant review guidelines #
+# Grant review guidelines
 
 The following are the guidelines the grant review boards follows to support their decision making.
 
@@ -20,7 +20,7 @@ The Community Fund mainly supports open initiatives and events (i.e. that are op
 The Community Fund aims to support projects that require small amounts of money to have an intended impact. We want the fund’s support  to have an impact.
 - This means that the fund might not support bigger events where a smaller grant contribution will not impact the viability of the event in a meaningful way.
 
-# Guidelines / Terms to grant receivers #
+# Guidelines / Terms to grant receivers
 
 Events that receive grants should mention that the event is sponsored by the Community Fund and link to the website. (see confirmation email for further info)
 
@@ -28,7 +28,7 @@ By accepting the grant, grant are accountable for using  the grant in accordance
 
 Grant receivers give the Community Fund and its partners and operators full rights to mention the event or project in marketing and press material related to the fund.
 
-# About the fund #
+# About the fund
 
 The Community Fund empowers the grassroots of the tech community in Iceland by easing their access to funds and support. It is created for smaller projects like meetups, workshops, knowledge sharing and conference preparation, that are likely to enrich the tech community.
 

@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Header from '../../components/Header';
-import s from './SubmissionPage.css';
+import s from './SubmissionPage.scss';
 import VoteForm from './VoteForm';
 
 const SubmissionDetails = ({

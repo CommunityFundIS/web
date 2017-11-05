@@ -5,7 +5,6 @@ import { Parallax } from 'react-parallax';
 import cx from 'classnames';
 
 import Link from '../../components/Link';
-import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { partners, sponsors, supporters } from './backers';
 
@@ -103,7 +102,7 @@ class Frontpage extends Component {
               </p>
 
               <p>
-                Read our <Link to="/grant">guidelines</Link> to learn more.
+                Read our <Link to="/guidelines">guidelines</Link> to learn more.
               </p>
 
               <h3 className={s.newsletterHeading}>
@@ -136,18 +135,18 @@ class Frontpage extends Component {
                 />
               </form>
             </div>
-            <img
-              className={s.hands}
-              src="/img/community_hands.png"
-              alt="hands"
-            />
+            <div className={s.hands}>
+              <img src="/img/community_hands.png" alt="hands" />
+            </div>
           </div>
         </div>
         <div className={s.thirdContainer}>
           <Parallax bgImage={rvkImage} strength={140} className={s.parallax}>
             <div className={s.parallaxContainer}>
               <div className={s.parallaxImageOverlay} />
-              <h1 style={{ zIndex: '10' }}>HERE ARE OUR AWESOME PARTNERS</h1>
+              <h1 style={{ zIndex: '10', fontSize: '3rem' }}>
+                OUR AWESOME PARTNERS
+              </h1>
             </div>
           </Parallax>
         </div>
@@ -176,7 +175,6 @@ class Frontpage extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
