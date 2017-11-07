@@ -33,6 +33,10 @@ const routes = {
       path: '/grant',
       children: require('./grantform').default,
     },
+    {
+      path: '/submission',
+      children: require('./submission').default,
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

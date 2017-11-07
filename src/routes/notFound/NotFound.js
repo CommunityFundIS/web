@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './NotFound.css';
+import s from './NotFound.scss';
 
 class NotFound extends React.Component {
   render() {

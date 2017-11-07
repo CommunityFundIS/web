@@ -4,7 +4,7 @@ import { fetchSubmission } from '../../actions/submission';
 
 export default [
   {
-    path: '/submission/:id',
+    path: '/:id',
 
     async action({ params, store }) {
       const { id } = params;

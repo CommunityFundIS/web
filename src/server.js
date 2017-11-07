@@ -25,7 +25,7 @@ import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
-import models from './data/models';
+import models, { User } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -33,6 +33,8 @@ import { setRuntimeVariable } from './actions/runtime';
 import config from './config';
 
 const app = express();
+
+const COOKIE_TOKEN_NAME = 'id_token';
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -52,13 +54,47 @@ app.use(bodyParser.json());
 //
 // Authentication
 // -----------------------------------------------------------------------------
+app.use((req, res, next) => {
+  const token = req.query && req.query.token;
+
+  // Always override if we have token
+  if (token) {
+    req.cookies[COOKIE_TOKEN_NAME] = token;
+    res.cookie(COOKIE_TOKEN_NAME, token, {
+      maxAge: 1000 * 15 * 60,
+      httpOnly: true,
+    });
+  }
+  next();
+});
+
 app.use(
   expressJwt({
     secret: config.auth.jwt.secret,
     credentialsRequired: false,
-    getToken: req => req.cookies.id_token,
+    getToken: req => req.cookies[COOKIE_TOKEN_NAME],
   }),
 );
+
+app.use(async (req, res, next) => {
+  if (req.user) {
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+      raw: true,
+    });
+
+    if (user) {
+      delete user.password;
+      delete user.updatedAt;
+      req.user = user;
+    }
+  }
+
+  return next();
+});
+
 // Error handler for express-jwt
 app.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
@@ -106,7 +142,7 @@ app.use(
     schema,
     graphiql: __DEV__,
     rootValue: {
-      request: req,
+      req,
       fetch: createFetch(nodeFetch, {
         baseUrl: config.api.serverUrl,
         cookie: req.headers.cookie,
@@ -130,7 +166,7 @@ app.get('*', async (req, res, next) => {
     });
 
     const initialState = {
-      user: req.user || null,
+      user: req.user || {},
     };
 
     const store = configureStore(initialState, {

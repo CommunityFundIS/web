@@ -1,3 +1,4 @@
+@import '../../components/reset.scss';
 @import '../../components/variables.scss';
 
 .root {
@@ -9,4 +10,7 @@
   height: 100vh;
   background: #262626;
   color: white;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-family: $lato;
 }

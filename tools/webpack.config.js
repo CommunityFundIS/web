@@ -64,6 +64,10 @@ const config = {
     strictExportPresence: true,
 
     rules: [
+      {
+        test: /\.handlebars$/,
+        loader: 'handlebars-loader',
+      },
       // Rules for JS / JSX
       {
         test: reScript,
@@ -237,7 +241,15 @@ const config = {
       // Return public URL for all assets unless explicitly excluded
       // DO NOT FORGET to update `exclude` list when you adding a new loader
       {
-        exclude: [reScript, reStyle, reImage, /\.json$/, /\.txt$/, /\.md$/],
+        exclude: [
+          reScript,
+          reStyle,
+          reImage,
+          /\.json$/,
+          /\.txt$/,
+          /\.md$/,
+          /\.handlebars$/,
+        ],
         loader: 'file-loader',
         options: {
           name: staticAssetName,
