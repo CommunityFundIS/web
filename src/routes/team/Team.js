@@ -1,62 +1,143 @@
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
+import { Card, Icon, Image, Container, Header } from 'semantic-ui-react';
 import s from './Team.scss';
+
+const reviewers = [
+  {
+    name: 'Arndís Ósk Jónsdóttir',
+    about: '',
+    nominator: 'Tempo',
+    image: '/img/team/arndis.png',
+    nominatorUrl: 'https://tempo.io',
+  },
+  {
+    name: 'Guðbjörg Rist Jónsdóttir',
+    about: '',
+    nominator: 'Northstack',
+    image: '/img/team/gudbjorg.jpg',
+    nominatorUrl: 'http://northstack.is',
+  },
+  {
+    name: 'Hjálmar Gíslason',
+    about: '',
+    nominator: 'Investa',
+    image: '/img/team/hjalli.jpg',
+    nominatorUrl: 'http://investa.is',
+  },
+  {
+    name: 'Kristján Ingi Mikaelsson',
+    about: '',
+    nominator: 'Community Fund',
+    image: '/img/team/kristjanmik.jpg',
+    nominatorUrl: 'https://communityfund.co',
+  },
+  {
+    name: 'Vignir Örn Guðmundsson',
+    about: '',
+    nominator: 'SUT',
+    image: '/img/team/vignir.png',
+    nominatorUrl: 'http://www.si.is/hugverk-og-thjonusta/sut',
+  },
+];
+
+const operators = [
+  {
+    name: 'Kristinn Árni Lár Hróbjartsson',
+    image: '/img/team/kiddi_kassi.png',
+    about: '',
+    phone: '',
+  },
+  {
+    name: 'Kristján Ingi Mikaelsson',
+    image: '/img/team/kristjanmik.jpg',
+    about: '',
+    phone: '696-4523',
+  },
+];
 
 class Team extends Component {
   render() {
     return (
-      <div className={s.container}>
-        <div className={s.personCategory}>Grant review board</div>
-        <div className={s.people}>
-          <div className={s.person}>
-            <img src="/img/team/arndis.png" alt="Arndís Ósk Jónsdóttir" />
-            <h2>Arndís Ósk Jónsdóttir</h2>
-            <h2>Tempo</h2>
-          </div>
-          <div className={s.person}>
-            <img src="/img/team/gudbjorg.jpg" alt="Guðbjörg Rist Jónsdóttir" />
-            <h2>Guðbjörg Rist Jónsdóttir</h2>
-            <h2>Northstack</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/team/hjalli.jpg"
-              alt="Kristinn Árni Lár Hróbjartsson"
-            />
-            <h2>Hjálmar Gíslason</h2>
-            <h2>Investa</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
-            />
-            <h2>Kristján Ingi Mikaelsson</h2>
-            <h2>Community Fund</h2>
-          </div>
-          <div className={s.person}>
-            <img src="/img/team/vignir.png" alt="Vignir Örn Guðmundsson" />
-            <h2>Vignir Örn Guðmundsson</h2>
-            <h2>SUT</h2>
-          </div>
-        </div>
-        <div className={s.personCategory}>Operators</div>
-        <div className={s.people}>
-          <div className={s.person}>
-            <img
-              src="/img/team/kiddi_kassi.png"
-              alt="Kristinn Árni Lár Hróbjartsson"
-            />
-            <h2>Kristinn Árni Lár Hróbjartsson</h2>
-          </div>
-          <div className={s.person}>
-            <img
-              src="/img/team/kristjanmik.jpg"
-              alt="Kristján Ingi Mikaelsson"
-            />
-            <h2>Kristján Ingi Mikaelsson</h2>
-          </div>
-        </div>
+      <div>
+        <Header
+          as="h1"
+          style={{
+            fontSize: '2rem',
+            fontWeight: 'normal',
+            textTransform: 'uppercase',
+            padding: '2em 0 1em',
+          }}
+          textAlign="center"
+        >
+          Review Board
+        </Header>
+        <Container
+          as={Card.Group}
+          itemsPerRow={5}
+          doubling
+          style={{ justifyContent: 'center' }}
+        >
+          {reviewers.map(({ name, image, about, nominator, nominatorUrl }) => (
+            <Card>
+              <Image src={image} />
+              <Card.Content>
+                <Card.Header>{name}</Card.Header>
+                <Card.Description>{about}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a href={nominatorUrl} target="_blank">
+                  <Icon name="user" />
+                  {nominator}
+                </a>
+              </Card.Content>
+            </Card>
+          ))}
+        </Container>
+
+        <Header
+          as="h1"
+          style={{
+            fontSize: '2rem',
+            fontWeight: 'normal',
+            textTransform: 'uppercase',
+            padding: '2em 0 1em',
+          }}
+          textAlign="center"
+        >
+          Operators
+        </Header>
+        <Container
+          as={Card.Group}
+          itemsPerRow={2}
+          style={{ justifyContent: 'center' }}
+        >
+          {operators.map(({ name, image, about, phone }) => (
+            <Card style={{ maxWidth: 275 }}>
+              <Image src={image} />
+              <Card.Content>
+                <Card.Header>{name}</Card.Header>
+                <Card.Description>{about}</Card.Description>
+                <Card.Description style={{ margin: '8px 0 3px' }}>
+                  <a href={`tel:${phone}`} style={{ color: 'rgba(0,0,0,.4)' }}>
+                    <Icon name="phone" />
+                    696-4523
+                  </a>
+                </Card.Description>
+                <Card.Description>
+                  <a
+                    href="mailto:hello@communityfund.co"
+                    style={{ color: 'rgba(0,0,0,.4)' }}
+                  >
+                    <Icon name="mail outline" />
+                    hello@communityfund.co
+                  </a>
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          ))}
+        </Container>
       </div>
     );
   }
