@@ -204,7 +204,6 @@ app.get('*', async (req, res, next) => {
 
     if (route.redirect) {
       res.redirect(route.status || 302, route.redirect);
-      return;
     }
 
     const data = { ...route };
@@ -251,8 +250,7 @@ app.use((err, req, res, next) => {
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,
   );
-  res.status(err.status || 500);
-  res.send(`<!doctype html>${html}`);
+  res.status(err.status || 500).send(`<!doctype html>${html}`);
 });
 
 //
