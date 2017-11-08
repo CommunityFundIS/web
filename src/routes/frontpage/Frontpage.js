@@ -14,7 +14,6 @@ import {
   Card,
   Step,
   Message,
-  Label,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styles from 'semantic-ui-css/semantic.min.css';
@@ -22,71 +21,9 @@ import styles from 'semantic-ui-css/semantic.min.css';
 import { partners, sponsors, supporters } from './backers';
 import Footer from '../../components/Footer';
 import HeaderMenu from '../../components/HeaderMenu';
+import People from '../../components/People';
 
 import s from './Frontpage.scss';
-
-import people from './people';
-
-const Person = ({ id, name, image, title, topics, topicsCount }) => (
-  <Card style={{ maxWidth: '212px' }} href={`/person/${id}`}>
-    <div style={{ position: 'relative' }}>
-      <Image src={image} />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          alignItems: 'flex-start',
-          position: 'absolute',
-          left: 14,
-          bottom: 2,
-        }}
-      >
-        {topics.slice(0, topicsCount).map(topic => (
-          <object key={topic.name}>
-            <Label
-              as="a"
-              color={topic.color}
-              size="tiny"
-              ribbon
-              style={{ marginBottom: 8 }}
-              href={`/people?filter=${topic.name}`}
-            >
-              {topic.name}
-            </Label>
-          </object>
-        ))}
-      </div>
-    </div>
-
-    <Card.Content>
-      <Card.Header>{name}</Card.Header>
-      <Card.Meta style={{ fontSize: '0.9em' }}>{title}</Card.Meta>
-    </Card.Content>
-  </Card>
-);
-
-Person.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  image: PropTypes.string,
-  title: PropTypes.string,
-  topics: PropTypes.arrayOf(
-    PropTypes.shape({
-      color: PropTypes.string,
-      name: PropTypes.string,
-    }),
-  ),
-  topicsCount: PropTypes.number,
-};
-
-Person.defaultProps = {
-  name: '',
-  image: '',
-  title: '',
-  topics: [],
-  topicsCount: 3,
-};
 
 const Sponsor = ({ name, logo, url, description, type }) => (
   <Card
@@ -417,21 +354,10 @@ class Frontpage extends Component {
           >
             Meet the community
           </Header>
-          <Card.Group
-            itemsPerRow={4}
-            doubling
-            style={{ justifyContent: 'center' }}
-          >
-            {people
-              .slice(0, pageWidth > 991 ? 12 : 6)
-              .map(data => (
-                <Person
-                  {...data}
-                  key={data.name}
-                  topicsCount={pageWidth >= 460 ? 3 : 2}
-                />
-              ))}
-          </Card.Group>
+          <People
+            count={pageWidth > 991 ? 12 : 6}
+            topicsCount={pageWidth >= 460 ? 3 : 2}
+          />
 
           <Container textAlign="center" style={{ marginTop: '2em' }}>
             <Button href="/people" size="large">

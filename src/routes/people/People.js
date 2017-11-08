@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './People.scss';
+import { Container } from 'semantic-ui-react';
+import People from '../../components/People';
 
-class People extends Component {
+export default class PeopleRoute extends Component {
   render() {
-    return <div>People page</div>;
+    return (
+      <Container style={{ padding: '2em 1em 4em 1em' }}>
+        <People count={12} topicsCount={3} />
+      </Container>
+    );
   }
 }
-
-export default withStyles(s)(People);
