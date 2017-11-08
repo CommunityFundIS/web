@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import s from './Team.css';
+import s from './Team.scss';
 
 class Team extends Component {
   render() {
     return (
       <div className={s.container}>
-        <Header />
-        <div className={s.headerText}>TEAM</div>
         <div className={s.personCategory}>Grant review board</div>
         <div className={s.people}>
           <div className={s.person}>
@@ -61,7 +57,6 @@ class Team extends Component {
             <h2>Kristján Ingi Mikaelsson</h2>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

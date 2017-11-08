@@ -1,15 +1,10 @@
 @import '../../components/variables.scss';
 
-.container {
-  max-width: 900px;
-}
-
 .content {
-  margin: 40px 20px 50px;
   color: #333;
   line-height: 1.4;
   font-size: 1.1em;
-  font-family: Helvetica;
+  font-family: $lato;
 
   header,
   nav,
@@ -48,7 +43,7 @@
   -------------------------------------------------------- */
 
   h1 {
-    margin-top: 0;
+    margin-top: 1em;
     font-weight: normal;
   }
 

@@ -1,0 +1,17 @@
+.desktop {
+  display: none !important;
+  padding: 5em 0 !important;
+
+  @media (min-width: 768px) {
+    display: block !important;
+  }
+}
+
+.mobile {
+  display: none !important;
+  padding: 5em 0 !important;
+
+  @media (max-width: 767px) {
+    display: block !important;
+  }
+}

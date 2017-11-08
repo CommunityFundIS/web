@@ -1,7 +1,3 @@
-# Grant review guidelines
-
-The following are the guidelines the grant review boards follows to support their decision making.
-
 The Community Fund supports initiatives that focus on skill-sets that are essential to the tech community. These include, but are not limited to, the following:
 
 * Computer engineering / development and operations

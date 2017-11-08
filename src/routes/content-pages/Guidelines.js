@@ -9,7 +9,12 @@ export default async () => {
     chunks: ['guidelines'],
     title: 'Guidelines - Community Fund',
     component: (
-      <Layout.default>
+      <Layout.default
+        page="guidelines"
+        heading="Grant review guidelines"
+        description="The following are the guidelines the grant review boards follows to support their decision making."
+        background="/img/background_guidelines.jpg"
+      >
         <ContentPage.default content={content.html} />
       </Layout.default>
     ),

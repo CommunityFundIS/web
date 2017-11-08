@@ -37,13 +37,7 @@ class Html extends React.Component {
   };
 
   render() {
-    const { styles, scripts, app, children } = this.props;
-    let { title, description } = this.props;
-
-    title = title || 'Community Fund';
-    description =
-      description ||
-      'Community Fund support the Icelandic tech community by easing the access to capital for events.';
+    const { styles, scripts, app, children, title, description } = this.props;
 
     return (
       <html className="no-js" lang="en">

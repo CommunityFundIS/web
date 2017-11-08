@@ -20,14 +20,17 @@ const routes = {
       load: () => import(/* webpackChunkName: 'frontpage' */ './frontpage'),
     },
     {
-      path: '/about',
-      load: () =>
-        import(/* webpackChunkName: 'about' */ './content-pages/About'),
-    },
-    {
       path: '/guidelines',
       load: () =>
         import(/* webpackChunkName: 'guidelines' */ './content-pages/Guidelines'),
+    },
+    {
+      path: '/team',
+      load: () => import(/* webpackChunkName: 'team' */ './team'),
+    },
+    {
+      path: '/people',
+      load: () => import(/* webpackChunkName: 'people' */ './people'),
     },
     {
       path: '/grant',
@@ -48,9 +51,10 @@ const routes = {
     // Execute each child route until one of them return the result
     const route = await next();
 
-    // Provide default values for title, description etc.
-    route.title = `${route.title} - Community Fund`;
-    route.description = route.description || '';
+    route.title = route.title || 'Community Fund';
+    route.description =
+      route.description ||
+      'Community Fund support the Icelandic tech community by easing the access to capital for events.';
 
     return route;
   },

@@ -1,16 +1,15 @@
-.quoteContainer {
+.desktop {
   display: none !important;
 
-  @media (min-width: 600px) {
+  @media (min-width: 510px) {
     display: block !important;
   }
 }
 
-.sponsorDescription {
+.mobile {
   display: none !important;
-  color: rgba(0, 0, 0, 0.68);
 
-  @media (min-width: 800px) {
+  @media (max-width: 509px) {
     display: block !important;
   }
 }
