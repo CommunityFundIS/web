@@ -73,6 +73,12 @@ class Team extends Component {
         >
           Review Board
         </Header>
+        <Container text>
+          The grant review board is nominated by financial partners (3
+          nominations) and the two founders, Kristinn Hróbjartsson and Kristján
+          Mikaelsson. The review board votes on all applications. A simple
+          majority rules, and all votes are equal.
+        </Container>
         <Container
           as={Card.Group}
           itemsPerRow={5}
@@ -108,6 +114,12 @@ class Team extends Component {
         >
           Operators
         </Header>
+        <Container text>
+          The operators are responsible for all operational parts of the fund:
+          keeping the books, wiring the money, maintaining the website and so
+          forth. The operators, Kristinn and Kristján, are also the founders of
+          the fund.
+        </Container>
         <Container
           as={Card.Group}
           itemsPerRow={2}
@@ -138,6 +150,24 @@ class Team extends Component {
             </Card>
           ))}
         </Container>
+        {/* TODO: Add contributors */}
+        {/* <Header
+          as="h1"
+          style={{
+            fontSize: '2rem',
+            fontWeight: 'normal',
+            textTransform: 'uppercase',
+            padding: '2em 0 1em',
+          }}
+          textAlign="center"
+        >
+          Contributors
+        </Header>
+        <Container text>
+          True to its purpose, the Community Fund is a community initiative. 
+          We're lucky to have received the invaluable support and contributions 
+          from the tech community.
+        </Container> */}
       </div>
     );
   }
