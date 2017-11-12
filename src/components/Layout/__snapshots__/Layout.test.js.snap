@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout renders children correctly 1`] = `
-<div>
+Array [
   <div
     className="ui inverted vertical center aligned segment"
     style={
@@ -113,14 +113,14 @@ exports[`Layout renders children correctly 1`] = `
         
       </h2>
     </div>
-  </div>
+  </div>,
   <div
     className="ui vertical segment"
   >
     <div
       className="child"
     />
-  </div>
+  </div>,
   <div>
     <div
       className="ui inverted vertical segment desktop"
@@ -316,6 +316,6 @@ exports[`Layout renders children correctly 1`] = `
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
