@@ -152,7 +152,7 @@ class Frontpage extends Component {
               />
               <Header
                 as="h2"
-                content="We support the Icelandic tech community by easing the access to capital for events."
+                content="We support the Icelandic tech community by funding events and initiatives."
                 inverted
                 style={{ fontSize: '1.6rem', fontWeight: 'normal' }}
               />
@@ -187,10 +187,9 @@ class Frontpage extends Component {
                   Plan events around your passion
                 </Header>
                 <p style={{ fontSize: '1.33em', marginBottom: '1em' }}>
-                  We grow the tech and startup community closer together by
-                  making events, meetups, and other initiatives easier to
-                  execute. Our partners provide funding, experience, and
-                  connections to make your event a success.
+                  Our mission is to build a stronger tech community by
+                  supporting events and initiatives driven by the community,
+                  that foster skill development and knowledge sharing.
                 </p>
                 {/* <Divider /> */}
               </Grid.Column>
@@ -286,7 +285,9 @@ class Frontpage extends Component {
                 {pageWidth > 730 && <Icon name="wpforms" />}
                 <Step.Content>
                   <Step.Title>Application</Step.Title>
-                  <Step.Description>Apply for a grant</Step.Description>
+                  <Step.Description>
+                    Takes less than 15 minutes
+                  </Step.Description>
                 </Step.Content>
               </Step>
 
@@ -297,8 +298,10 @@ class Frontpage extends Component {
               >
                 {pageWidth > 730 && <Icon name="users" />}
                 <Step.Content>
-                  <Step.Title>Review Committee</Step.Title>
-                  <Step.Description>Application is reviewed</Step.Description>
+                  <Step.Title>We Review</Step.Title>
+                  <Step.Description>
+                    We answer within 5 working days
+                  </Step.Description>
                 </Step.Content>
               </Step>
 
@@ -310,7 +313,9 @@ class Frontpage extends Component {
                 {pageWidth > 730 && <Icon name="check" />}
                 <Step.Content>
                   <Step.Title>Funds Wired</Step.Title>
-                  <Step.Description>We wire you the funds</Step.Description>
+                  <Step.Description>
+                    Within two days if accepted
+                  </Step.Description>
                 </Step.Content>
               </Step>
             </Step.Group>
@@ -319,28 +324,27 @@ class Frontpage extends Component {
           <Container text>
             {step === 'one' && (
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
-                It takes you around 15 minutes to fill out our super convenient
-                form. The form guides you through the whole process. Make sure
-                you read our <a href="/guidelines">guidelines</a> before you
-                submit your <a href="/grant">application</a>.
+                Fill out a simple form describing your event or initiative.
+                Please make sure to read our{' '}
+                <a href="/guidelines">guidelines</a>
+                before submitting an <a href="/grant">application.</a>
               </p>
             )}
             {step === 'two' && (
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
-                The review committee consists of 5 members nominated by our
-                financial partners and operators. We always get back to you
-                within 3 working days and reply to you even if the application
-                is rejected. You can read more about our committee members
-                <a href="/team">here</a>
+                Our five person review committee votes on the application. We
+                try very hard to answer all applications within 5 working days.
+                Read more about our review committee <a href="/team">here</a>
               </p>
             )}
             {step === 'three' && (
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
-                If the application was approved we will wire you the funds to
-                your bank account. At this point you should be ready to go, but
-                you can always{' '}
-                <a href="mailto:hello@communityfund.co">reach out</a> to us if
-                you require any assistance.
+                We will wire you the money within two days of your application
+                being accepted. At this point you should be ready to go, but you
+                can always <a href="mailto:hello@communityfund.co">
+                  reach out
+                </a>{' '}
+                to us if you require any assistance.
               </p>
             )}
           </Container>
