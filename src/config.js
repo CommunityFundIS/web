@@ -35,6 +35,10 @@ export default {
     user: process.env.AWS_SES_USER,
     password: process.env.AWS_SES_PASSWORD,
   },
+  AWS_S3: {
+    accessKey: process.env.AWS_S3_ACCESSKEY,
+    secretKey: process.env.AWS_S3_SECRETKEY,
+  },
   // Node.js app
   port,
   host: process.env.WEBSITE_HOSTNAME || `localhost:${port}`,

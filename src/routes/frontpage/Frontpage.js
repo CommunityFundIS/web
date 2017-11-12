@@ -16,9 +16,9 @@ import {
   Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import styles from 'semantic-ui-css/semantic.min.css';
 
 import { partners, sponsors, supporters } from './backers';
+import SemanticUI from '../../components/SemanticUI';
 import Footer from '../../components/Footer';
 import HeaderMenu from '../../components/HeaderMenu';
 import People from '../../components/People';
@@ -112,7 +112,7 @@ class Frontpage extends Component {
     const { quote } = this.props;
 
     return (
-      <div>
+      <SemanticUI>
         {visible && pageWidth > 509 ? <FixedMenu /> : null}
 
         <Visibility
@@ -367,9 +367,9 @@ class Frontpage extends Component {
         </Container>
 
         <Footer />
-      </div>
+      </SemanticUI>
     );
   }
 }
 
-export default withStyles(s, styles)(Frontpage);
+export default withStyles(s)(Frontpage);

@@ -4,7 +4,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import s from './GrantFormSuccess.css';
 import Link from '../../components/Link';
-import Header from '../../components/Header';
 
 const GrantFormSuccess = ({ id, email }) => {
   const steps = [
@@ -15,7 +14,6 @@ const GrantFormSuccess = ({ id, email }) => {
   return (
     <div className={s.container}>
       <div className={s.content}>
-        <Header />
         <h1>Thank you for your application!</h1>
         <h2 className={s.subHeading}>What will happen now?</h2>
         <ul className={s.nextSteps}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import { connect } from 'react-redux';
 import { Container, Menu, Button, Icon, Dimmer } from 'semantic-ui-react';
 
 import s from './HeaderMenu.scss';
@@ -22,7 +22,7 @@ class HeaderMenu extends React.Component {
     });
   }
   render() {
-    const { page } = this.props;
+    const { page, currentUser } = this.props;
     const { open } = this.state;
 
     return (
@@ -46,6 +46,7 @@ class HeaderMenu extends React.Component {
                 Apply
               </Button>
             </Menu.Item>
+            {/* Do something with currentUser {currentUser} */}
           </Menu>
         </Container>
         <Container onClick={() => this.handleClick()} className={s.mobile}>
@@ -83,4 +84,9 @@ class HeaderMenu extends React.Component {
   }
 }
 
-export default withStyles(s)(HeaderMenu);
+export default connect(
+  state => ({
+    currentUser: state.user,
+  }),
+  {},
+)(withStyles(s)(HeaderMenu));

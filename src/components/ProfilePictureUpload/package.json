@@ -1,0 +1,6 @@
+{
+  "name": "ProfilePictureUpload",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ProfilePictureUpload.js"
+}

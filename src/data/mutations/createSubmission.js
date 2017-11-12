@@ -32,7 +32,7 @@ export const sendEmailToCF = async submission => {
 export const sendEmailToReviewer = async (reviewer, submission) => {
   log('Sending grant review email', reviewer.email, submission.id);
 
-  const expiresIn = 60 * 60 * 24 * 15; // 15 days
+  const expiresIn = 60 * 60 * 24 * 30; // 30 days
   const token = jwt.sign(
     {
       id: reviewer.id,

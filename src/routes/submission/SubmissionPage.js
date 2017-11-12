@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Header from '../../components/Header';
 import s from './SubmissionPage.scss';
 import VoteForm from './VoteForm';
 
@@ -92,7 +91,6 @@ const SubmissionPage = ({ currentUser, submission, status }) => {
   return (
     <div className={s.container}>
       <div className={s.content}>
-        <Header />
         <SubmissionDetails {...submission} />
         {canVote && <VoteForm submissionId={submission.id} />}
         <div>

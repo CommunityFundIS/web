@@ -7,8 +7,15 @@
     "node": ">=6.5",
     "npm": ">=3.10"
   },
-  "browserslist": [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"],
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
   "dependencies": {
+    "aws-sdk": "^2.149.0",
+    "axios": "^0.17.1",
     "babel-polyfill": "7.0.0-beta.3",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
@@ -27,6 +34,7 @@
     "history": "^4.7.2",
     "isomorphic-style-loader": "^4.0.0",
     "jsonwebtoken": "^8.1.0",
+    "mime": "^2.0.3",
     "moment": "^2.19.1",
     "node-fetch": "^1.7.3",
     "node-sass": "^4.6.0",
@@ -44,6 +52,7 @@
     "react-async-script": "^0.9.1",
     "react-datepicker": "^0.59.0",
     "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.1",
     "react-google-recaptcha": "^0.9.7",
     "react-parallax": "^1.5.0",
     "react-redux": "^5.0.5",
@@ -58,6 +67,7 @@
     "simple-line-icons": "^2.4.1",
     "source-map-support": "^0.5.0",
     "universal-router": "^4.3.0",
+    "uuid": "^3.1.0",
     "validator": "^9.1.1",
     "whatwg-fetch": "^2.0.3"
   },
@@ -81,7 +91,7 @@
     "css-loader": "^0.28.7",
     "enzyme": "^3.1.1",
     "enzyme-adapter-react-16": "^1.0.4",
-    "eslint": "^4.9.0",
+    "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-import-resolver-node": "^0.3.1",
@@ -144,9 +154,18 @@
     "webpack-node-externals": "^1.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --fix", "git add"],
-    "*.{json,graphql}": ["prettier --write", "git add"],
-    "*.{css,less,styl,scss,sass,sss}": ["stylelint --fix", "git add"]
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,graphql}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{css,less,styl,scss,sass,sss}": [
+      "stylelint --fix",
+      "git add"
+    ]
   },
   "scripts": {
     "precommit": "lint-staged",
@@ -170,8 +189,7 @@
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
     "start": "source .env && babel-node tools/run start",
-    "start:all":
-      "yarn db:stop && yarn db:start && sleep 5 && yarn db:seed && yarn start",
+    "start:all": "yarn db:stop && yarn db:start && sleep 5 && yarn db:seed && yarn start",
     "db:start": "source .env && ./tools/startDevDatabase.sh",
     "db:stop": "source .env && ./tools/stopDevDatabase.sh",
     "db:seed": "source .env && babel-node src/data/seed up",

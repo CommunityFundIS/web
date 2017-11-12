@@ -1,15 +1,12 @@
 import React from 'react';
 import Login from './Login';
+import SemanticUI from '../../components/SemanticUI';
 
-const title = 'Log In';
-
-export default {
-  path: '/login',
-
-  action() {
-    return {
-      title,
-      component: <Login title={title} />,
-    };
-  },
-};
+export default () => ({
+  chunks: ['login'],
+  component: (
+    <SemanticUI>
+      <Login />
+    </SemanticUI>
+  ),
+});

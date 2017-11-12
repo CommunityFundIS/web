@@ -9,7 +9,6 @@ import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { inputChange, submitGrant } from '../../actions/grant';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Link from '../../components/Link';
 import s from './GrantForm.scss';
@@ -176,7 +175,6 @@ class GrantForm extends Component {
 
     return (
       <div className={s.container}>
-        <Header style={{ marginLeft: '18px' }} />
         <h1 className={s.heading}>Grant Application</h1>
         <div className={s.content}>
           <Link to="/guidelines" target="_blank">

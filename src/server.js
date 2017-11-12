@@ -18,6 +18,10 @@ import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import { log } from 'logger';
+import uuid from 'uuid';
+import mime from 'mime';
+
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -31,6 +35,7 @@ import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
 import config from './config';
+import { getUploadUrl } from './lib/s3';
 
 const app = express();
 
@@ -61,7 +66,7 @@ app.use((req, res, next) => {
   if (token) {
     req.cookies[COOKIE_TOKEN_NAME] = token;
     res.cookie(COOKIE_TOKEN_NAME, token, {
-      maxAge: 1000 * 15 * 60,
+      maxAge: 60 * 60 * 60 * 1000,
       httpOnly: true,
     });
   }
@@ -89,7 +94,17 @@ app.use(async (req, res, next) => {
       delete user.password;
       delete user.updatedAt;
       req.user = user;
+    } else {
+      // User not found
+      delete req.user;
     }
+  }
+
+  if (__DEV__) {
+    log(
+      `\n###LOGGED IN USER###\n${req.user &&
+        JSON.stringify(req.user, null, 2)}\n###\n`,
+    );
   }
 
   return next();
@@ -112,29 +127,88 @@ if (__DEV__) {
   app.enable('trust proxy');
 }
 
-app.get(
-  '/login/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email', 'user_location'],
-    session: false,
-  }),
-);
-app.get(
-  '/login/facebook/return',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false,
-  }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
-  },
-);
+app.post('/api/login', async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email) {
+      return res.json({
+        success: false,
+        error: 'Email is required',
+      });
+    }
+
+    if (!password) {
+      return res.json({
+        success: false,
+        error: 'Password is required',
+      });
+    }
+
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      // No user
+      // Should we handle this case with a different message?
+      return res.json({
+        success: false,
+        error: 'User/Password combo does not exist',
+      });
+    }
+
+    if (!user.comparePassword(password)) {
+      // Password mismatch
+      return res.json({
+        success: false,
+        error: 'User/Password combo does not exist',
+      });
+    }
+
+    const expiresIn = 60 * 60 * 24 * 365; // One year
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      config.auth.jwt.secret,
+      { expiresIn },
+    );
+
+    req.cookies[COOKIE_TOKEN_NAME] = token;
+    res.cookie(COOKIE_TOKEN_NAME, token, {
+      maxAge: 60 * 60 * 24 * 365 * 1000, // One year
+      httpOnly: true,
+    });
+  } catch (e) {
+    next(e);
+  }
+
+  return res.json({
+    success: true,
+  });
+});
+
+app.post('/api/upload-url', async (req, res, next) => {
+  const key = `${uuid.v4()}.png`;
+  let url;
+  try {
+    url = await getUploadUrl(key);
+  } catch (e) {
+    next(e);
+  }
+
+  return res.json({
+    url,
+    key,
+    type: mime.getType(key),
+  });
+});
 
 //
-// Register API middleware
+// Register GraphQL API middleware
 // -----------------------------------------------------------------------------
 app.use(
   '/graphql',

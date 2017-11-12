@@ -1,49 +1,105 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import PropTypes from 'prop-types';
+import { Grid, Image, Form, Segment, Button, Message } from 'semantic-ui-react';
+import { logError } from '../../logger';
+
 import s from './Login.scss';
 
 class Login extends React.Component {
+  static contextTypes = {
+    fetch: PropTypes.func,
+  };
+  state = {
+    email: '',
+    password: '',
+  };
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  async handleSubmit() {
+    const { email, password } = this.state;
+
+    const response = await this.context.fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    let data = {
+      error: 'Something went wrong',
+    };
+
+    try {
+      data = await response.json();
+    } catch (e) {
+      logError(e);
+    }
+
+    if (data.success) {
+      // We can't use history because the next request won't be authenticated if we do not reload the page
+      window.location = '/home';
+    } else {
+      // @TODO handle errors
+      logError(data.error);
+      this.setState({
+        error: data.error,
+      });
+    }
+  }
   render() {
+    const { email, password, error } = this.state;
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <h1 className={s.lead}>Log in</h1>
-          <form method="post" action="/login/username" className={s.form}>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="username">
-                USERNAME:
-                <input
-                  className={s.input}
-                  id="username"
-                  type="text"
-                  name="username"
+        <Grid
+          textAlign="center"
+          style={{ height: '100%', minHeight: '100vh' }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Image
+              src="/logos/transparent_logo.png"
+              size="medium"
+              style={{ margin: 'auto', marginBottom: '1.4em' }}
+            />
+            <Form size="large" error={!!error}>
+              <Message error content={error} size="tiny" />
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon="user"
+                  name="email"
+                  iconPosition="left"
+                  placeholder="E-mail address"
+                  onChange={(...args) => this.handleChange(...args)}
+                  value={email}
                 />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="password">
-                PASSWORD:
-                <input
-                  className={s.input}
-                  id="password"
-                  type="password"
+                <Form.Input
+                  fluid
+                  icon="lock"
                   name="password"
+                  iconPosition="left"
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(...args) => this.handleChange(...args)}
                 />
-              </label>
-            </div>
-            <div className={s.breaker} />
-            <div className={s.buttonGroup}>
-              <button className={s.button} type="submit">
-                Log in
-              </button>
-              {/* <Link className={s.forgot} to="/forgot">Forgot password?</Link> */}
-            </div>
-          </form>
-        </div>
-        {/* <div className={s.signupContainer}>
-          <p className={s.noAccount}>Don{"'"}t have an account yet?</p>
-          <Link className={s.signupLink} to="/signup">Sign up for free</Link>
-        </div> */}
+
+                <Button
+                  color="teal"
+                  fluid
+                  size="large"
+                  onClick={() => this.handleSubmit()}
+                >
+                  Login
+                </Button>
+              </Segment>
+            </Form>
+            <Message>
+              Need an account? <a href="/signup">Sign Up</a>
+            </Message>
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }

@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Container, Header, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import styles from 'semantic-ui-css/semantic.min.css';
 import HeaderMenu from '../HeaderMenu';
+import SemanticUI from '../SemanticUI';
 import Footer from '../Footer';
 
 import s from './Layout.scss';
 
 class Layout extends Component {
   static propTypes = {
-    page: PropTypes.string.isRequired,
+    page: PropTypes.string,
     heading: PropTypes.string,
     description: PropTypes.string,
     children: PropTypes.element.isRequired,
     background: PropTypes.string,
   };
   static defaultProps = {
+    page: null,
     heading: '',
     description: '',
     background: '/img/background_road.jpg',
@@ -26,7 +27,7 @@ class Layout extends Component {
     const { children, page, heading, description, background } = this.props;
 
     return (
-      <div>
+      <SemanticUI>
         <Segment
           inverted
           textAlign="center"
@@ -68,9 +69,9 @@ class Layout extends Component {
 
         <Segment vertical>{children}</Segment>
         <Footer />
-      </div>
+      </SemanticUI>
     );
   }
 }
 
-export default withStyles(s, styles)(Layout);
+export default withStyles(s)(Layout);

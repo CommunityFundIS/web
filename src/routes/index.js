@@ -33,12 +33,20 @@ const routes = {
       load: () => import(/* webpackChunkName: 'people' */ './people'),
     },
     {
+      path: '/login',
+      load: () => import(/* webpackChunkName: 'login' */ './login'),
+    },
+    {
       path: '/grant',
       children: require('./grantform').default,
     },
     {
       path: '/submission',
       children: require('./submission').default,
+    },
+    {
+      path: '/home',
+      children: require('./home').default,
     },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
