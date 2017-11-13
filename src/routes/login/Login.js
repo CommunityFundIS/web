@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import { Grid, Image, Form, Segment, Button, Message } from 'semantic-ui-react';
+import Link from '../../components/Link';
 import { logError } from '../../logger';
 
 import s from './Login.scss';
@@ -91,12 +92,12 @@ class Login extends React.Component {
                   size="large"
                   onClick={() => this.handleSubmit()}
                 >
-                  Login
+                  Log in
                 </Button>
               </Segment>
             </Form>
             <Message>
-              Need an account? <a href="/signup">Sign Up</a>
+              Need an account? <Link to="/signup">Sign Up</Link>
             </Message>
           </Grid.Column>
         </Grid>

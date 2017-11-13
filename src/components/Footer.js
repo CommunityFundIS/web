@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Grid, Header, List, Segment } from 'semantic-ui-react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from './Link';
 
 import s from './Footer.scss';
 
@@ -15,16 +16,16 @@ class Footer extends React.Component {
                 <Grid.Column tablet={2} computer={2}>
                   <Header inverted content="Sitemap" />
                   <List link inverted>
-                    <List.Item as="a" href="/guidelines">
+                    <List.Item as={Link} to="/guidelines">
                       Guidelines
                     </List.Item>
-                    <List.Item as="a" href="/team">
+                    <List.Item as={Link} to="/team">
                       Team
                     </List.Item>
-                    <List.Item as="a" href="/people">
+                    <List.Item as={Link} to="/people">
                       People
                     </List.Item>
-                    <List.Item as="a" href="/grant">
+                    <List.Item as={Link} to="/grant">
                       Apply
                     </List.Item>
                   </List>

@@ -22,6 +22,7 @@ import SemanticUI from '../../components/SemanticUI';
 import Footer from '../../components/Footer';
 import HeaderMenu from '../../components/HeaderMenu';
 import People from '../../components/People';
+import Link from '../../components/Link';
 
 import s from './Frontpage.scss';
 
@@ -59,22 +60,22 @@ Sponsor.propTypes = {
 const FixedMenu = () => (
   <Menu fixed="top" size="large">
     <Container>
-      <Menu.Item as="a" href="/" active>
+      <Menu.Item as={Link} to="/" active>
         Home
       </Menu.Item>
-      <Menu.Item as="a" href="/guidelines">
+      <Menu.Item as={Link} to="/guidelines">
         Guidelines
       </Menu.Item>
 
-      <Menu.Item as="a" href="/team">
+      <Menu.Item as={Link} to="/team">
         Team
       </Menu.Item>
-      <Menu.Item as="a" href="/people">
+      <Menu.Item as={Link} to="/people">
         People
       </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item className="item">
-          <Button as="a" color="blue" href="/grant">
+          <Button as={Link} color="blue" to="/grant">
             Apply
           </Button>
         </Menu.Item>
@@ -156,7 +157,7 @@ class Frontpage extends Component {
                 inverted
                 style={{ fontSize: '1.6rem', fontWeight: 'normal' }}
               />
-              <Button inverted size="huge" as="a" href="/grant">
+              <Button as={Link} inverted size="huge" to="/grant">
                 Apply for a grant
                 <Icon name="right arrow" />
               </Button>
@@ -326,15 +327,16 @@ class Frontpage extends Component {
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
                 Fill out a simple form describing your event or initiative.
                 Please make sure to read our{' '}
-                <a href="/guidelines">guidelines</a>
-                before submitting an <a href="/grant">application.</a>
+                <Link to="/guidelines">guidelines</Link> before submitting an{' '}
+                <Link to="/grant">application.</Link>
               </p>
             )}
             {step === 'two' && (
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
                 Our five person review committee votes on the application. We
                 try very hard to answer all applications within 5 working days.
-                Read more about our review committee <a href="/team">here</a>
+                Read more about our review committee{' '}
+                <Link to="/team">here</Link>
               </p>
             )}
             {step === 'three' && (
@@ -364,7 +366,7 @@ class Frontpage extends Component {
           />
 
           <Container textAlign="center" style={{ marginTop: '2em' }}>
-            <Button href="/people" size="large">
+            <Button as={Link} to="/people" size="large">
               See the whole community
             </Button>
           </Container>

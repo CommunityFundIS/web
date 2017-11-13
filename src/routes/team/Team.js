@@ -87,7 +87,11 @@ class Team extends Component {
                 <Card.Description>{about}</Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <a href={nominatorUrl} target="_blank">
+                <a
+                  href={nominatorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Icon name="user" />
                   {nominator}
                 </a>

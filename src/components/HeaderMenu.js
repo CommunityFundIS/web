@@ -4,6 +4,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import { Container, Menu, Button, Icon, Dimmer } from 'semantic-ui-react';
 
+import Link from './Link';
+
 import s from './HeaderMenu.scss';
 
 class HeaderMenu extends React.Component {
@@ -29,20 +31,24 @@ class HeaderMenu extends React.Component {
       <div>
         <Container className={s.desktop}>
           <Menu inverted secondary size="huge">
-            <Menu.Item as="a" href="/" active={page === 'home'}>
+            <Menu.Item as={Link} to="/" active={page === 'home'}>
               Home
             </Menu.Item>
-            <Menu.Item as="a" href="/guidelines" active={page === 'guidelines'}>
+            <Menu.Item
+              as={Link}
+              to="/guidelines"
+              active={page === 'guidelines'}
+            >
               Guidelines
             </Menu.Item>
-            <Menu.Item as="a" href="/team" active={page === 'team'}>
+            <Menu.Item as={Link} to="/team" active={page === 'team'}>
               Team
             </Menu.Item>
-            <Menu.Item as="a" href="/people" active={page === 'people'}>
+            <Menu.Item as={Link} to="/people" active={page === 'people'}>
               People
             </Menu.Item>
             <Menu.Item position="right">
-              <Button as="a" inverted href="/grant">
+              <Button as={Link} inverted to="/grant">
                 Apply
               </Button>
             </Menu.Item>
@@ -62,19 +68,23 @@ class HeaderMenu extends React.Component {
             pointing
             size="massive"
           >
-            <Menu.Item as="a" href="/" active={page === 'home'}>
+            <Menu.Item as={Link} to="/" active={page === 'home'}>
               Home
             </Menu.Item>
-            <Menu.Item as="a" href="/guidelines" active={page === 'guidelines'}>
+            <Menu.Item
+              as={Link}
+              to="/guidelines"
+              active={page === 'guidelines'}
+            >
               Guidelines
             </Menu.Item>
-            <Menu.Item as="a" href="/team" active={page === 'team'}>
+            <Menu.Item as={Link} to="/team" active={page === 'team'}>
               Team
             </Menu.Item>
-            <Menu.Item as="a" href="/people" active={page === 'people'}>
+            <Menu.Item as={Link} to="/people" active={page === 'people'}>
               People
             </Menu.Item>
-            <Menu.Item as="a" href="/grant" active={page === 'grant'}>
+            <Menu.Item as={Link} to="/grant" active={page === 'grant'}>
               Apply
             </Menu.Item>
           </Menu>

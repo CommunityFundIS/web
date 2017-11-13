@@ -37,6 +37,10 @@ const routes = {
       load: () => import(/* webpackChunkName: 'login' */ './login'),
     },
     {
+      path: '/signup',
+      load: () => import(/* webpackChunkName: 'signup' */ './signup'),
+    },
+    {
       path: '/grant',
       children: require('./grantform').default,
     },

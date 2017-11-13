@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, Card, Label } from 'semantic-ui-react';
+import Link from './Link';
 
 export default class Person extends React.Component {
   static propTypes = {
@@ -37,7 +38,7 @@ export default class Person extends React.Component {
     }
 
     return (
-      <Card style={{ maxWidth: '212px' }} href={href}>
+      <Card style={{ maxWidth: '212px' }} as={Link} to={href}>
         <div style={{ position: 'relative' }}>
           {img}
           <div
