@@ -4,6 +4,7 @@ import grant from './grant';
 import { submission, submissionStatus } from './submission';
 import castVote from './castVote';
 import runtime from './runtime';
+import topics from './topics';
 
 export default combineReducers({
   user,
@@ -12,4 +13,5 @@ export default combineReducers({
   submissionStatus,
   castVote,
   runtime,
+  topics,
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import SemanticUI from '../../components/SemanticUI';
+import { fetchTopics } from '../../actions/topics';
 
 export default [
   {
@@ -11,6 +12,8 @@ export default [
       if (!user.id) {
         return { redirect: '/login' };
       }
+
+      await store.dispatch(fetchTopics());
 
       return {
         title: `Home - Community Fund`,

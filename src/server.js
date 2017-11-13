@@ -87,13 +87,25 @@ app.use(async (req, res, next) => {
       where: {
         id: req.user.id,
       },
-      raw: true,
     });
 
     if (user) {
-      delete user.password;
-      delete user.updatedAt;
-      req.user = user;
+      const userObj = { ...user.get({ plain: true }) };
+      delete userObj.password;
+      delete userObj.updatedAt;
+
+      const topics = await user.getTopics({
+        raw: true,
+      });
+
+      userObj.topics = topics.map(topic => ({
+        id: topic.id,
+        name: topic.name,
+        color: topic.color,
+        order: topic['user_topic.order'], // @TODO use the field correctly
+      }));
+
+      req.user = userObj;
     } else {
       // User not found
       delete req.user;

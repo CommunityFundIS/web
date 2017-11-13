@@ -26,6 +26,16 @@ const User = Model.define(
       type: DataType.BOOLEAN,
       defaultValue: false,
     },
+    image: {
+      type: DataType.STRING(255),
+    },
+    title: {
+      type: DataType.STRING(255),
+    },
+    isPublic: {
+      type: DataType.BOOLEAN,
+      defaultValue: true,
+    },
     isOperator: {
       type: DataType.BOOLEAN,
       defaultValue: false,

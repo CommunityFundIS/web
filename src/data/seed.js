@@ -6,12 +6,21 @@ import {
   down as flushSubmission,
 } from './seeders/submission';
 
+import { up as seedTopics, down as flushTopics } from './seeders/topic';
+import {
+  up as seedUserTopic,
+  down as flushUserTopic,
+} from './seeders/user_topic';
+
 import config from '../config';
 
 const up = async () => {
   console.log('Starting to seed');
   try {
-    await Promise.all([seedUser(), seedSubmission()]);
+    await seedTopics()
+      .then(seedUser)
+      .then(seedSubmission)
+      .then(seedUserTopic);
   } catch (e) {
     console.error('Failed to seed', e);
     process.exit(1);
@@ -24,7 +33,10 @@ const up = async () => {
 const down = async () => {
   console.log('Starting to flush');
   try {
-    await Promise.all([flushUser(), flushSubmission()]);
+    await flushTopics()
+      .then(flushUser)
+      .then(flushSubmission)
+      .then(flushUserTopic);
   } catch (e) {
     console.error('Failed to flush', e);
     process.exit(1);

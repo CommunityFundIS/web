@@ -12,6 +12,9 @@ export const up = async () => {
       email: `test${i}@test.com`,
       name: `Reviewer ${i}`,
       isReviewer: true,
+      image: 'e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png',
+      isPublic: true,
+      title: 'CEO of awesome corp',
       password: User.generateHash('test'),
     })),
   );
@@ -21,6 +24,9 @@ export const up = async () => {
     name: `Operator 1`,
     isReviewer: true,
     isOperator: true,
+    image: 'e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png',
+    isPublic: true,
+    title: 'CEO of awesome corp',
     password: User.generateHash('test'),
   });
 

@@ -166,7 +166,7 @@ export default class People extends React.Component {
         <img
           // Do we want some fancy face zoom effect?
           // src={`http://communityfund.imgix.net/${newProfileUrl}?fit=facearea&facepad=3.0&w=500&h=500`}
-          src={`http://communityfund.imgix.net/${newProfileUrl}?w=500&h=500`}
+          src={`https://communityfund.imgix.net/${newProfileUrl}?w=500&h=500`}
           alt="Some stuff"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onLoad={() => this.handleImageLoaded()}
