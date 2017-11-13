@@ -99,7 +99,7 @@ Array [
           }
         }
       >
-
+        
       </h1>
       <h2
         className="ui inverted header"
@@ -110,7 +110,7 @@ Array [
           }
         }
       >
-
+        
       </h2>
     </div>
   </div>,
