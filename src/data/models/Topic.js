@@ -13,6 +13,8 @@ const Topic = Model.define('topic', {
   color: {
     type: DataType.STRING(255),
   },
+  createdAt: DataType.DATE,
+  updatedAt: DataType.DATE,
 });
 
 export default Topic;

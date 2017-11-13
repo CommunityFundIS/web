@@ -11,6 +11,8 @@ const UserTopic = Model.define('user_topic', {
   order: {
     type: DataType.NUMERIC(),
   },
+  createdAt: DataType.DATE,
+  updatedAt: DataType.DATE,
 });
 
 export default UserTopic;

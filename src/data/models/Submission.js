@@ -50,6 +50,8 @@ const Submission = Model.define(
       type: DataType.ENUM('accepted', 'rejected', 'pending'),
       allowNull: true,
     },
+    createdAt: DataType.DATE,
+    updatedAt: DataType.DATE,
   },
   {
     indexes: [{ fields: ['id'] }],

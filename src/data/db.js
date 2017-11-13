@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import config from '../config';
+// @TODO use sequelizeConfig.js
 
 const sequelize = new Sequelize(
   config.db.database,

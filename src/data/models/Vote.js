@@ -16,6 +16,8 @@ const Vote = Model.define(
     result: {
       type: DataType.ENUM('accepted', 'rejected'),
     },
+    createdAt: DataType.DATE,
+    updatedAt: DataType.DATE,
   },
   {
     indexes: [

@@ -26,6 +26,10 @@ const User = Model.define(
       type: DataType.BOOLEAN,
       defaultValue: false,
     },
+    isOperator: {
+      type: DataType.BOOLEAN,
+      defaultValue: false,
+    },
     image: {
       type: DataType.STRING(255),
     },
@@ -36,10 +40,8 @@ const User = Model.define(
       type: DataType.BOOLEAN,
       defaultValue: true,
     },
-    isOperator: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
-    },
+    createdAt: DataType.DATE,
+    updatedAt: DataType.DATE,
   },
   {
     indexes: [{ fields: ['id', 'email'] }],
