@@ -6,7 +6,7 @@ import { Image, Card, Label } from 'semantic-ui-react';
 export default class Person extends React.Component {
   static propTypes = {
     name: PropTypes.string,
-    image: PropTypes.any(),
+    image: PropTypes.any,
     title: PropTypes.string,
     topics: PropTypes.arrayOf(
       PropTypes.shape({
