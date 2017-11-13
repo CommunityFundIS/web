@@ -68,6 +68,11 @@ const config = {
         test: /\.handlebars$/,
         loader: 'handlebars-loader',
       },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
       // Rules for JS / JSX
       {
         test: reScript,
@@ -249,6 +254,7 @@ const config = {
           /\.txt$/,
           /\.md$/,
           /\.handlebars$/,
+          /\.(graphql|gql)$/,
         ],
         loader: 'file-loader',
         options: {
