@@ -73,19 +73,20 @@ class Html extends React.Component {
             content="community, grants, community fund, iceland, tech, developers"
           />
           <meta property="og:title" content={title} />
-          <meta property="og:site_name" content="communityfund.co" />
-          <meta property="og:url" content="https://communityfund.co" />
+          <meta property="og:site_name" content="communityfund.is" />
+          {/* @TODO use current url as this will mess up og sharing  */}
+          <meta property="og:url" content="https://communityfund.is" />
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://communityfund.co/img/og_large.png"
+            content="https://communityfund.is/img/og_large.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
           <meta
             name="twitter:image"
-            content="https://communityfund.co/img/og_large.png"
+            content="https://communityfund.is/img/og_large.png"
           />
 
           {scripts.map(script => (

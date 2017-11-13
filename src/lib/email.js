@@ -6,7 +6,7 @@ import { log } from '../logger';
 const sendEmail = async (recipient, subject, html) => {
   const mailOptions = {
     html,
-    from: 'Community Fund <hello@communityfund.co>',
+    from: 'Community Fund <hello@communityfund.is>',
     to: recipient,
     subject,
   };

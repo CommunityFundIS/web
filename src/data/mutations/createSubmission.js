@@ -14,7 +14,7 @@ import newApplicationCFTemplate from '../emailTemplates/newApplicationCF.handleb
 import sendEmail from '../../lib/email';
 
 export const sendEmailToCF = async submission => {
-  log('Sending grant mail to hello@communityfund.co');
+  log('Sending grant mail to hello@communityfund.is');
 
   const html = newApplicationCFTemplate({
     id: submission.id,
@@ -26,7 +26,7 @@ export const sendEmailToCF = async submission => {
     url: `https://${config.host}/submission/${submission.id}`,
   });
 
-  return sendEmail('hello@communityfund.co', 'New grant application', html);
+  return sendEmail('hello@communityfund.is', 'New grant application', html);
 };
 
 export const sendEmailToReviewer = async (reviewer, submission) => {

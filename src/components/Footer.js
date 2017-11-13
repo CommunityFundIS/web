@@ -35,8 +35,8 @@ class Footer extends React.Component {
                     <List.Item>Community Fund ses.</List.Item>
                     <List.Item>kt: 670317-1290</List.Item>
                     <List.Item>rn: 0301-26-5235</List.Item>
-                    <List.Item as="a" href="mailto:hello@communityfund.co">
-                      hello@communityfund.co
+                    <List.Item as="a" href="mailto:hello@communityfund.is">
+                      hello@communityfund.is
                     </List.Item>
                     <List.Item as="a" href="tel:6964523">
                       sími: 696-4523
@@ -63,8 +63,8 @@ class Footer extends React.Component {
               <List.Item>Community Fund ses.</List.Item>
               <List.Item>kt: 670317-1290</List.Item>
               <List.Item>rn: 0301-26-5235</List.Item>
-              <List.Item as="a" href="mailto:hello@communityfund.co">
-                hello@communityfund.co
+              <List.Item as="a" href="mailto:hello@communityfund.is">
+                hello@communityfund.is
               </List.Item>
               <List.Item as="a" href="tel:6964523">
                 sími: 696-4523

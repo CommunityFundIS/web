@@ -341,7 +341,7 @@ class Frontpage extends Component {
               <p style={{ fontSize: '1.5rem', marginTop: '2em' }}>
                 We will wire you the money within two days of your application
                 being accepted. At this point you should be ready to go, but you
-                can always <a href="mailto:hello@communityfund.co">
+                can always <a href="mailto:hello@communityfund.is">
                   reach out
                 </a>{' '}
                 to us if you require any assistance.

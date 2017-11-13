@@ -31,7 +31,7 @@ const reviewers = [
     about: '',
     nominator: 'Community Fund',
     image: '/img/team/kristjanmik.jpg',
-    nominatorUrl: 'https://communityfund.co',
+    nominatorUrl: 'https://communityfund.is',
   },
   {
     name: 'Vignir Örn Guðmundsson',
@@ -127,11 +127,11 @@ class Team extends Component {
                 </Card.Description>
                 <Card.Description>
                   <a
-                    href="mailto:hello@communityfund.co"
+                    href="mailto:hello@communityfund.is"
                     style={{ color: 'rgba(0,0,0,.4)' }}
                   >
                     <Icon name="mail outline" />
-                    hello@communityfund.co
+                    hello@communityfund.is
                   </a>
                 </Card.Description>
               </Card.Content>
