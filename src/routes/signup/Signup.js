@@ -5,25 +5,26 @@ import { Grid, Image, Form, Segment, Button, Message } from 'semantic-ui-react';
 import Link from '../../components/Link';
 import { logError } from '../../logger';
 
-import s from './Login.scss';
+import s from './Signup.scss';
 
-class Login extends React.Component {
-  static propTypes = { redirect: PropTypes.string };
-  static defaultProps = { redirect: null };
-  static contextTypes = { fetch: PropTypes.func };
+class Reset extends React.Component {
+  static contextTypes = {
+    fetch: PropTypes.func,
+  };
   state = {
     email: '',
-    password: '',
+    showSuccess: false,
   };
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
-  async handleSubmit() {
-    const { email, password } = this.state;
 
-    const response = await this.context.fetch('/api/login', {
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  async handleSubmit() {
+    const { email } = this.state;
+
+    const response = await this.context.fetch('/api/signup', {
       method: 'POST',
       body: JSON.stringify({
         email,
-        password,
       }),
     });
 
@@ -38,20 +39,13 @@ class Login extends React.Component {
     }
 
     if (data.success) {
-      // We can't use history because the next request won't be authenticated if we do not reload the page
-      window.location = '/home';
+      this.setState({ showSuccess: true });
     } else {
-      // @TODO handle errors
-      logError(data.error);
-      this.setState({
-        error: data.error,
-      });
+      this.setState({ showSuccess: false, error: data.error });
     }
   }
   render() {
-    const { email, password, error } = this.state;
-    const { redirect } = this.props;
-
+    const { email, error, showSuccess } = this.state;
     return (
       <div className={s.root}>
         <Grid
@@ -65,11 +59,11 @@ class Login extends React.Component {
               size="medium"
               style={{ margin: 'auto', marginBottom: '1.4em' }}
             />
-            {redirect === 'reset-success' && (
+            {showSuccess && (
               <Message
                 success
-                header="Password has been reset"
-                content="You can now log in with your new password"
+                header="Sign up successful"
+                content={`Check your inbox(${email}) for further instructions`}
               />
             )}
             <Form size="large" error={!!error}>
@@ -84,23 +78,6 @@ class Login extends React.Component {
                   onChange={(...args) => this.handleChange(...args)}
                   value={email}
                 />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  name="password"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  onChange={(...args) => this.handleChange(...args)}
-                />
-
-                <Link
-                  to="/reset"
-                  style={{ float: 'left', marginBottom: '1em' }}
-                >
-                  Forgotten password?
-                </Link>
 
                 <Button
                   color="teal"
@@ -108,12 +85,12 @@ class Login extends React.Component {
                   size="large"
                   onClick={() => this.handleSubmit()}
                 >
-                  Log in
+                  Sign up
                 </Button>
               </Segment>
             </Form>
             <Message>
-              Need an account? <Link to="/signup">Sign Up</Link>
+              Have an account? <Link to="/login">Log in</Link>
             </Message>
           </Grid.Column>
         </Grid>
@@ -122,4 +99,4 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(s)(Login);
+export default withStyles(s)(Reset);

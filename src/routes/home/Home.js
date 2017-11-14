@@ -152,7 +152,7 @@ class Home extends React.Component {
               textTransform: 'uppercase',
             }}
           >
-            Hi, {name}!
+            {name && name !== '' ? `Hi, ${name}!` : 'Hi!'}
           </Header>
           <Header
             as="p"
@@ -174,7 +174,11 @@ class Home extends React.Component {
                   image={
                     <div style={{ height: 212, width: '100%' }}>
                       <ProfilePictureUpload
-                        defaultImage={`https://communityfund.imgix.net/${image}?w=500&h=500`}
+                        defaultImage={
+                          image
+                            ? `https://communityfund.imgix.net/${image}?w=500&h=500`
+                            : null
+                        }
                         onImageUploaded={key => {
                           this.handleImageUpdated(key);
                         }}

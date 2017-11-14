@@ -40,6 +40,16 @@ const User = Model.define(
       type: DataType.BOOLEAN,
       defaultValue: true,
     },
+    verified: {
+      type: DataType.BOOLEAN,
+      defaultValue: false,
+    },
+    verificationToken: {
+      type: DataType.STRING(255),
+    },
+    resetToken: {
+      type: DataType.STRING(255),
+    },
     createdAt: DataType.DATE,
     updatedAt: DataType.DATE,
   },

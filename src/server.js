@@ -36,6 +36,10 @@ import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
 import config from './config';
 import { getUploadUrl } from './lib/s3';
+import sendEmail from './lib/email';
+
+import signupTemplate from './data/emailTemplates/signup.handlebars';
+import resetTemplate from './data/emailTemplates/reset.handlebars';
 
 const app = express();
 
@@ -139,7 +143,26 @@ if (__DEV__) {
   app.enable('trust proxy');
 }
 
-app.post('/api/login', async (req, res, next) => {
+//
+// API Endpoints
+// -----------------------------------------------------------------------------
+app.post('/api/upload-url', async (req, res, next) => {
+  const key = `${uuid.v4()}.png`;
+  let url;
+  try {
+    url = await getUploadUrl(key);
+  } catch (e) {
+    next(e);
+  }
+
+  return res.json({
+    url,
+    key,
+    type: mime.getType(key),
+  });
+});
+
+app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -195,6 +218,140 @@ app.post('/api/login', async (req, res, next) => {
       httpOnly: true,
     });
   } catch (e) {
+    console.error(e);
+    return res.json({
+      success: false,
+      error: 'Something went wrong',
+    });
+  }
+
+  return res.json({
+    success: true,
+  });
+});
+
+// @TODO make this much stronger with something like google recaptcha
+app.post('/api/reset', async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    return res.json({
+      error: 'Email not found',
+    });
+  }
+
+  user.set('resetToken', uuid.v4());
+
+  await user.save();
+
+  const html = resetTemplate({
+    url: `https://communityfund.is/reset/${user.id}/${user.resetToken}`,
+  });
+
+  await sendEmail(user.email, 'Reset your password on Community Fund', html);
+
+  return res.json({
+    success: true,
+  });
+});
+
+app.post('/api/reset/:userId/:token', async (req, res) => {
+  const { userId, token } = req.params;
+  const { password } = req.body;
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+      resetToken: token,
+    },
+  });
+
+  if (!user) {
+    return res.json({
+      error: 'Username/Token combination is not valid',
+    });
+  }
+
+  user.set('resetToken', null);
+  user.set('password', User.generateHash(password));
+
+  await user.save();
+
+  return res.json({
+    success: true,
+  });
+});
+
+app.post('/api/reset/:userId/:token/is-valid', async (req, res) => {
+  const { userId, token } = req.params;
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+      resetToken: token,
+    },
+  });
+
+  if (!user) {
+    return res.json({
+      isValid: false,
+    });
+  }
+
+  return res.json({
+    isValid: true,
+  });
+});
+
+app.post('/api/signup', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.json({
+        success: false,
+        error: 'Email is required',
+      });
+    }
+
+    const hasUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (hasUser) {
+      return res.json({
+        success: false,
+        error: 'User already exists',
+      });
+    }
+
+    const user = await User.create({
+      email,
+      password: User.generateHash(uuid.v4() + uuid.v4() + uuid.v4()),
+      name: '',
+      image: null,
+      title: null,
+      resetToken: null,
+      verificationToken: uuid.v4(),
+    });
+
+    // Send email to user
+    log(`Sending signup email to ${user.email}`);
+
+    const html = signupTemplate({
+      url: `https://communityfund.is/signup/confirm/${user.id}/${user.verificationToken}`,
+    });
+
+    await sendEmail(user.email, 'Confirm your account on Community Fund', html);
+  } catch (e) {
     next(e);
   }
 
@@ -203,20 +360,56 @@ app.post('/api/login', async (req, res, next) => {
   });
 });
 
-app.post('/api/upload-url', async (req, res, next) => {
-  const key = `${uuid.v4()}.png`;
-  let url;
-  try {
-    url = await getUploadUrl(key);
-  } catch (e) {
-    next(e);
+//
+// Other non API Endpoints
+// -----------------------------------------------------------------------------
+
+// Confirm link via email
+app.get('/signup/confirm/:userId/:token', async (req, res) => {
+  const { userId, token } = req.params;
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+      verificationToken: token,
+    },
+  });
+
+  if (!user) {
+    return res.redirect('/signup?redirect=error-verification');
   }
 
-  return res.json({
-    url,
-    key,
-    type: mime.getType(key),
+  // Set cookie and session token
+  const expiresIn = 60 * 60 * 24 * 365; // One year
+  const cookieToken = jwt.sign(
+    {
+      id: user.id,
+    },
+    config.auth.jwt.secret,
+    { expiresIn },
+  );
+
+  req.cookies[COOKIE_TOKEN_NAME] = cookieToken;
+  res.cookie(COOKIE_TOKEN_NAME, cookieToken, {
+    maxAge: 60 * 60 * 24 * 365 * 1000, // One year
+    httpOnly: true,
   });
+
+  // Verify user and remove token
+  user.set('verified', true);
+  user.set('verificationToken', null);
+
+  await user.save();
+
+  // Redirect to home page
+  return res.redirect('/home');
+});
+
+app.get('/logout', (req, res) => {
+  req.cookies[COOKIE_TOKEN_NAME] = undefined;
+  res.clearCookie(COOKIE_TOKEN_NAME);
+
+  res.redirect('/');
 });
 
 //
