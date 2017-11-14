@@ -56,14 +56,20 @@ class Login extends React.Component {
       <div className={s.root}>
         <Grid
           textAlign="center"
-          style={{ height: '100%', minHeight: '100vh' }}
+          style={{ height: '100%', minHeight: '100vh', margin: 0 }}
           verticalAlign="middle"
         >
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column style={{ maxWidth: 450 }} mobile={14}>
             <Image
+              as={Link}
+              to="/"
               src="/logos/transparent_logo.png"
               size="medium"
-              style={{ margin: 'auto', marginBottom: '1.4em' }}
+              style={{
+                margin: 'auto',
+                marginBottom: '1.4em',
+                cursor: 'pointer',
+              }}
             />
             {redirect === 'reset-success' && (
               <Message

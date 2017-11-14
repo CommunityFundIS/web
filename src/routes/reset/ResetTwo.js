@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Image, Form, Segment, Button, Message } from 'semantic-ui-react';
 import { logError } from '../../logger';
 import history from '../../history';
+import Link from '../../components/Link';
 
 export default class Reset extends React.Component {
   static propTypes = {
@@ -51,14 +52,20 @@ export default class Reset extends React.Component {
       >
         <Grid
           textAlign="center"
-          style={{ height: '100%', minHeight: '100vh' }}
+          style={{ height: '100%', minHeight: '100vh', margin: 0 }}
           verticalAlign="middle"
         >
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column style={{ maxWidth: 450 }} mobile={14}>
             <Image
+              as={Link}
+              to="/"
               src="/logos/transparent_logo.png"
               size="medium"
-              style={{ margin: 'auto', marginBottom: '1.4em' }}
+              style={{
+                margin: 'auto',
+                marginBottom: '1.4em',
+                cursor: 'pointer',
+              }}
             />
             <Form size="large" error={!!error}>
               <Message error content={error} size="tiny" />
