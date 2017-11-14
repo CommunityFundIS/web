@@ -27,12 +27,14 @@ export const fetchRandomUsers = () => async (
     dispatch({
       type: USERS_UPDATE_DATA,
       payload: {
-        data: users.map(user => ({
-          ...user,
-          image: user.image
-            ? `https://communityfund.imgix.net/${user.image}?w=500&h=500`
-            : null,
-        })),
+        data: users
+          .filter(user => user.image && user.name && user.name !== '')
+          .map(user => ({
+            ...user,
+            image: user.image
+              ? `https://communityfund.imgix.net/${user.image}?fit=crop&w=500&h=500`
+              : null,
+          })),
       },
     });
   } catch (e) {
