@@ -21,6 +21,7 @@ import PrettyError from 'pretty-error';
 import { log } from 'logger';
 import uuid from 'uuid';
 import mime from 'mime';
+import axios from 'axios';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -45,6 +46,31 @@ import resetTemplate from './data/emailTemplates/reset.handlebars';
 const app = express();
 
 const COOKIE_TOKEN_NAME = 'id_token';
+
+const cookieExpiration = 60 * 60 * 24 * 365; // One year
+const createLoginSession = (req, res, userId) => {
+  const token = jwt.sign(
+    {
+      id: userId,
+    },
+    config.auth.jwt.secret,
+    { expiresIn: cookieExpiration },
+  );
+
+  req.cookies[COOKIE_TOKEN_NAME] = token;
+  res.cookie(COOKIE_TOKEN_NAME, token, {
+    maxAge: cookieExpiration * 1000, // One year
+    httpOnly: true,
+  });
+};
+
+const isValidToken = async googleToken => {
+  const { data } = await axios(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${config.googleRecaptchaInvisibleSecret}&response=${googleToken}`,
+  );
+
+  return !!data.success;
+};
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -71,7 +97,7 @@ app.use((req, res, next) => {
   if (token) {
     req.cookies[COOKIE_TOKEN_NAME] = token;
     res.cookie(COOKIE_TOKEN_NAME, token, {
-      maxAge: 60 * 60 * 60 * 1000,
+      maxAge: cookieExpiration,
       httpOnly: true,
     });
   }
@@ -148,6 +174,8 @@ if (__DEV__) {
 // API Endpoints
 // -----------------------------------------------------------------------------
 app.post('/api/upload-url', async (req, res, next) => {
+  if (!req.user) return res.json({ error: 'Not authenticated' });
+
   const key = `${uuid.v4()}.png`;
   let url;
   try {
@@ -188,11 +216,9 @@ app.post('/api/login', async (req, res) => {
     });
 
     if (!user) {
-      // No user
-      // Should we handle this case with a different message?
       return res.json({
         success: false,
-        error: 'User/Password combo does not exist',
+        error: 'User/Password combination does not exist',
       });
     }
 
@@ -200,24 +226,11 @@ app.post('/api/login', async (req, res) => {
       // Password mismatch
       return res.json({
         success: false,
-        error: 'User/Password combo does not exist',
+        error: 'User/Password combination does not exist',
       });
     }
 
-    const expiresIn = 60 * 60 * 24 * 365; // One year
-    const token = jwt.sign(
-      {
-        id: user.id,
-      },
-      config.auth.jwt.secret,
-      { expiresIn },
-    );
-
-    req.cookies[COOKIE_TOKEN_NAME] = token;
-    res.cookie(COOKIE_TOKEN_NAME, token, {
-      maxAge: 60 * 60 * 24 * 365 * 1000, // One year
-      httpOnly: true,
-    });
+    createLoginSession(req, res, user.id);
   } catch (e) {
     console.error(e);
     return res.json({
@@ -231,9 +244,13 @@ app.post('/api/login', async (req, res) => {
   });
 });
 
-// @TODO make this much stronger with something like google recaptcha
 app.post('/api/reset', async (req, res) => {
-  const { email } = req.body;
+  const { email, googleToken } = req.body;
+
+  // Verify the google verification
+  if (!await isValidToken(googleToken)) {
+    return res.json({ success: false, error: 'You are not human' });
+  }
 
   const user = await User.findOne({
     where: {
@@ -242,9 +259,7 @@ app.post('/api/reset', async (req, res) => {
   });
 
   if (!user) {
-    return res.json({
-      error: 'Email not found',
-    });
+    return res.json({ error: 'User not found' });
   }
 
   user.set('resetToken', uuid.v4());
@@ -274,9 +289,7 @@ app.post('/api/reset/:userId/:token', async (req, res) => {
   });
 
   if (!user) {
-    return res.json({
-      error: 'Username/Token combination is not valid',
-    });
+    return res.json({ error: 'Username/Token combination is not valid' });
   }
 
   user.set('resetToken', null);
@@ -299,39 +312,27 @@ app.post('/api/reset/:userId/:token/is-valid', async (req, res) => {
     },
   });
 
-  if (!user) {
-    return res.json({
-      isValid: false,
-    });
-  }
+  if (!user) return res.json({ isValid: false });
 
-  return res.json({
-    isValid: true,
-  });
+  return res.json({ isValid: true });
 });
 
 app.post('/api/signup', async (req, res, next) => {
   try {
-    const { email } = req.body;
-
-    if (!email) {
-      return res.json({
-        success: false,
-        error: 'Email is required',
-      });
+    const { email, googleToken } = req.body;
+    // Verify the google verification
+    if (!await isValidToken(googleToken)) {
+      return res.json({ success: false, error: 'You are not human' });
     }
 
-    const hasUser = await User.findOne({
-      where: {
-        email,
-      },
-    });
+    if (!email) {
+      return res.json({ success: false, error: 'Email is required' });
+    }
+
+    const hasUser = await User.findOne({ where: { email } });
 
     if (hasUser) {
-      return res.json({
-        success: false,
-        error: 'User already exists',
-      });
+      return res.json({ success: false, error: 'User already exists' });
     }
 
     const user = await User.create({
@@ -376,25 +377,9 @@ app.get('/signup/confirm/:userId/:token', async (req, res) => {
     },
   });
 
-  if (!user) {
-    return res.redirect('/signup?redirect=error-verification');
-  }
+  if (!user) return res.redirect('/signup?redirect=error-verification');
 
-  // Set cookie and session token
-  const expiresIn = 60 * 60 * 24 * 365; // One year
-  const cookieToken = jwt.sign(
-    {
-      id: user.id,
-    },
-    config.auth.jwt.secret,
-    { expiresIn },
-  );
-
-  req.cookies[COOKIE_TOKEN_NAME] = cookieToken;
-  res.cookie(COOKIE_TOKEN_NAME, cookieToken, {
-    maxAge: 60 * 60 * 24 * 365 * 1000, // One year
-    httpOnly: true,
-  });
+  createLoginSession(req, res, user.id);
 
   // Verify user and remove token
   user.set('verified', true);

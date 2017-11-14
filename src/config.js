@@ -30,6 +30,7 @@ export default {
   isDev: process.env.NODE_ENV === 'development',
 
   googleRecaptchaSecret: process.env.GOOGLE_RECAPTCHA_SECRET,
+  googleRecaptchaInvisibleSecret: process.env.GOOGLE_RECAPTCHA_INVISIBLE_SECRET,
 
   AWS_SES: {
     user: process.env.AWS_SES_USER,

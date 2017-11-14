@@ -163,7 +163,7 @@ class Home extends React.Component {
               marginTop: '1em',
             }}
           >
-            This is your profile
+            This is your profile{!name || name === '' ? ', update it!' : ''}
           </Header>
 
           <Grid divided inverted stackable>

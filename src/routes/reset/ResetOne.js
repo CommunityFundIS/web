@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Image, Form, Segment, Button, Message } from 'semantic-ui-react';
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import { logError } from '../../logger';
 
 export default class Reset extends React.Component {
@@ -11,15 +13,40 @@ export default class Reset extends React.Component {
     email: '',
     error: null,
     showSuccess: false,
+    googleToken: null,
+    isSending: false,
   };
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleCaptcha(googleToken) {
+    this.setState(
+      {
+        ...this.state,
+        googleToken,
+      },
+      () => {
+        this.handleSubmit();
+      },
+    );
+  }
   async handleSubmit() {
-    const { email } = this.state;
+    const { email, googleToken } = this.state;
+
+    if (!googleToken) {
+      this.setState({
+        ...this.state,
+        isSending: true,
+      });
+
+      this.captcha.execute();
+      return false;
+    }
 
     const response = await this.context.fetch('/api/reset', {
       method: 'POST',
       body: JSON.stringify({
         email,
+        googleToken,
       }),
     });
 
@@ -36,16 +63,21 @@ export default class Reset extends React.Component {
     if (data.success) {
       this.setState({
         showSuccess: true,
+        error: null,
+        isSending: false,
       });
     } else {
       this.setState({
         error: data.error,
+        isSending: false,
       });
     }
+
+    return true;
   }
   render() {
     const { redirect } = this.props;
-    const { email, error, showSuccess } = this.state;
+    const { email, error, showSuccess, isSending } = this.state;
     return (
       <div
         style={{
@@ -105,10 +137,21 @@ export default class Reset extends React.Component {
                     fluid
                     size="large"
                     onClick={() => this.handleSubmit()}
+                    loading={isSending}
                   >
                     Reset
                   </Button>
                 </Segment>
+
+                <ReCAPTCHA
+                  size="invisible"
+                  ref={el => {
+                    this.captcha = el;
+                  }}
+                  sitekey="6Lf5rzgUAAAAANpKissQOHUuFwuEFvaOxtiqCBAq"
+                  onChange={e => this.handleCaptcha(e)}
+                  badge="inline"
+                />
               </Form>
             )}
           </Grid.Column>
