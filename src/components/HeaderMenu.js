@@ -76,6 +76,15 @@ class HeaderMenu extends React.Component {
             <Menu.Item as={Link} to="/" active={page === 'home'}>
               Home
             </Menu.Item>
+            <Menu.Item as={Link} to="/grant" active={page === 'grant'}>
+              Apply
+            </Menu.Item>
+            <Menu.Item as={Link} to="/signup" active={page === 'signup'}>
+              Join
+            </Menu.Item>
+            <Menu.Item as={Link} to="/people" active={page === 'people'}>
+              People
+            </Menu.Item>
             <Menu.Item
               as={Link}
               to="/guidelines"
@@ -85,12 +94,6 @@ class HeaderMenu extends React.Component {
             </Menu.Item>
             <Menu.Item as={Link} to="/team" active={page === 'team'}>
               Team
-            </Menu.Item>
-            <Menu.Item as={Link} to="/people" active={page === 'people'}>
-              People
-            </Menu.Item>
-            <Menu.Item as={Link} to="/grant" active={page === 'grant'}>
-              Apply
             </Menu.Item>
           </Menu>
         </Dimmer>
