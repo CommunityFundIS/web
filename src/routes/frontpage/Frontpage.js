@@ -65,20 +65,22 @@ const FixedMenu = () => (
       <Menu.Item as={Link} to="/" active>
         Home
       </Menu.Item>
-      <Menu.Item as={Link} to="/guidelines">
-        Guidelines
-      </Menu.Item>
-
-      <Menu.Item as={Link} to="/team">
-        Team
+      <Menu.Item as={Link} to="/grant">
+        Apply
       </Menu.Item>
       <Menu.Item as={Link} to="/people">
         People
       </Menu.Item>
+      <Menu.Item as={Link} to="/guidelines">
+        Guidelines
+      </Menu.Item>
+      <Menu.Item as={Link} to="/team">
+        Team
+      </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item className="item">
-          <Button as={Link} color="blue" to="/grant">
-            Apply
+          <Button as={Link} color="blue" to="/signup">
+            Join
           </Button>
         </Menu.Item>
       </Menu.Menu>
