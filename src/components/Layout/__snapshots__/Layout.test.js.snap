@@ -33,6 +33,20 @@ Array [
           </a>
           <a
             className="item"
+            href="/grant"
+            onClick={[Function]}
+          >
+            Apply
+          </a>
+          <a
+            className="item"
+            href="/people"
+            onClick={[Function]}
+          >
+            People
+          </a>
+          <a
+            className="item"
             href="/guidelines"
             onClick={[Function]}
           >
@@ -45,13 +59,6 @@ Array [
           >
             Team
           </a>
-          <a
-            className="item"
-            href="/people"
-            onClick={[Function]}
-          >
-            People
-          </a>
           <div
             className="right item"
             onClick={[Function]}
@@ -59,12 +66,12 @@ Array [
             <a
               className="ui inverted button"
               disabled={undefined}
-              href="/grant"
+              href="/signup"
               onClick={[Function]}
               role="button"
               tabIndex={undefined}
             >
-              Apply
+              Join
             </a>
           </div>
         </div>

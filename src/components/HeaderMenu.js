@@ -11,10 +11,11 @@ import s from './HeaderMenu.scss';
 class HeaderMenu extends React.Component {
   static propTypes = {
     page: PropTypes.string,
-    currentUser: PropTypes.shape().isRequired,
+    currentUser: PropTypes.shape(),
   };
   static defaultProps = {
     page: null,
+    currentUser: {},
   };
   state = {
     open: false,

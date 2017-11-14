@@ -28,7 +28,14 @@ describe('Layout', () => {
 
     const wrapper = renderer
       .create(
-        <App context={{ insertCss: () => {}, fetch: () => {}, store }}>
+        <App
+          context={{
+            insertCss: () => {},
+            fetch: () => {},
+            store,
+            graphqlRequest: () => {},
+          }}
+        >
           <Layout page="home">
             <div className="child" />
           </Layout>
