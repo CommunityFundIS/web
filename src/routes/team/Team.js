@@ -80,7 +80,7 @@ class Team extends Component {
           style={{ justifyContent: 'center' }}
         >
           {reviewers.map(({ name, image, about, nominator, nominatorUrl }) => (
-            <Card>
+            <Card key={name}>
               <Image src={image} />
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
@@ -118,7 +118,7 @@ class Team extends Component {
           style={{ justifyContent: 'center' }}
         >
           {operators.map(({ name, image, about, phone }) => (
-            <Card style={{ maxWidth: 275 }}>
+            <Card style={{ maxWidth: 275 }} key={name}>
               <Image src={image} />
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
