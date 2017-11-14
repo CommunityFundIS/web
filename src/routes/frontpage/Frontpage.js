@@ -204,7 +204,6 @@ class Frontpage extends Component {
                   supporting events and initiatives driven by the community,
                   that foster skill development and knowledge sharing.
                 </p>
-                {/* <Divider /> */}
               </Grid.Column>
               <Grid.Column floated="right" width={7}>
                 <Header

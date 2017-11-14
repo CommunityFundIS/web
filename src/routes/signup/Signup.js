@@ -41,7 +41,7 @@ class Reset extends React.Component {
         ...this.state,
         isSending: true,
       });
-
+      this.captcha.reset();
       this.captcha.execute();
       return false;
     }
@@ -65,12 +65,18 @@ class Reset extends React.Component {
     }
 
     if (data.success) {
-      this.setState({ showSuccess: true, error: null, isSending: false });
+      this.setState({
+        showSuccess: true,
+        error: null,
+        isSending: false,
+        googleToken: null,
+      });
     } else {
       this.setState({
         showSuccess: false,
         error: data.error,
         isSending: false,
+        googleToken: null,
       });
     }
 

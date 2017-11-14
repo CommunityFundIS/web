@@ -32,17 +32,15 @@ export default class Reset extends React.Component {
   }
   async handleSubmit() {
     const { email, googleToken } = this.state;
-
     if (!googleToken) {
       this.setState({
         ...this.state,
         isSending: true,
       });
-
+      this.captcha.reset();
       this.captcha.execute();
       return false;
     }
-
     const response = await this.context.fetch('/api/reset', {
       method: 'POST',
       body: JSON.stringify({
@@ -66,11 +64,13 @@ export default class Reset extends React.Component {
         showSuccess: true,
         error: null,
         isSending: false,
+        googleToken: null,
       });
     } else {
       this.setState({
         error: data.error,
         isSending: false,
+        googleToken: null,
       });
     }
 

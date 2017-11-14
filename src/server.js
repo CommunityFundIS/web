@@ -247,6 +247,10 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/reset', async (req, res) => {
   const { email, googleToken } = req.body;
 
+  if (!email) {
+    return res.json({ error: 'Email is required' });
+  }
+
   // Verify the google verification
   if (!await isValidToken(googleToken)) {
     return res.json({ success: false, error: 'You are not human' });
@@ -320,13 +324,14 @@ app.post('/api/reset/:userId/:token/is-valid', async (req, res) => {
 app.post('/api/signup', async (req, res, next) => {
   try {
     const { email, googleToken } = req.body;
-    // Verify the google verification
-    if (!await isValidToken(googleToken)) {
-      return res.json({ success: false, error: 'You are not human' });
-    }
 
     if (!email) {
       return res.json({ success: false, error: 'Email is required' });
+    }
+
+    // Verify the google verification
+    if (!await isValidToken(googleToken)) {
+      return res.json({ success: false, error: 'You are not human' });
     }
 
     const hasUser = await User.findOne({ where: { email } });
