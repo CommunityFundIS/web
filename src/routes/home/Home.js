@@ -176,7 +176,7 @@ class Home extends React.Component {
                       <ProfilePictureUpload
                         defaultImage={
                           image
-                            ? `https://communityfund.imgix.net/${image}?w=500&h=500`
+                            ? `https://communityfund.imgix.net/${image}?fit=crop&w=500&h=500`
                             : null
                         }
                         onImageUploaded={key => {
