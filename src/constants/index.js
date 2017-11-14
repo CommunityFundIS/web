@@ -21,3 +21,5 @@ export const VOTE_CAST_VOTE_ERROR = 'VOTE_CAST_VOTE_ERROR';
 
 /* Topics */
 export const TOPICS_UPDATE_DATA = 'TOPICS_UPDATE_DATA';
+
+export const USERS_UPDATE_DATA = 'USERS_UPDATE_DATA';

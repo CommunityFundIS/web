@@ -16,6 +16,7 @@ import me from './queries/me';
 import submission from './queries/submission';
 import submissionStatus from './queries/submissionStatus';
 import topics from './queries/topics';
+import users from './queries/users';
 import createSubmission from './mutations/createSubmission';
 import castVote from './mutations/castVote';
 import updateUser from './mutations/updateUser';
@@ -28,6 +29,7 @@ const schema = new Schema({
       submission,
       submissionStatus,
       topics,
+      users,
     },
   }),
   mutation: new ObjectType({

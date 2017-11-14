@@ -17,6 +17,7 @@ const ContextType = {
   insertCss: PropTypes.func.isRequired,
   // Universal HTTP client
   fetch: PropTypes.func.isRequired,
+  graphqlRequest: PropTypes.func.isRequired,
   // Integrate Redux
   // http://redux.js.org/docs/basics/UsageWithReact.html
   ...ReduxProvider.childContextTypes,

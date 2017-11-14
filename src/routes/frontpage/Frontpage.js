@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { connect } from 'react-redux';
+
 import {
   Button,
   Container,
@@ -87,6 +89,14 @@ const FixedMenu = () => (
 class Frontpage extends Component {
   static propTypes = {
     quote: PropTypes.shape(),
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        title: PropTypes.string,
+        image: PropTypes.string,
+      }),
+    ).isRequired,
   };
   static defaultProps = {
     quote: {},
@@ -110,7 +120,7 @@ class Frontpage extends Component {
 
   render() {
     const { visible, step, pageWidth } = this.state;
-    const { quote } = this.props;
+    const { quote, users } = this.props;
 
     return (
       <SemanticUI>
@@ -361,6 +371,7 @@ class Frontpage extends Component {
             Meet the community
           </Header>
           <People
+            people={users}
             count={pageWidth > 991 ? 12 : 6}
             topicsCount={pageWidth >= 460 ? 3 : 2}
           />
@@ -378,4 +389,9 @@ class Frontpage extends Component {
   }
 }
 
-export default withStyles(s)(Frontpage);
+export default connect(
+  state => ({
+    users: state.users.data,
+  }),
+  {},
+)(withStyles(s)(Frontpage));

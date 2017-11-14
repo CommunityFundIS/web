@@ -37,6 +37,7 @@ import { setRuntimeVariable } from './actions/runtime';
 import config from './config';
 import { getUploadUrl } from './lib/s3';
 import sendEmail from './lib/email';
+import createHelpers from './store/createHelpers';
 
 import signupTemplate from './data/emailTemplates/signup.handlebars';
 import resetTemplate from './data/emailTemplates/reset.handlebars';
@@ -448,9 +449,10 @@ app.get('*', async (req, res, next) => {
       user: req.user || {},
     };
 
+    const { graphqlRequest } = createHelpers({ fetch });
+
     const store = configureStore(initialState, {
       fetch,
-      // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
     store.dispatch(
@@ -470,6 +472,7 @@ app.get('*', async (req, res, next) => {
         styles.forEach(style => css.add(style._getCss()));
       },
       fetch,
+      graphqlRequest,
       // You can access redux through react-redux connect
       store,
       storeSubscription: null,

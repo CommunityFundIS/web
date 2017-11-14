@@ -19,6 +19,13 @@ import configureStore from './store/configureStore';
 import history from './history';
 import { updateMeta } from './DOMUtils';
 import router from './router';
+import createHelpers from './store/createHelpers';
+
+const ourFetch = createFetch(fetch, {
+  baseUrl: window.App.apiUrl,
+});
+
+const { graphqlRequest } = createHelpers({ fetch: ourFetch });
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -33,9 +40,8 @@ const context = {
     };
   },
   // Universal HTTP client
-  fetch: createFetch(fetch, {
-    baseUrl: window.App.apiUrl,
-  }),
+  fetch: ourFetch,
+  graphqlRequest,
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
   store: configureStore(window.App.state, {

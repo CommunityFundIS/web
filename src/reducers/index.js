@@ -5,6 +5,7 @@ import { submission, submissionStatus } from './submission';
 import castVote from './castVote';
 import runtime from './runtime';
 import topics from './topics';
+import users from './users';
 
 export default combineReducers({
   user,
@@ -14,4 +15,5 @@ export default combineReducers({
   castVote,
   runtime,
   topics,
+  users,
 });
