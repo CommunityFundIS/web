@@ -38,7 +38,11 @@ export default class Person extends React.Component {
     }
 
     return (
-      <Card style={{ maxWidth: '212px' }} as={Link} to={href}>
+      <Card
+        style={{ maxWidth: '212px' }}
+        as={href ? Link : undefined}
+        to={href || undefined}
+      >
         <div style={{ position: 'relative' }}>
           {img}
           <div
