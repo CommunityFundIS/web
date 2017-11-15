@@ -1,15 +1,25 @@
 import React from 'react';
 
-import GrantForm from './GrantForm';
 import GrantFormSuccess from './GrantFormSuccess';
 
 export default [
   {
     path: '',
-    action() {
+    async action() {
+      const Layout = await import('../../components/Layout');
+      const GrantForm = await import('./GrantForm');
+
       return {
-        title: 'Apply for a grant',
-        component: <GrantForm />,
+        title: 'Apply for a grant - Community Fund',
+        component: (
+          <Layout.default
+            page="grant"
+            heading="Apply for a grant"
+            background="/img/background_table.jpg"
+          >
+            <GrantForm.default />
+          </Layout.default>
+        ),
       };
     },
   },

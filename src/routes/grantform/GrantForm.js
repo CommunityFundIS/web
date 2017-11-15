@@ -175,7 +175,6 @@ class GrantForm extends Component {
 
     return (
       <div className={s.container}>
-        <h1 className={s.heading}>Grant Application</h1>
         <div className={s.content}>
           <Link to="/guidelines" target="_blank">
             Check out the guidelines before you apply!
@@ -294,7 +293,6 @@ class GrantForm extends Component {
             </div>
           )}
         </div>
-        <Footer />
       </div>
     );
   }
