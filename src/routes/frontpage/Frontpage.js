@@ -59,7 +59,7 @@ Sponsor.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-const FixedMenu = () => (
+const FixedMenu = loggedIn => (
   <Menu fixed="top" size="large">
     <Container>
       <Menu.Item as={Link} to="/" active>
@@ -79,9 +79,16 @@ const FixedMenu = () => (
       </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item className="item">
-          <Button as={Link} color="blue" to="/signup">
-            Join
-          </Button>
+          {loggedIn && (
+            <Button as={Link} color="blue" to="/home">
+              My account
+            </Button>
+          )}
+          {!loggedIn && (
+            <Button as={Link} color="blue" to="/signup">
+              Join
+            </Button>
+          )}
         </Menu.Item>
       </Menu.Menu>
     </Container>
@@ -99,9 +106,11 @@ class Frontpage extends Component {
         image: PropTypes.string,
       }),
     ).isRequired,
+    currentUser: PropTypes.shape(),
   };
   static defaultProps = {
     quote: {},
+    currentUser: {},
   };
 
   state = {
@@ -122,11 +131,13 @@ class Frontpage extends Component {
 
   render() {
     const { visible, step, pageWidth } = this.state;
-    const { quote, users } = this.props;
+    const { quote, users, currentUser } = this.props;
+
+    const loggedIn = currentUser && !!currentUser.id;
 
     return (
       <SemanticUI>
-        {visible && pageWidth > 509 ? <FixedMenu /> : null}
+        {visible && pageWidth > 509 ? <FixedMenu loggedIn={loggedIn} /> : null}
 
         <Visibility
           onBottomPassed={this.showFixedMenu}
@@ -393,6 +404,7 @@ class Frontpage extends Component {
 export default connect(
   state => ({
     users: state.users.data,
+    currentUser: state.user,
   }),
   {},
 )(withStyles(s)(Frontpage));

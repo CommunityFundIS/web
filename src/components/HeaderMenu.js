@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import { Container, Menu, Button, Icon, Dimmer } from 'semantic-ui-react';
-import { log } from '../logger';
 import Link from './Link';
 
 import s from './HeaderMenu.scss';
@@ -29,7 +28,8 @@ class HeaderMenu extends React.Component {
     const { page, currentUser } = this.props;
     const { open } = this.state;
 
-    log('currentUser', currentUser);
+    const loggedIn = currentUser && !!currentUser.id;
+
     return (
       <div>
         <Container className={s.desktop}>
@@ -54,9 +54,16 @@ class HeaderMenu extends React.Component {
               Team
             </Menu.Item>
             <Menu.Item position="right">
-              <Button as={Link} inverted to="/signup">
-                Join
-              </Button>
+              {loggedIn && (
+                <Button as={Link} inverted to="/home">
+                  My account
+                </Button>
+              )}
+              {!loggedIn && (
+                <Button as={Link} inverted to="/signup">
+                  Join
+                </Button>
+              )}
             </Menu.Item>
           </Menu>
         </Container>
