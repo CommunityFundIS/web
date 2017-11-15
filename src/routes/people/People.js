@@ -20,7 +20,7 @@ class PeopleRoute extends Component {
     const { users } = this.props;
     return (
       <Container style={{ padding: '2em 1em 4em 1em' }}>
-        <People people={users} count={12} topicsCount={3} />
+        <People people={users} count={100} topicsCount={3} />
       </Container>
     );
   }
