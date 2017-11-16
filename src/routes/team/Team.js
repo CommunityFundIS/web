@@ -82,6 +82,7 @@ class Team extends Component {
         <Container
           as={Card.Group}
           itemsPerRow={5}
+          doubling
           style={{ justifyContent: 'center' }}
         >
           {reviewers.map(({ name, image, about, nominator, nominatorUrl }) => (
