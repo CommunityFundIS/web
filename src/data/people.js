@@ -123,6 +123,14 @@ const topicsMap = {
     name: 'interfaces',
     color: 'purple',
   },
+  agile: {
+    name: 'agile',
+    color: 'pink',
+  },
+  production: {
+    name: 'agile',
+    color: 'teal',
+  },
 };
 
 export default people.map(person => {
