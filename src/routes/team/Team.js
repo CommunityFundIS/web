@@ -47,7 +47,7 @@ const operators = [
     name: 'Kristinn Árni Lár Hróbjartsson',
     image: '/img/team/kiddi_kassi.png',
     about: '',
-    phone: '',
+    phone: '823-5253',
   },
   {
     name: 'Kristján Ingi Mikaelsson',
@@ -73,7 +73,7 @@ class Team extends Component {
         >
           Review Board
         </Header>
-        <Container text>
+        <Container text style={{ marginBottom: '1em' }}>
           The grant review board is nominated by financial partners (3
           nominations) and the two founders, Kristinn Hróbjartsson and Kristján
           Mikaelsson. The review board votes on all applications. A simple
@@ -82,7 +82,6 @@ class Team extends Component {
         <Container
           as={Card.Group}
           itemsPerRow={5}
-          doubling
           style={{ justifyContent: 'center' }}
         >
           {reviewers.map(({ name, image, about, nominator, nominatorUrl }) => (
