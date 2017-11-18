@@ -2,7 +2,7 @@ export default [
   {
     name: 'Ásgeir Vísir',
     text:
-      'Community Fund made it possible, and actually pretty easy, to organize UXuðir’s first meetup. 10/10 would reccomend.',
+      'Community Fund made it possible, and actually pretty easy, to organize UXuðir’s first meetup. 10/10 would recommend.',
     image: '/img/people/visir.jpg',
     title: 'UI/UX designer at Watchbox',
   },
@@ -23,13 +23,6 @@ export default [
     name: 'Valur Thor Gunnarsson',
     text:
       'One of the best thing about Community Fund is their no-nonsense, quick and simple application process. The whole communication process was effortless and easy.',
-    image: '/img/people/valur.jpg',
-    title: 'Founder Product Tank Reykjavik',
-  },
-  {
-    name: 'Valur Thor Gunnarsson',
-    text:
-      'I would recommend Community Fund to anyone looking to fund meetups and smaller events in the tech community.',
     image: '/img/people/valur.jpg',
     title: 'Founder Product Tank Reykjavik',
   },
