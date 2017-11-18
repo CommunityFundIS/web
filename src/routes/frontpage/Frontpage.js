@@ -79,12 +79,12 @@ const FixedMenu = loggedIn => (
       </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item className="item">
-          {loggedIn && (
+          {!loggedIn && (
             <Button as={Link} color="blue" to="/home">
               My account
             </Button>
           )}
-          {!loggedIn && (
+          {loggedIn && (
             <Button as={Link} color="blue" to="/signup">
               Join
             </Button>
