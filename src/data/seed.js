@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { up as seedGroup, down as flushGroup } from './seeders/group';
 import { up as seedUser, down as flushUser } from './seeders/user';
 
 import {
@@ -20,7 +21,8 @@ const up = async () => {
     await seedTopics()
       .then(seedUser)
       .then(seedSubmission)
-      .then(seedUserTopic);
+      .then(seedUserTopic)
+      .then(seedGroup);
   } catch (e) {
     console.error('Failed to seed', e);
     process.exit(1);
@@ -36,7 +38,8 @@ const down = async () => {
     await flushTopics()
       .then(flushUser)
       .then(flushSubmission)
-      .then(flushUserTopic);
+      .then(flushUserTopic)
+      .then(flushGroup);
   } catch (e) {
     console.error('Failed to flush', e);
     process.exit(1);
