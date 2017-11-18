@@ -210,7 +210,7 @@ class Home extends React.Component {
                     />
                   </Form.Field>
 
-                  <Form.Field placeholder="Name">
+                  <Form.Field>
                     <label style={{ color: 'white' }}>List publicly</label>
                     <Checkbox
                       toggle

@@ -49,6 +49,10 @@ const routes = {
       children: require('./grantform').default,
     },
     {
+      path: '/apply',
+      load: () => import(/* webpackChunkName: 'apply' */ './apply'),
+    },
+    {
       path: '/submission',
       children: require('./submission').default,
     },
