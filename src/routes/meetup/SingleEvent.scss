@@ -1,0 +1,27 @@
+.header {
+  height: 50vh;
+  width: 100vw;
+  min-height: 330px;
+}
+
+.text {
+  font-weight: 'normal';
+  margin-bottom: 0;
+  text-transform: 'uppercase';
+}
+
+.description {
+  font-weight: normal;
+  margin-top: 0 !important;
+}
+
+.logo {
+  // box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+  // background: #f9df36 !important;
+}
+
+.eventDescription {
+  font-size: 1.2em;
+  font-weight: normal;
+  font-family: helvetica;
+}

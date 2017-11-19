@@ -1,0 +1,35 @@
+.header {
+  height: 50vh;
+  width: 100vw;
+  min-height: 330px;
+}
+
+.text {
+  font-weight: 'normal';
+  margin-bottom: 0;
+  text-transform: 'uppercase';
+}
+
+.description {
+  font-weight: normal;
+  margin-top: 0 !important;
+}
+
+.logo {
+  // box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+  // background: #f9df36 !important;
+}
+
+.eventDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+  margin-right: 20px;
+}
+
+.eventHeading {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 700;
+  font-size: 1.28125em;
+}
