@@ -2,13 +2,37 @@ import React from 'react';
 
 export default [
   {
+    // Create group
+    path: '/create',
+    async action() {
+      const CreateGroup = await import('./CreateGroup');
+
+      return {
+        title: 'Create Event',
+        component: <CreateGroup.default />,
+      };
+    },
+  },
+  {
+    // Create event
+    path: '/:groupId/create',
+    async action() {
+      const CreateEvent = await import('./CreateEvent');
+
+      return {
+        title: 'Create Event',
+        component: <CreateEvent.default />,
+      };
+    },
+  },
+  {
     // Group
     path: '/:groupId',
     async action() {
       const SingleGroup = await import('./SingleGroup');
 
       return {
-        title: 'Single Group - Community Fund',
+        title: 'Single Group',
         component: <SingleGroup.default />,
       };
     },
@@ -20,7 +44,7 @@ export default [
       const SingleEvent = await import('./SingleEvent');
 
       return {
-        title: 'Single Event - Community Fund',
+        title: 'Single Event',
         component: <SingleEvent.default />,
       };
     },

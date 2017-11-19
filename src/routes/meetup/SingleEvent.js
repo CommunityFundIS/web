@@ -11,81 +11,21 @@ import {
   Grid,
   Card,
   Button,
+  Icon,
 } from 'semantic-ui-react';
 import SemanticUI from '../../components/SemanticUI';
 import People from '../../components/People';
+import Link from '../../components/Link';
 import s from './SingleEvent.scss';
+import attendees from './attendees';
 
-const attendees = [
-  {
-    id: '2d130080-cc66-11e7-8744-09b6d394801c',
-    name: 'Reviewer 0',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [],
-  },
-  {
-    id: '2d132790-cc66-11e7-8744-09b6d394801c',
-    name: 'Reviewer 1',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [],
-  },
-  {
-    id: '2d132791-cc66-11e7-8744-09b6d394801c',
-    name: 'Reviewer 2',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [],
-  },
-  {
-    id: '2d132793-cc66-11e7-8744-09b6d394801c',
-    name: 'Reviewer 4',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [],
-  },
-  {
-    id: '2d132792-cc66-11e7-8744-09b6d394801c',
-    name: 'Reviewer 3',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [],
-  },
-  {
-    id: '2d257710-cc66-11e7-8744-09b6d394801c',
-    name: 'Operator 1',
-    title: 'CEO of awesome corp',
-    image:
-      'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-    topics: [
-      {
-        name: 'ux',
-        color: 'blue',
-      },
-      {
-        name: 'development',
-        color: 'green',
-      },
-      {
-        name: 'art',
-        color: 'red',
-      },
-    ],
-  },
-];
-
-class SingleGroup extends Component {
+class SingleEvent extends Component {
   state = {};
   handleContextRef = contextRef => this.setState({ contextRef });
   render() {
     const { contextRef } = this.state;
-    const invertHeaderText = false;
+    const invertHeader = false;
+    const gradient = 'linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)';
     return (
       <SemanticUI>
         <Segment
@@ -93,36 +33,34 @@ class SingleGroup extends Component {
           textAlign="center"
           className={s.header}
           style={{
-            backgroundImage:
-              'linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)',
+            backgroundImage: gradient,
           }}
           vertical
         >
-          <Container
-            text
-            style={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <Container text className={s.headerContainer}>
             <Image src="/rvkjs2.png" size="small" circular className={s.logo} />
-            <Header as="h1" inverted={invertHeaderText} className={s.text}>
+            <Header as="h1" inverted={invertHeader} className={s.text}>
               Javascript Iceland - January Meetup
             </Header>
-            <Header
-              as="h3"
-              inverted={invertHeaderText}
-              className={s.description}
-            >
+            <Header as="h3" inverted={invertHeader} className={s.description}>
               It is time for our September JS meetup, the first meetup after the
               legendary JSConf Iceland 2016. In fact we will be celebrating as a
               community for a whole evening filled with great talks and great
               people.
             </Header>
+
+            <Button primary size="huge" style={{ marginTop: 10 }}>
+              Attend meetup
+            </Button>
           </Container>
+          <Icon
+            name="angle down"
+            size="huge"
+            style={{
+              marginTop: -50,
+              color: invertHeader ? '#fff' : 'rgba(0,0,0,.87)',
+            }}
+          />
         </Segment>
 
         <div style={{ paddingTop: '4em' }} ref={this.handleContextRef}>
@@ -198,15 +136,31 @@ class SingleGroup extends Component {
           </Grid>
         </div>
 
-        <div style={{ marginTop: '5em' }}>
-          <Header as="h3" style={{ fontSize: '2rem', padding: '.8em 0 .4em' }}>
-            Upcoming meetups
-          </Header>
-          <People people={attendees} count={100} topicsCount={2} />
-        </div>
+        <Grid style={{ marginTop: '5em' }}>
+          <Grid.Column width={1} />
+
+          <Grid.Column width={14}>
+            <Header
+              as="h3"
+              style={{ fontSize: '2rem', padding: '.8em 0 .4em' }}
+            >
+              Attendees ({attendees.length})
+            </Header>
+            <People people={attendees} count={100} topicsCount={2} />
+            <Container
+              textAlign="center"
+              style={{ marginTop: '2em', marginBottom: '2em' }}
+            >
+              <Button as={Link} to="/people" size="large">
+                See all attendees
+              </Button>
+            </Container>
+          </Grid.Column>
+          <Grid.Column width={1} />
+        </Grid>
       </SemanticUI>
     );
   }
 }
 
-export default withStyles(s)(SingleGroup);
+export default withStyles(s)(SingleEvent);
