@@ -32,6 +32,9 @@ const Event = Model.define(
     },
     startTime: DataType.DATE,
     endTime: DataType.DATE,
+    groupId: {
+      type: DataType.UUID,
+    },
     createdAt: DataType.DATE,
     updatedAt: DataType.DATE,
   },
