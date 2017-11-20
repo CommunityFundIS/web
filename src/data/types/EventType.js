@@ -7,9 +7,11 @@ import {
   GraphQLList as List,
 } from 'graphql';
 
+import GroupType from './GroupType';
+
 const Event = new ObjectType({
   name: 'Event',
-  fields: {
+  fields: () => ({
     id: { type: new NonNull(ID) },
     name: { type: StringType },
     slug: { type: StringType },
@@ -22,9 +24,13 @@ const Event = new ObjectType({
         return event.geolocation && event.geolocation.coordinates;
       },
     },
+    group: {
+      type: GroupType,
+      resolve: event => event.getGroup(),
+    },
     startTime: { type: StringType },
     endTime: { type: StringType },
-  },
+  }),
 });
 
 export default Event;

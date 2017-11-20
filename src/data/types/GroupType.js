@@ -10,7 +10,7 @@ import EventType from './EventType';
 
 const Group = new ObjectType({
   name: 'Group',
-  fields: {
+  fields: () => ({
     id: { type: new NonNull(ID) },
     name: { type: StringType },
     slug: { type: StringType },
@@ -20,7 +20,7 @@ const Group = new ObjectType({
       type: new List(EventType),
       resolve: group => group.getEvents(),
     },
-  },
+  }),
 });
 
 export default Group;

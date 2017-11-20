@@ -23,6 +23,7 @@ const events = {
         'geolocation',
         'startTime',
         'endTime',
+        'groupId',
       ],
       where: {},
       limit: 20,
