@@ -13,7 +13,15 @@ const groups = {
   },
   async resolve({ req }, { slug }) {
     const search = {
-      attributes: ['id', 'name', 'slug', 'logo', 'description'],
+      attributes: [
+        'id',
+        'name',
+        'slug',
+        'logo',
+        'description',
+        'color',
+        'gradient',
+      ],
       where: {},
       limit: 20,
     };

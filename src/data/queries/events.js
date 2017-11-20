@@ -19,6 +19,7 @@ const events = {
         'slug',
         'briefing',
         'description',
+        'color',
         'location',
         'geolocation',
         'startTime',

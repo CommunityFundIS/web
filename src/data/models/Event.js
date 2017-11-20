@@ -24,6 +24,9 @@ const Event = Model.define(
     description: {
       type: DataType.TEXT,
     },
+    color: {
+      type: DataType.STRING(30),
+    },
     location: {
       type: DataType.STRING(255),
     },

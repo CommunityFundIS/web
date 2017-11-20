@@ -17,6 +17,7 @@ const Event = new ObjectType({
     slug: { type: StringType },
     briefing: { type: StringType },
     description: { type: StringType },
+    color: { type: StringType },
     location: { type: StringType },
     geolocation: {
       type: new List(FloatType),

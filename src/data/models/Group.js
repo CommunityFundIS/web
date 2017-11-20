@@ -24,6 +24,12 @@ const Group = Model.define(
     description: {
       type: DataType.TEXT,
     },
+    color: {
+      type: DataType.STRING(30),
+    },
+    gradient: {
+      type: DataType.STRING(100),
+    },
     createdAt: DataType.DATE,
     updatedAt: DataType.DATE,
   },

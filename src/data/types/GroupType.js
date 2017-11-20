@@ -16,6 +16,8 @@ const Group = new ObjectType({
     slug: { type: StringType },
     logo: { type: StringType },
     description: { type: StringType },
+    color: { type: StringType },
+    gradient: { type: StringType },
     events: {
       type: new List(EventType),
       resolve: group => group.getEvents(),
