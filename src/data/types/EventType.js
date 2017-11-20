@@ -2,7 +2,9 @@ import {
   GraphQLObjectType as ObjectType,
   GraphQLID as ID,
   GraphQLString as StringType,
+  GraphQLFloat as FloatType,
   GraphQLNonNull as NonNull,
+  GraphQLList as List,
 } from 'graphql';
 
 const Event = new ObjectType({
@@ -14,6 +16,12 @@ const Event = new ObjectType({
     briefing: { type: StringType },
     description: { type: StringType },
     location: { type: StringType },
+    geolocation: {
+      type: new List(FloatType),
+      resolve(event) {
+        return event.geolocation && event.geolocation.coordinates;
+      },
+    },
     startTime: { type: StringType },
     endTime: { type: StringType },
   },

@@ -20,6 +20,7 @@ const events = {
         'briefing',
         'description',
         'location',
+        'geolocation',
         'startTime',
         'endTime',
       ],

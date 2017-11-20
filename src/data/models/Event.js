@@ -27,10 +27,9 @@ const Event = Model.define(
     location: {
       type: DataType.STRING(255),
     },
-    // Requires postgres extension: `postgis`
-    // geolocation: {
-    //   type: DataType.GEOMETRY('POINT'),
-    // },
+    geolocation: {
+      type: DataType.GEOMETRY('POINT'),
+    },
     startTime: DataType.DATE,
     endTime: DataType.DATE,
     createdAt: DataType.DATE,
