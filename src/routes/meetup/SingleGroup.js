@@ -16,25 +16,6 @@ import Link from '../../components/Link';
 import SemanticUI from '../../components/SemanticUI';
 import s from './SingleGroup.scss';
 
-const events = [
-  {
-    day: '19',
-    month: 'nov',
-    title: 'Javascript Iceland - September Meetup',
-    shortDescription: `It is time for our September JS meetup, the first meetup after the
-        legendary JSConf Iceland 2016. In fact we will be celebrating as a
-        community for a whole evening filled with great talks and great people.`,
-  },
-  {
-    day: '3',
-    month: 'jan',
-    title: 'Javascript Iceland - January Meetup',
-    shortDescription: `It is time for our September JS meetup, the first meetup after the
-        legendary JSConf Iceland 2016. In fact we will be celebrating as a
-        community for a whole evening filled with great talks and great people.`,
-  },
-];
-
 const Event = ({ day, month, title, shortDescription }) => (
   <Item>
     <div className={s.eventDate}>
@@ -68,8 +49,27 @@ Event.propTypes = {
 };
 
 class SingleGroup extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    about: PropTypes.string.isRequired,
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        day: PropTypes.string,
+        month: PropTypes.string,
+        title: PropTypes.string,
+        shortDescription: PropTypes.string,
+      }),
+    ),
+    backgroundColor: PropTypes.arrayOf(PropTypes.string),
+    logo: PropTypes.string.isRequired,
+  };
+  static defaultProps = {
+    events: [],
+    backgroundColor: ['#FDEB71', '#F8D800'],
+  };
   render() {
     const invertHeaderText = false;
+    const { name, about, events, backgroundColor, logo } = this.props;
     return (
       <SemanticUI>
         <Segment
@@ -77,8 +77,7 @@ class SingleGroup extends Component {
           textAlign="center"
           className={s.header}
           style={{
-            backgroundImage:
-              'linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)',
+            backgroundImage: `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`,
           }}
           vertical
         >
@@ -92,19 +91,16 @@ class SingleGroup extends Component {
               alignItems: 'center',
             }}
           >
-            <Image src="/rvkjs2.png" size="small" circular className={s.logo} />
+            <Image src={logo} size="small" circular className={s.logo} />
             <Header as="h1" inverted={invertHeaderText} className={s.text}>
-              RVK.js
+              {name}
             </Header>
             <Header
               as="h3"
               inverted={invertHeaderText}
               className={s.description}
             >
-              A free + public hangout for JavaScript enthusiasts that happens in
-              Reykjavik, Iceland, just before JSConf Iceland. No presentations,
-              RSVPs or any formal schedule, just show up and talk, learn and
-              hack!
+              {about}
             </Header>
           </Container>
         </Segment>

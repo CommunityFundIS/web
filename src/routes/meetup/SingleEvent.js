@@ -13,19 +13,49 @@ import {
   Button,
   Icon,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import SemanticUI from '../../components/SemanticUI';
 import People from '../../components/People';
 import Link from '../../components/Link';
 import s from './SingleEvent.scss';
-import attendees from './attendees';
 
 class SingleEvent extends Component {
+  static propTypes = {
+    backgroundColor: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string.isRequired,
+    logo: PropTypes.string.isRequired,
+    shortDescription: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    invertHeader: PropTypes.bool,
+    attendees: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        title: PropTypes.string,
+        image: PropTypes.string,
+        topics: PropTypes.arrayOf(PropTypes.shape()),
+      }),
+    ),
+  };
+  static defaultProps = {
+    backgroundColor: ['#FDEB71', '#F8D800'],
+    invertHeader: false,
+    attendees: [],
+  };
   state = {};
   handleContextRef = contextRef => this.setState({ contextRef });
   render() {
+    const {
+      backgroundColor,
+      title,
+      logo,
+      shortDescription,
+      description,
+      invertHeader,
+      attendees,
+    } = this.props;
     const { contextRef } = this.state;
-    const invertHeader = false;
-    const gradient = 'linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)';
+    const gradient = `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`;
     return (
       <SemanticUI>
         <Segment
@@ -38,18 +68,15 @@ class SingleEvent extends Component {
           vertical
         >
           <Container text className={s.headerContainer}>
-            <Image src="/rvkjs2.png" size="small" circular className={s.logo} />
-            <Header as="h1" inverted={invertHeader} className={s.text}>
-              Javascript Iceland - January Meetup
+            <Image src={logo} size="small" circular className={s.logo} />
+            <Header as="h1" inverted={invertHeader} className={s.title}>
+              {title}
             </Header>
             <Header as="h3" inverted={invertHeader} className={s.description}>
-              It is time for our September JS meetup, the first meetup after the
-              legendary JSConf Iceland 2016. In fact we will be celebrating as a
-              community for a whole evening filled with great talks and great
-              people.
+              {shortDescription}
             </Header>
 
-            <Button primary size="huge" style={{ marginTop: 10 }}>
+            <Button primary size="huge" className={s.attendButton}>
               Attend meetup
             </Button>
           </Container>
@@ -68,47 +95,7 @@ class SingleEvent extends Component {
             <Grid.Column width={1} />
 
             <Grid.Column width={8}>
-              <p className={s.eventDescription}>
-                It is time for our September JS meetup, the first meetup after
-                the legendary JSConf Iceland 2016. In fact we will be
-                celebrating as a community for a whole evening filled with great
-                talks and great people. This event will be a bit different. We
-                are very lucky to have a visit from a JavaScript/Google
-                Developer Expert from Norway. His name is Maxim Salnikov and he
-                will be giving a talk on the brand new Angular version. Our
-                second talk of the night will be on JSConf Iceland and how
-                fantastic that event was for our community. You are in for a
-                ride! The venue is of limited size(Gym and Tonic hall at Kex
-                Hostel) and therefore we have limited amount of tickets. You
-                need to get a ticket in advance, which you can do here:
-                https://ti.to/jsconf-is/2016/with/o6lgpuglzts We are a community
-                and we welcome anyone to come and join us for the evening!
-                Looking forward to seeing you all! ------- By purchasing a
-                ticket, you will be explicitly required to agree with our stated
-                Code of Conduct: http://confcodeofconduct.com/ You acknowledge
-                that if you or a group you are involved with act in a manner not
-                in accordance with the code of conduct, you will be expelled
-                from the event with no refund.It is time for our September JS
-                meetup, the first meetup after the legendary JSConf Iceland
-                2016. In fact we will be celebrating as a community for a whole
-                evening filled with great talks and great people. This event
-                will be a bit different. We are very lucky to have a visit from
-                a JavaScript/Google Developer Expert from Norway. His name is
-                Maxim Salnikov and he will be giving a talk on the brand new
-                Angular version. Our second talk of the night will be on JSConf
-                Iceland and how fantastic that event was for our community. You
-                are in for a ride! The venue is of limited size(Gym and Tonic
-                hall at Kex Hostel) and therefore we have limited amount of
-                tickets. You need to get a ticket in advance, which you can do
-                here: https://ti.to/jsconf-is/2016/with/o6lgpuglzts We are a
-                community and we welcome anyone to come and join us for the
-                evening! Looking forward to seeing you all! ------- By
-                purchasing a ticket, you will be explicitly required to agree
-                with our stated Code of Conduct: http://confcodeofconduct.com/
-                You acknowledge that if you or a group you are involved with act
-                in a manner not in accordance with the code of conduct, you will
-                be expelled from the event with no refund.
-              </p>
+              <p className={s.eventDescription}>{description}</p>
             </Grid.Column>
             <Grid.Column width={1} />
             <Grid.Column width={5}>
