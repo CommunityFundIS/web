@@ -10,7 +10,6 @@ import {
   TextArea,
   Button,
   Icon,
-  Dropdown,
   Modal,
 } from 'semantic-ui-react';
 import SemanticUI from '../../components/SemanticUI';
@@ -19,37 +18,7 @@ import SingleGroup from './SingleGroup';
 import { log, logError } from '../../logger';
 import s from './CreateGroup.scss';
 import colors from './colors';
-
-const getCurrentMonth = () => {
-  switch (new Date().getMonth()) {
-    case 0:
-      return 'jan';
-    case 1:
-      return 'feb';
-    case 2:
-      return 'mar';
-    case 3:
-      return 'apr';
-    case 4:
-      return 'may';
-    case 5:
-      return 'jun';
-    case 6:
-      return 'jul';
-    case 7:
-      return 'aug';
-    case 8:
-      return 'sep';
-    case 9:
-      return 'oct';
-    case 10:
-      return 'nov';
-    case 11:
-      return 'dec';
-    default:
-      break;
-  }
-};
+import { numberToMonth } from '../../lib/date';
 
 class CreateGroup extends Component {
   state = {
@@ -254,7 +223,7 @@ class CreateGroup extends Component {
               events={[
                 {
                   day: new Date().getDate(),
-                  month: getCurrentMonth(),
+                  month: numberToMonth(new Date().getMonth()),
                   title: 'Our First awesome event',
                   shortDescription: `NOT VISIBLE ON GROUP PROFILE! We are super excited to announce the first meetup of ${name}. Come and join us for a evening of fantasting talks and discussion.`,
                 },
