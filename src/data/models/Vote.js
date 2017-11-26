@@ -16,6 +16,12 @@ const Vote = Model.define(
     result: {
       type: DataType.ENUM('accepted', 'rejected'),
     },
+    userId: {
+      type: DataType.UUID,
+    },
+    submissionId: {
+      type: DataType.UUID,
+    },
     createdAt: DataType.DATE,
     updatedAt: DataType.DATE,
   },
