@@ -18,7 +18,7 @@ export const up = async () => {
     [0, 1, 2, 3, 4].map(i => ({
       name: `Community ${i}`,
       slug: `community-${i}`,
-      logo: 'http://rvkjs.com/images/reykjavikjs.png',
+      logo: 'a187baf5-84ff-4bd2-9613-36afb4537cbe.png',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere vestibulum diam ut tristique. Maecenas rutrum tristique vulputate. Mauris eleifend elit sed mollis tristique. Proin ut sodales purus. Vivamus ac pretium metus. Etiam quam purus, volutpat posuere nibh at, egestas aliquam lectus. Maecenas convallis eros et lacus scelerisque, a accumsan sapien dictum. Mauris leo ex, pharetra ut metus sit amet, efficitur commodo erat. Phasellus vel feugiat est. Ut accumsan sapien orci, non sodales nibh euismod vel. Phasellus pellentesque felis ante, vel condimentum diam vehicula et.',
       color: colors[i % colors.length][1],
@@ -29,7 +29,7 @@ export const up = async () => {
   await Group.create({
     name: 'Reykjavik JS',
     slug: 'rvk-js',
-    logo: 'http://rvkjs.com/images/reykjavikjs.png',
+    logo: 'a187baf5-84ff-4bd2-9613-36afb4537cbe.png',
     description:
       'A free + public hangout for JavaScript enthusiasts that happens in Reykjavik, Iceland, just before JSConf Iceland. No presentations, RSVPs or any formal schedule, just show up and talk, learn and hack!',
     color: '#F7DF1E',

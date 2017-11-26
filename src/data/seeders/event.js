@@ -28,7 +28,7 @@ export const up = async () => {
     [0, 1].map(i => ({
       name: `Event ${i}`,
       slug: `event-${i}`,
-      logo: 'http://rvkjs.com/images/reykjavikjs.png',
+      logo: 'a187baf5-84ff-4bd2-9613-36afb4537cbe.png',
       briefing:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere vestibulum diam ut tristique. Maecenas rutrum tristique vulputate.',
       description:

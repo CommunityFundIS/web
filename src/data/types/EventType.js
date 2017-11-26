@@ -55,7 +55,11 @@ const Event = new ObjectType({
             status: 1,
           },
         });
-        return Promise.all(attending.map(attendee => attendee.getUser()));
+        const attendees = await Promise.all(
+          attending.map(attendee => attendee.getUser()),
+        );
+
+        return attendees || [];
       },
     },
     startTime: { type: StringType },

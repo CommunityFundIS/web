@@ -48,7 +48,7 @@ class Event extends React.Component {
     try {
       const { errors } = await graphqlRequest(attendMutation, {
         eventId: id,
-        action: attendingStatus !== 1 ? 'attend' : 'unattend',
+        action: attendingStatus !== 1 ? 'attend' : 'not-going',
       });
 
       if (errors) {
@@ -93,7 +93,7 @@ class Event extends React.Component {
               style={{ padding: '6px 8px', marginRight: 0, marginTop: 5 }}
               onClick={() => this.handleAttend()}
             >
-              UNATTEND
+              {`Can't go`}
             </Button>
           )}
         </div>

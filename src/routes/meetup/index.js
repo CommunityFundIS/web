@@ -76,13 +76,19 @@ export default [
         };
       });
 
+      // @TODO Verify that it is a key
+      const logo =
+        group.logo.indexOf('http') === -1
+          ? `https://communityfund.imgix.net/${group.logo}?fit=crop&w=500&h=500`
+          : group.logo;
+
       return {
         title: group.name,
         component: (
           <SingleGroup.default
             events={events}
             name={group.name}
-            logo={group.logo}
+            logo={logo}
             backgroundColor={(group.gradient || '').split(',')}
             about={group.description}
           />
@@ -133,6 +139,11 @@ export default [
         return { redirect: `/meetup/${groupSlug}` };
       }
 
+      const logo =
+        event.logo.indexOf('http') === -1
+          ? `https://communityfund.imgix.net/${event.logo}?fit=crop&w=500&h=500`
+          : event.logo;
+
       return {
         title: event.name,
         component: (
@@ -145,7 +156,7 @@ export default [
                 ? event.gradient.split(',')
                 : ['#FDEB71', '#F8D800']
             }
-            logo={event.logo}
+            logo={logo}
             attendees={event.attendees.map(attendee => ({
               ...attendee,
               image: attendee.image

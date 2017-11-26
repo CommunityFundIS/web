@@ -70,7 +70,7 @@ class SingleEvent extends Component {
     try {
       const { errors } = await graphqlRequest(attendMutation, {
         eventId: id,
-        action: attendingStatus !== 1 ? 'attend' : 'unattend',
+        action: attendingStatus !== 1 ? 'attend' : 'not-going',
       });
 
       if (errors) {
@@ -133,7 +133,7 @@ class SingleEvent extends Component {
             {attendingStatus === 1 && (
               <h3 className={s.attendingText}>
                 You are attending this meetup,{' '}
-                <span onClick={() => this.handleAttend()}>unattend</span>
+                <span onClick={() => this.handleAttend()}>can't go</span>
               </h3>
             )}
           </Container>
@@ -188,7 +188,7 @@ class SingleEvent extends Component {
                         style={{ width: '100%' }}
                         onClick={() => this.handleAttend()}
                       >
-                        Unattend
+                        {`Can't go`}
                       </Button>
                     )}
                   </Card.Content>
