@@ -9,6 +9,7 @@ import {
 } from 'graphql';
 import { Attending } from '../models';
 import GroupType from './GroupType';
+import UserType from './UserType';
 
 const Event = new ObjectType({
   name: 'Event',
@@ -44,6 +45,17 @@ const Event = new ObjectType({
         });
 
         return attending ? attending.status : -1;
+      },
+    },
+    attendees: {
+      type: new List(UserType),
+      resolve: async event => {
+        const attending = await event.getAttending({
+          where: {
+            status: 1,
+          },
+        });
+        return Promise.all(attending.map(attendee => attendee.getUser()));
       },
     },
     startTime: { type: StringType },

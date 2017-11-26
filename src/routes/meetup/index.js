@@ -109,6 +109,16 @@ export default [
             gradient
             location
             attendingStatus
+            attendees{
+              id
+              name
+              title
+              image
+              topics{
+                name
+                color
+              }
+            }
             geolocation
             startTime
             endTime
@@ -136,16 +146,12 @@ export default [
                 : ['#FDEB71', '#F8D800']
             }
             logo={event.logo}
-            attendees={[
-              // {
-              //   id: '2d130080-cc66-11e7-8744-09b6d394801c',
-              //   name: 'Reviewer 0',
-              //   title: 'CEO of awesome corp',
-              //   image:
-              //     'https://communityfund.imgix.net/e5351d4d-f7fc-46a2-ade8-cdde3303fa97.png?fit=crop&w=500&h=500',
-              //   topics: [],
-              // },
-            ]}
+            attendees={event.attendees.map(attendee => ({
+              ...attendee,
+              image: attendee.image
+                ? `https://communityfund.imgix.net/${attendee.image}?fit=crop&w=500&h=500`
+                : null,
+            }))}
             shortDescription={event.briefing}
             description={event.description}
             initialAttendingStatus={event.attendingStatus}
