@@ -173,9 +173,24 @@ class SingleEvent extends Component {
 
                   <Image src="https://maps.google.com/maps/api/staticmap?zoom=17&scale=2&size=480x300&markers=color%3Ared%7Csize%3Alarge%7C64.126518%2C-21.817440&sensor=false&client=gme-meetup1&signature=3C5j6FSInsGuz6lhPuGbEz_SdW8%3D" />
                   <Card.Content extra>
-                    <Button primary style={{ width: '100%' }}>
-                      Attend
-                    </Button>
+                    {attendingStatus !== 1 && (
+                      <Button
+                        primary
+                        style={{ width: '100%' }}
+                        onClick={() => this.handleAttend()}
+                      >
+                        Attend
+                      </Button>
+                    )}
+                    {attendingStatus === 1 && (
+                      <Button
+                        color="orange"
+                        style={{ width: '100%' }}
+                        onClick={() => this.handleAttend()}
+                      >
+                        Unattend
+                      </Button>
+                    )}
                   </Card.Content>
                 </Card>
               </Sticky>
