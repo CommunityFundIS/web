@@ -16,7 +16,7 @@ import Link from '../../components/Link';
 import SemanticUI from '../../components/SemanticUI';
 import s from './SingleGroup.scss';
 
-const Event = ({ day, month, title, shortDescription }) => (
+const Event = ({ url, day, month, title, shortDescription }) => (
   <Item>
     <div className={s.eventDate}>
       <Statistic size="mini" style={{ margin: 0 }}>
@@ -33,7 +33,7 @@ const Event = ({ day, month, title, shortDescription }) => (
     </div>
 
     <Item.Content>
-      <Link as={Item.Header} to="/foobar" className={s.eventHeading}>
+      <Link as={Item.Header} to={url} className={s.eventHeading}>
         {title}
       </Link>
       <Item.Description>{shortDescription}</Item.Description>
@@ -42,6 +42,7 @@ const Event = ({ day, month, title, shortDescription }) => (
 );
 
 Event.propTypes = {
+  url: PropTypes.string.isRequired,
   day: PropTypes.string.isRequired,
   month: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
