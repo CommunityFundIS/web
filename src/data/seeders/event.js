@@ -38,8 +38,8 @@ export const up = async () => {
 
       location: 'University Of Reykjavik',
       geolocation: { type: 'Point', coordinates: [64.1237301, -21.926889] },
-      startTime: new Date(2017, 11, 19, 19),
-      endTime: new Date(2017, 11, 19, 21),
+      startTime: new Date(2017, 11, 10 + i, 19),
+      endTime: new Date(2017, 11, 10 + i, 21),
       groupId: group.id,
     })),
   );

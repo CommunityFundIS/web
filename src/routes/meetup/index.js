@@ -98,9 +98,11 @@ export default [
           events(slug:"${eventSlug}" groupSlug:"${groupSlug}") {
             id
             name
+            logo
             briefing
             description
             color
+            gradient
             location
             geolocation
             startTime

@@ -90,7 +90,10 @@ class SingleEvent extends Component {
           />
         </Segment>
 
-        <div style={{ paddingTop: '4em' }} ref={this.handleContextRef}>
+        <div
+          style={{ paddingTop: '4em', minHeight: 400 }}
+          ref={this.handleContextRef}
+        >
           <Grid>
             <Grid.Column width={1} />
 
