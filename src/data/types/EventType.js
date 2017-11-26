@@ -15,9 +15,11 @@ const Event = new ObjectType({
     id: { type: new NonNull(ID) },
     name: { type: StringType },
     slug: { type: StringType },
+    logo: { type: StringType },
     briefing: { type: StringType },
     description: { type: StringType },
     color: { type: StringType },
+    gradient: { type: StringType },
     location: { type: StringType },
     geolocation: {
       type: new List(FloatType),
