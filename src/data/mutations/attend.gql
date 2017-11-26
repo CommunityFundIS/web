@@ -1,0 +1,5 @@
+mutation attend($eventId: ID!, $action: String!) {
+  attend(eventId: $eventId, action: $action) {
+    success
+  }
+}
