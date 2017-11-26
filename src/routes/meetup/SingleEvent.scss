@@ -38,6 +38,15 @@
   margin-top: 10px !important;
 }
 
+.attendingText {
+  color: #000;
+
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
 .eventDescription {
   font-size: 1.2em;
   font-weight: normal;

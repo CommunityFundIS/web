@@ -19,8 +19,15 @@ import People from '../../components/People';
 import Link from '../../components/Link';
 import s from './SingleEvent.scss';
 
+import { logError } from '../../logger';
+
+const attendMutation = require('../../data/mutations/attend.gql').loc.source
+  .body;
+
 class SingleEvent extends Component {
   static propTypes = {
+    id: PropTypes.string,
+    initialAttendingStatus: PropTypes.number,
     backgroundColor: PropTypes.arrayOf(PropTypes.string),
     title: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
@@ -38,12 +45,48 @@ class SingleEvent extends Component {
     ),
   };
   static defaultProps = {
+    id: '',
+    initialAttendingStatus: -1,
     backgroundColor: ['#FDEB71', '#F8D800'],
     invertHeader: false,
     attendees: [],
   };
-  state = {};
+  static contextTypes = {
+    graphqlRequest: PropTypes.func.isRequired,
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      attendingStatus: props.initialAttendingStatus,
+    };
+  }
   handleContextRef = contextRef => this.setState({ contextRef });
+  async handleAttend() {
+    const { id } = this.props;
+    const { graphqlRequest } = this.context;
+    const { attendingStatus } = this.state;
+    // @TODO handle loading and state changes better
+
+    try {
+      const { errors } = await graphqlRequest(attendMutation, {
+        eventId: id,
+        action: attendingStatus !== 1 ? 'attend' : 'unattend',
+      });
+
+      if (errors) {
+        logError(errors);
+        return false;
+      }
+    } catch (e) {
+      logError('Failed to mutate updateUser', e);
+      return false;
+    }
+
+    this.setState({
+      ...this.state,
+      attendingStatus: attendingStatus !== 1 ? 1 : 0,
+    });
+  }
   render() {
     const {
       backgroundColor,
@@ -54,6 +97,7 @@ class SingleEvent extends Component {
       invertHeader,
       attendees,
     } = this.props;
+    const { attendingStatus } = this.state;
     const { contextRef } = this.state;
     const gradient = `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`;
     return (
@@ -76,9 +120,22 @@ class SingleEvent extends Component {
               {shortDescription}
             </Header>
 
-            <Button primary size="huge" className={s.attendButton}>
-              Attend meetup
-            </Button>
+            {attendingStatus !== 1 && (
+              <Button
+                primary
+                size="huge"
+                className={s.attendButton}
+                onClick={() => this.handleAttend()}
+              >
+                Attend meetup
+              </Button>
+            )}
+            {attendingStatus === 1 && (
+              <h3 className={s.attendingText}>
+                You are attending this meetup,{' '}
+                <span onClick={() => this.handleAttend()}>unattend</span>
+              </h3>
+            )}
           </Container>
           <Icon
             name="angle down"

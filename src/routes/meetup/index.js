@@ -43,9 +43,11 @@ export default [
             color
             gradient
             events {
+              id
               slug
               name
               briefing
+              attendingStatus
               startTime
             }
           }
@@ -64,11 +66,13 @@ export default [
         const date = new Date(event.startTime);
 
         return {
-          day: date.getDate(),
+          id: event.id,
+          day: `${date.getDate()}`,
           month: numberToMonth(date.getMonth()),
           title: event.name,
           shortDescription: event.briefing,
           url: `/meetup/${slug}/${event.slug}`,
+          attendingStatus: event.attendingStatus,
         };
       });
 
@@ -104,6 +108,7 @@ export default [
             color
             gradient
             location
+            attendingStatus
             geolocation
             startTime
             endTime
@@ -122,6 +127,7 @@ export default [
         title: event.name,
         component: (
           <SingleEvent.default
+            id={event.id}
             invertHeader={false}
             title={event.name}
             backgroundColor={
@@ -142,6 +148,7 @@ export default [
             ]}
             shortDescription={event.briefing}
             description={event.description}
+            initialAttendingStatus={event.attendingStatus}
           />
         ),
       };

@@ -1,4 +1,4 @@
-/* eslint no-shadow: ["error", { "allow": ["inputChange","submitGrant"]}] */
+/* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -14,40 +14,100 @@ import {
 } from 'semantic-ui-react';
 import Link from '../../components/Link';
 import SemanticUI from '../../components/SemanticUI';
+import { logError } from '../../logger';
 import s from './SingleGroup.scss';
 
-const Event = ({ url, day, month, title, shortDescription }) => (
-  <Item>
-    <div className={s.eventDate}>
-      <Statistic size="mini" style={{ margin: 0 }}>
-        <Statistic.Value>{day}</Statistic.Value>
-        <Statistic.Label>{month}</Statistic.Label>
-      </Statistic>
-      <Button
-        primary
-        size="mini"
-        style={{ padding: '6px 8px', marginRight: 0, marginTop: 5 }}
-      >
-        ATTEND
-      </Button>
-    </div>
+const attendMutation = require('../../data/mutations/attend.gql').loc.source
+  .body;
 
-    <Item.Content>
-      <Link as={Item.Header} to={url} className={s.eventHeading}>
-        {title}
-      </Link>
-      <Item.Description>{shortDescription}</Item.Description>
-    </Item.Content>
-  </Item>
-);
+class Event extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    day: PropTypes.string.isRequired,
+    month: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    shortDescription: PropTypes.string.isRequired,
+    attendingStatus: PropTypes.number.isRequired,
+  };
+  static contextTypes = {
+    graphqlRequest: PropTypes.func.isRequired,
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      attendingStatus: this.props.attendingStatus,
+    };
+  }
+  async handleAttend() {
+    const { id } = this.props;
+    const { graphqlRequest } = this.context;
+    const { attendingStatus } = this.state;
+    // @TODO handle loading and state changes better
 
-Event.propTypes = {
-  url: PropTypes.string.isRequired,
-  day: PropTypes.string.isRequired,
-  month: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  shortDescription: PropTypes.string.isRequired,
-};
+    try {
+      const { errors } = await graphqlRequest(attendMutation, {
+        eventId: id,
+        action: attendingStatus !== 1 ? 'attend' : 'unattend',
+      });
+
+      if (errors) {
+        logError(errors);
+        return false;
+      }
+    } catch (e) {
+      logError('Failed to mutate updateUser', e);
+      return false;
+    }
+
+    this.setState({
+      ...this.state,
+      attendingStatus: attendingStatus !== 1 ? 1 : 0,
+    });
+  }
+  render() {
+    const { url, day, month, title, shortDescription } = this.props;
+    const { attendingStatus } = this.state;
+
+    return (
+      <Item>
+        <div className={s.eventDate}>
+          <Statistic size="mini" style={{ margin: 0 }}>
+            <Statistic.Value>{day}</Statistic.Value>
+            <Statistic.Label>{month}</Statistic.Label>
+          </Statistic>
+          {attendingStatus !== 1 && (
+            <Button
+              primary
+              size="mini"
+              style={{ padding: '6px 8px', marginRight: 0, marginTop: 5 }}
+              onClick={() => this.handleAttend()}
+            >
+              ATTEND
+            </Button>
+          )}
+          {attendingStatus === 1 && (
+            <Button
+              color="orange"
+              size="mini"
+              style={{ padding: '6px 8px', marginRight: 0, marginTop: 5 }}
+              onClick={() => this.handleAttend()}
+            >
+              UNATTEND
+            </Button>
+          )}
+        </div>
+
+        <Item.Content>
+          <Link to={url} className={s.eventHeading}>
+            {title}
+          </Link>
+          <Item.Description>{shortDescription}</Item.Description>
+        </Item.Content>
+      </Item>
+    );
+  }
+}
 
 class SingleGroup extends Component {
   static propTypes = {
@@ -70,7 +130,7 @@ class SingleGroup extends Component {
   };
   render() {
     const invertHeaderText = false;
-    const { name, about, events, backgroundColor, logo } = this.props;
+    const { name, about, backgroundColor, logo, events } = this.props;
     return (
       <SemanticUI>
         <Segment
@@ -114,7 +174,9 @@ class SingleGroup extends Component {
             >
               Upcoming meetups
             </Header>
-            <Item.Group>{events.map(Event)}</Item.Group>
+            <Item.Group>
+              {events.map(data => <Event {...data} key={data.id} />)}
+            </Item.Group>
           </Container>
         </Segment>
       </SemanticUI>

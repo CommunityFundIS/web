@@ -5,8 +5,9 @@ import {
   GraphQLFloat as FloatType,
   GraphQLNonNull as NonNull,
   GraphQLList as List,
+  GraphQLInt as IntType,
 } from 'graphql';
-
+import { Attending } from '../models';
 import GroupType from './GroupType';
 
 const Event = new ObjectType({
@@ -30,6 +31,20 @@ const Event = new ObjectType({
     group: {
       type: GroupType,
       resolve: event => event.getGroup(),
+    },
+    attendingStatus: {
+      type: IntType, // @TODO change to enum
+      resolve: async (event, _, req) => {
+        if (!req.user || !req.user.id) return -1;
+        const attending = await Attending.findOne({
+          where: {
+            eventId: event.id,
+            userId: req.user.id,
+          },
+        });
+
+        return attending ? attending.status : -1;
+      },
     },
     startTime: { type: StringType },
     endTime: { type: StringType },
