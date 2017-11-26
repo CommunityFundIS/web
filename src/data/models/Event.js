@@ -18,6 +18,9 @@ const Event = Model.define(
       unique: true,
       allowNull: false,
     },
+    logo: {
+      type: DataType.STRING(255),
+    },
     briefing: {
       type: DataType.TEXT,
     },
@@ -26,6 +29,9 @@ const Event = Model.define(
     },
     color: {
       type: DataType.STRING(30),
+    },
+    gradient: {
+      type: DataType.STRING(100),
     },
     location: {
       type: DataType.STRING(255),
