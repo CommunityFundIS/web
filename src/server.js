@@ -30,7 +30,7 @@ import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
-import models, { User } from './data/models';
+import models, { User, Attending } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -193,7 +193,7 @@ app.post('/api/upload-url', async (req, res, next) => {
 
 app.post('/api/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, andAttend } = req.body;
 
     if (!email) {
       return res.json({
@@ -227,6 +227,15 @@ app.post('/api/login', async (req, res) => {
       return res.json({
         success: false,
         error: 'User/Password combination does not exist',
+      });
+    }
+
+    if (andAttend) {
+      // Attend with signup
+      await Attending.upsert({
+        eventId: andAttend,
+        userId: user.id,
+        status: 1,
       });
     }
 
@@ -323,7 +332,7 @@ app.post('/api/reset/:userId/:token/is-valid', async (req, res) => {
 
 app.post('/api/signup', async (req, res, next) => {
   try {
-    const { email, googleToken } = req.body;
+    const { email, googleToken, andAttend } = req.body;
 
     if (!email) {
       return res.json({ success: false, error: 'Email is required' });
@@ -349,6 +358,15 @@ app.post('/api/signup', async (req, res, next) => {
       resetToken: null,
       verificationToken: uuid.v4(),
     });
+
+    if (andAttend) {
+      // Attend with signup
+      await Attending.upsert({
+        eventId: andAttend,
+        userId: user.id,
+        status: 1,
+      });
+    }
 
     // Send email to user
     log(`Sending signup email to ${user.email}`);

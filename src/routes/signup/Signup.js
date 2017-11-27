@@ -9,8 +9,11 @@ import { logError } from '../../logger';
 import s from './Signup.scss';
 
 class Reset extends React.Component {
-  static propTypes = { redirect: PropTypes.string };
-  static defaultProps = { redirect: null };
+  static propTypes = {
+    redirect: PropTypes.string,
+    andAttend: PropTypes.string,
+  };
+  static defaultProps = { redirect: null, andAttend: undefined };
   static contextTypes = { fetch: PropTypes.func };
   state = {
     email: '',
@@ -34,6 +37,7 @@ class Reset extends React.Component {
   }
 
   async handleSubmit() {
+    const { andAttend } = this.props;
     const { email, googleToken } = this.state;
 
     if (!googleToken) {
@@ -51,6 +55,7 @@ class Reset extends React.Component {
       body: JSON.stringify({
         email,
         googleToken,
+        andAttend,
       }),
     });
 

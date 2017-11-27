@@ -7,6 +7,9 @@ import { Event, Group } from '../models';
 const events = {
   type: new List(EventType),
   args: {
+    id: {
+      type: StringType,
+    },
     slug: {
       type: StringType,
     },
@@ -17,10 +20,10 @@ const events = {
       type: StringType,
     },
   },
-  async resolve({ req }, { slug, groupSlug, groupId }) {
-    let group = groupId;
+  async resolve({ req }, { id, slug, groupSlug, groupId }) {
+    let group = id ? null : groupId;
 
-    if (!group) {
+    if (!id && !group) {
       const groupObj = await Group.findOne({
         where: {
           slug: groupSlug,
@@ -50,14 +53,20 @@ const events = {
         'endTime',
         'groupId',
       ],
-      where: {
-        groupId: group,
-      },
+      where: {},
       limit: 20,
     };
 
+    if (id) {
+      search.where.id = id;
+    }
+
     if (slug) {
       search.where.slug = slug;
+    }
+
+    if (group) {
+      search.where.groupId = group;
     }
 
     return Event.findAll(search);

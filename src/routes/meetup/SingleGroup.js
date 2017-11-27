@@ -1,6 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import {
@@ -14,6 +15,7 @@ import {
 } from 'semantic-ui-react';
 import Link from '../../components/Link';
 import SemanticUI from '../../components/SemanticUI';
+import AttendModal from './AttendModal';
 import { logError } from '../../logger';
 import s from './SingleGroup.scss';
 
@@ -27,6 +29,7 @@ class Event extends React.Component {
     day: PropTypes.string.isRequired,
     month: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    authenticated: PropTypes.bool.isRequired,
     shortDescription: PropTypes.string.isRequired,
     attendingStatus: PropTypes.number.isRequired,
   };
@@ -37,13 +40,21 @@ class Event extends React.Component {
     super(props);
     this.state = {
       attendingStatus: this.props.attendingStatus,
+      showModal: false,
     };
   }
   async handleAttend() {
-    const { id } = this.props;
+    const { id, authenticated } = this.props;
     const { graphqlRequest } = this.context;
     const { attendingStatus } = this.state;
     // @TODO handle loading and state changes better
+
+    if (!authenticated) {
+      return this.setState({
+        ...this.state,
+        showModal: true,
+      });
+    }
 
     try {
       const { errors } = await graphqlRequest(attendMutation, {
@@ -60,14 +71,14 @@ class Event extends React.Component {
       return false;
     }
 
-    this.setState({
+    return this.setState({
       ...this.state,
       attendingStatus: attendingStatus !== 1 ? 1 : 0,
     });
   }
   render() {
-    const { url, day, month, title, shortDescription } = this.props;
-    const { attendingStatus } = this.state;
+    const { id, url, day, month, title, shortDescription } = this.props;
+    const { attendingStatus, showModal } = this.state;
 
     return (
       <Item>
@@ -104,6 +115,12 @@ class Event extends React.Component {
           </Link>
           <Item.Description>{shortDescription}</Item.Description>
         </Item.Content>
+        <AttendModal
+          eventId={id}
+          open={showModal}
+          handleOnClose={() =>
+            this.setState({ ...this.state, showModal: false })}
+        />
       </Item>
     );
   }
@@ -111,6 +128,7 @@ class Event extends React.Component {
 
 class SingleGroup extends Component {
   static propTypes = {
+    currentUser: PropTypes.shape().isRequired,
     name: PropTypes.string.isRequired,
     about: PropTypes.string.isRequired,
     events: PropTypes.arrayOf(
@@ -130,7 +148,14 @@ class SingleGroup extends Component {
   };
   render() {
     const invertHeaderText = false;
-    const { name, about, backgroundColor, logo, events } = this.props;
+    const {
+      name,
+      about,
+      backgroundColor,
+      logo,
+      events,
+      currentUser,
+    } = this.props;
     return (
       <SemanticUI>
         <Segment
@@ -175,7 +200,13 @@ class SingleGroup extends Component {
               Upcoming meetups
             </Header>
             <Item.Group>
-              {events.map(data => <Event {...data} key={data.id} />)}
+              {events.map(data => (
+                <Event
+                  {...data}
+                  key={data.id}
+                  authenticated={!!currentUser.id}
+                />
+              ))}
             </Item.Group>
           </Container>
         </Segment>
@@ -184,4 +215,6 @@ class SingleGroup extends Component {
   }
 }
 
-export default withStyles(s)(SingleGroup);
+export default connect(({ user }) => ({ currentUser: user }), {})(
+  withStyles(s)(SingleGroup),
+);

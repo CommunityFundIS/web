@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { connect } from 'react-redux';
 import {
   Segment,
   Container,
@@ -14,6 +15,7 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import AttendModal from './AttendModal';
 import SemanticUI from '../../components/SemanticUI';
 import People from '../../components/People';
 import Link from '../../components/Link';
@@ -28,6 +30,7 @@ class SingleEvent extends Component {
   static propTypes = {
     id: PropTypes.string,
     initialAttendingStatus: PropTypes.number,
+    currentUser: PropTypes.shape().isRequired,
     backgroundColor: PropTypes.arrayOf(PropTypes.string),
     title: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
@@ -58,15 +61,22 @@ class SingleEvent extends Component {
     super(props);
     this.state = {
       attendingStatus: props.initialAttendingStatus,
+      showLoginModal: false,
     };
   }
   handleContextRef = contextRef => this.setState({ contextRef });
   async handleAttend() {
-    const { id } = this.props;
+    const { id, currentUser } = this.props;
     const { graphqlRequest } = this.context;
     const { attendingStatus } = this.state;
-    // @TODO handle loading and state changes better
 
+    // @TODO handle loading and state changes better
+    if (!currentUser.id) {
+      return this.setState({
+        ...this.state,
+        showLoginModal: true,
+      });
+    }
     try {
       const { errors } = await graphqlRequest(attendMutation, {
         eventId: id,
@@ -82,13 +92,14 @@ class SingleEvent extends Component {
       return false;
     }
 
-    this.setState({
+    return this.setState({
       ...this.state,
       attendingStatus: attendingStatus !== 1 ? 1 : 0,
     });
   }
   render() {
     const {
+      id,
       backgroundColor,
       title,
       logo,
@@ -97,7 +108,7 @@ class SingleEvent extends Component {
       invertHeader,
       attendees,
     } = this.props;
-    const { attendingStatus } = this.state;
+    const { attendingStatus, showLoginModal } = this.state;
     const { contextRef } = this.state;
     const gradient = `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`;
     return (
@@ -208,21 +219,38 @@ class SingleEvent extends Component {
             >
               Attendees ({attendees.length})
             </Header>
-            <People people={attendees} count={100} topicsCount={2} />
-            <Container
-              textAlign="center"
-              style={{ marginTop: '2em', marginBottom: '2em' }}
-            >
-              <Button as={Link} to="/people" size="large">
-                See all attendees
-              </Button>
-            </Container>
+            {attendees.length > 0 && (
+              <People people={attendees} count={100} topicsCount={2} />
+            )}
+            {attendees.length > 0 && (
+              <Container
+                textAlign="center"
+                style={{ marginTop: '2em', marginBottom: '2em' }}
+              >
+                <Button as={Link} to="/people" size="large">
+                  See all attendees
+                </Button>
+              </Container>
+            )}
+            {attendees.length === 0 && (
+              <p style={{ marginBottom: 100 }}>
+                Be the first to attend this event!
+              </p>
+            )}
           </Grid.Column>
           <Grid.Column width={1} />
         </Grid>
+        <AttendModal
+          eventId={id}
+          open={showLoginModal}
+          handleOnClose={() =>
+            this.setState({ ...this.state, showLoginModal: false })}
+        />
       </SemanticUI>
     );
   }
 }
 
-export default withStyles(s)(SingleEvent);
+export default connect(({ user }) => ({ currentUser: user }), {})(
+  withStyles(s)(SingleEvent),
+);
