@@ -1,4 +1,6 @@
 import React from 'react';
+// @TODO meh to have moment here, prefer to remove it
+import moment from 'moment';
 import { numberToMonth } from '../../lib/date';
 
 export default [
@@ -144,10 +146,16 @@ export default [
           ? `https://communityfund.imgix.net/${event.logo}?fit=crop&w=500&h=500`
           : event.logo;
 
+      const timestamp = `${moment(event.startTime).format(
+        'MMMM Do YYYY, h:mm a',
+      )} to ${moment(event.endTime).format('h:mm a')}`;
       return {
         title: event.name,
         component: (
           <SingleEvent.default
+            timestamp={timestamp}
+            locationHuman={event.location}
+            locationGPS={event.geolocation}
             id={event.id}
             invertHeader={false}
             title={event.name}

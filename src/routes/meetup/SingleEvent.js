@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import cx from 'classnames';
 import { connect } from 'react-redux';
 import {
   Segment,
@@ -32,6 +33,9 @@ class SingleEvent extends Component {
     initialAttendingStatus: PropTypes.number,
     currentUser: PropTypes.shape().isRequired,
     backgroundColor: PropTypes.arrayOf(PropTypes.string),
+    timestamp: PropTypes.string,
+    locationHuman: PropTypes.string,
+    locationGPS: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
     shortDescription: PropTypes.string.isRequired,
@@ -53,6 +57,9 @@ class SingleEvent extends Component {
     backgroundColor: ['#FDEB71', '#F8D800'],
     invertHeader: false,
     attendees: [],
+    locationGPS: [],
+    locationHuman: '',
+    timestamp: '',
   };
   static contextTypes = {
     graphqlRequest: PropTypes.func.isRequired,
@@ -107,10 +114,14 @@ class SingleEvent extends Component {
       description,
       invertHeader,
       attendees,
+      locationGPS,
+      locationHuman,
+      timestamp,
     } = this.props;
     const { attendingStatus, showLoginModal } = this.state;
     const { contextRef } = this.state;
     const gradient = `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`;
+
     return (
       <SemanticUI>
         <Segment
@@ -162,7 +173,12 @@ class SingleEvent extends Component {
           style={{ paddingTop: '4em', minHeight: 400 }}
           ref={this.handleContextRef}
         >
-          <Grid>
+          <Container text className={s.mobile}>
+            <h3 style={{ marginBottom: 0 }}>{timestamp}</h3>
+            <h4 style={{ marginTop: 0, marginLeft: 15 }}>at {locationHuman}</h4>
+            <p className={s.eventDescription}>{description}</p>
+          </Container>
+          <Grid className={s.desktop}>
             <Grid.Column width={1} />
 
             <Grid.Column width={8}>
@@ -173,15 +189,11 @@ class SingleEvent extends Component {
               <Sticky context={contextRef} offset={50} bottomOffset={80}>
                 <Card>
                   <Card.Content>
-                    <Card.Header>
-                      Tuesday, December 19, 2017 5:00 PM to 7:15 PM
-                    </Card.Header>
+                    <Card.Header>{timestamp}</Card.Header>
 
-                    <Card.Description>
-                      Borgartún 29, 105 Reykjavík
-                    </Card.Description>
+                    <Card.Description>{locationHuman}</Card.Description>
                   </Card.Content>
-
+                  {/* @TODO use locationGPS */}
                   <Image src="https://maps.google.com/maps/api/staticmap?zoom=17&scale=2&size=480x300&markers=color%3Ared%7Csize%3Alarge%7C64.126518%2C-21.817440&sensor=false&client=gme-meetup1&signature=3C5j6FSInsGuz6lhPuGbEz_SdW8%3D" />
                   <Card.Content extra>
                     {attendingStatus !== 1 && (

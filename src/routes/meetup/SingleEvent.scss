@@ -53,3 +53,23 @@
   font-family: helvetica;
   color: #000;
 }
+
+.mobile {
+  @media (max-width: 700px) {
+    display: block !important;
+  }
+
+  @media (min-width: 700px) {
+    display: none !important;
+  }
+}
+
+.desktop {
+  @media (max-width: 700px) {
+    display: none !important;
+  }
+
+  @media (min-width: 700px) {
+    display: block !important;
+  }
+}
