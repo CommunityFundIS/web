@@ -121,6 +121,8 @@ class SingleEvent extends Component {
     const { attendingStatus, showLoginModal } = this.state;
     const { contextRef } = this.state;
     const gradient = `linear-gradient( 135deg, ${backgroundColor[0]} 10%, ${backgroundColor[1]} 100%)`;
+    const locationCoords = locationGPS.join(',');
+    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?size=480x300&zoom=16&scale=2&format=png&maptype=roadmap&markers=size:large%7Ccolor:blue%7Clabel:M%7C${locationCoords}&key=AIzaSyCAelXIsSXBBSbRju6NEJjFMZQyR0TL-kk`;
 
     return (
       <SemanticUI>
@@ -193,8 +195,13 @@ class SingleEvent extends Component {
 
                     <Card.Description>{locationHuman}</Card.Description>
                   </Card.Content>
-                  {/* @TODO use locationGPS */}
-                  <Image src="https://maps.google.com/maps/api/staticmap?zoom=17&scale=2&size=480x300&markers=color%3Ared%7Csize%3Alarge%7C64.126518%2C-21.817440&sensor=false&client=gme-meetup1&signature=3C5j6FSInsGuz6lhPuGbEz_SdW8%3D" />
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${locationCoords}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image src={mapUrl} />
+                  </a>
                   <Card.Content extra>
                     {attendingStatus !== 1 && (
                       <Button
