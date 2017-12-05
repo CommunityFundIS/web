@@ -452,7 +452,10 @@ const serverConfig = {
           options: {
             ...rule.options,
             name: `public/assets/${rule.options.name}`,
-            publicPath: url => url.replace(/^public/, ''),
+            publicPath: url =>
+              isDebug
+                ? url.replace(/^public/, '')
+                : url.replace(/^public/, 'https://communityfund.is'),
           },
         };
       }
