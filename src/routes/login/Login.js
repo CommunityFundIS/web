@@ -8,8 +8,16 @@ import { logError } from '../../logger';
 import s from './Login.scss';
 
 class Login extends React.Component {
-  static propTypes = { redirect: PropTypes.string };
-  static defaultProps = { redirect: null };
+  static propTypes = {
+    redirect: PropTypes.string,
+    andAttend: PropTypes.string,
+    forwardTo: PropTypes.string,
+  };
+  static defaultProps = {
+    redirect: null,
+    andAttend: undefined,
+    forwardTo: undefined,
+  };
   static contextTypes = { fetch: PropTypes.func };
   state = {
     email: '',
@@ -18,12 +26,14 @@ class Login extends React.Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
   async handleSubmit() {
     const { email, password } = this.state;
+    const { forwardTo, andAttend } = this.props;
 
     const response = await this.context.fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email,
         password,
+        andAttend,
       }),
     });
 
@@ -39,7 +49,11 @@ class Login extends React.Component {
 
     if (data.success) {
       // We can't use history because the next request won't be authenticated if we do not reload the page
-      window.location = '/home';
+      if (forwardTo) {
+        window.location = forwardTo;
+      } else {
+        window.location = '/home';
+      }
     } else {
       // @TODO handle errors
       logError(data.error);

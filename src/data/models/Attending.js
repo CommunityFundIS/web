@@ -1,26 +1,22 @@
 import DataType from 'sequelize';
 import Model from '../db';
 
-const Vote = Model.define(
-  'vote',
+const Attending = Model.define(
+  'attending',
   {
     id: {
       type: DataType.UUID,
       defaultValue: DataType.UUIDV1,
       primaryKey: true,
     },
-    comment: {
-      type: DataType.TEXT(),
-      allowNull: true,
-    },
-    result: {
-      type: DataType.ENUM('accepted', 'rejected'),
+    eventId: {
+      type: DataType.UUID,
     },
     userId: {
       type: DataType.UUID,
     },
-    submissionId: {
-      type: DataType.UUID,
+    status: {
+      type: DataType.NUMERIC,
     },
     createdAt: DataType.DATE,
     updatedAt: DataType.DATE,
@@ -29,10 +25,10 @@ const Vote = Model.define(
     indexes: [
       {
         unique: true,
-        fields: ['submissionId', 'userId'],
+        fields: ['eventId', 'userId'],
       },
     ],
   },
 );
 
-export default Vote;
+export default Attending;

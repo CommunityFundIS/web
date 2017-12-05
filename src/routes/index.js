@@ -60,6 +60,10 @@ const routes = {
       path: '/home',
       children: require('./home').default,
     },
+    {
+      path: '/meetup',
+      children: require('./meetup').default,
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

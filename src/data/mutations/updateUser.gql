@@ -1,15 +1,15 @@
 mutation updateUser(
-  $name: String!,
-  $title: String!,
-  $isPublic: Boolean,
-  $image: String!,
+  $name: String!
+  $title: String!
+  $isPublic: Boolean
+  $image: String!
   $topics: [String]
 ) {
   updateUser(
-    name: $name,
-    title: $title,
-    isPublic: $isPublic,
-    image: $image,
+    name: $name
+    title: $title
+    isPublic: $isPublic
+    image: $image
     topics: $topics
   ) {
     name

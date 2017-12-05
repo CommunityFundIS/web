@@ -1,0 +1,28 @@
+.colors {
+  display: flex;
+  overflow-x: scroll;
+  // Do we want a wall of colors?
+  //   flex-wrap: wrap;
+  //   width: calc(100% + 4px);
+  //   margin-left: -4px;
+}
+
+.color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 80px;
+  height: 80px;
+  margin: 4px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.color:first-child {
+  margin-left: 0;
+}
+
+.color:last-child {
+  margin-right: 0;
+}
