@@ -34,6 +34,7 @@ export default [
     path: '/:slug',
     async action({ params, graphqlRequest, store }) {
       const { slug } = params;
+      const isCNAME = slug.includes('.');
       const SingleGroup = await import('./SingleGroup');
 
       const { data } = await graphqlRequest(`
@@ -74,7 +75,7 @@ export default [
           month: numberToMonth(date.getMonth()),
           title: event.name,
           shortDescription: event.briefing,
-          url: `/meetup/${slug}/${event.slug}`,
+          url: isCNAME ? event.slug : `/meetup/${slug}/${event.slug}`,
           attendingStatus: event.attendingStatus,
         };
       });
@@ -86,7 +87,7 @@ export default [
           : group.logo;
 
       // Meetup override magic
-      if (!process.env.BROWSER && slug.includes('.')) {
+      if (!process.env.BROWSER && isCNAME) {
         await store.dispatch(
           setRouteOverride({
             prepend: slug,
