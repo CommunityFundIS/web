@@ -178,13 +178,21 @@ class SingleEvent extends Component {
           <Container text className={s.mobile}>
             <h3 style={{ marginBottom: 0 }}>{timestamp}</h3>
             <h4 style={{ marginTop: 0, marginLeft: 15 }}>at {locationHuman}</h4>
-            <p className={s.eventDescription}>{description}</p>
+            <div
+              className={s.eventDescription}
+              // @TODO secure this
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           </Container>
           <Grid className={s.desktop}>
             <Grid.Column width={1} />
 
             <Grid.Column width={8}>
-              <p className={s.eventDescription}>{description}</p>
+              <div
+                className={s.eventDescription}
+                // @TODO secure this
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </Grid.Column>
             <Grid.Column width={1} />
             <Grid.Column width={5}>
