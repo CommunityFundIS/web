@@ -22,6 +22,7 @@ import { log } from 'logger';
 import uuid from 'uuid';
 import mime from 'mime';
 import axios from 'axios';
+import cors from 'cors';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -82,7 +83,7 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(cors(), express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
