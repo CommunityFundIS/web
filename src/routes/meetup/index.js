@@ -90,7 +90,7 @@ export default [
       if (!process.env.BROWSER && isCNAME) {
         await store.dispatch(
           setRouteOverride({
-            prepend: slug,
+            prepend: `/meetup/slug`,
           }),
         );
       }
@@ -162,12 +162,11 @@ export default [
       )} to ${moment(event.endTime).format('h:mm a')}`;
 
       // Meetup override magic
-      console.log('DOING MAGIC', !process.env.BROWSER, groupSlug.includes('.'));
       if (!process.env.BROWSER && groupSlug.includes('.')) {
-        console.log('Setting route override ', `/${groupSlug}`);
+        console.log('Setting route override ', `/meetup/${groupSlug}`);
         await store.dispatch(
           setRouteOverride({
-            prepend: `/${groupSlug}`,
+            prepend: `/meetup/${groupSlug}`,
           }),
         );
       }
