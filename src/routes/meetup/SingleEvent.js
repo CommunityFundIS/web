@@ -249,16 +249,18 @@ class SingleEvent extends Component {
             {attendees.length > 0 && (
               <People people={attendees} count={100} topicsCount={2} />
             )}
-            {attendees.length > 0 && (
-              <Container
-                textAlign="center"
-                style={{ marginTop: '2em', marginBottom: '2em' }}
-              >
-                <Button as={Link} to="/people" size="large">
-                  See all attendees
-                </Button>
-              </Container>
-            )}
+            {/* Paginate if we have many people */}
+            {false &&
+              attendees.length > 0 && (
+                <Container
+                  textAlign="center"
+                  style={{ marginTop: '2em', marginBottom: '2em' }}
+                >
+                  <Button as={Link} to="/people" size="large">
+                    See all attendees
+                  </Button>
+                </Container>
+              )}
             {attendees.length === 0 && (
               <p style={{ marginBottom: 100 }}>
                 Be the first to attend this event!

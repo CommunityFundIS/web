@@ -28,7 +28,15 @@ export default class Person extends React.Component {
     href: undefined,
   };
   render() {
-    const { name, image, title, topics, topicsCount, href } = this.props;
+    const { title, topics, topicsCount, href } = this.props;
+    let { name, image } = this.props;
+
+    if (name === '') name = 'Unnamed user';
+
+    if (!image) {
+      image =
+        'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg';
+    }
 
     let img;
     if (typeof image === 'string') {
