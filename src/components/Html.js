@@ -14,6 +14,8 @@ import config from '../config';
 
 /* eslint-disable react/no-danger */
 
+console.log('in html');
+
 const lastUpdate = new Date();
 
 class Html extends React.Component {
@@ -37,6 +39,7 @@ class Html extends React.Component {
   };
 
   render() {
+    console.log('inside html render');
     const { styles, scripts, app, children, title, description } = this.props;
 
     return (

@@ -11,6 +11,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 
+console.log('in app');
+
 const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
@@ -58,6 +60,7 @@ class App extends React.PureComponent {
   }
 
   render() {
+    console.log('inside render of app');
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
     return React.Children.only(this.props.children);

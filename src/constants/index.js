@@ -2,6 +2,8 @@
 
 export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
 
+export const SET_ROUTE_OVERRIDE = 'SET_ROUTE_OVERRIDE';
+
 /*
   Grants
 */

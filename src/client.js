@@ -25,6 +25,8 @@ const ourFetch = createFetch(fetch, {
   baseUrl: window.App.apiUrl,
 });
 
+console.log('on client');
+
 const { graphqlRequest } = createHelpers({ fetch: ourFetch });
 
 // Global (context) variables that can be easily accessed from any React component
@@ -52,6 +54,8 @@ const context = {
   }),
   storeSubscription: null,
 };
+
+console.log('window.App.state', window.App.state);
 
 const container = document.getElementById('app');
 let currentLocation = history.location;
@@ -82,9 +86,23 @@ async function onLocationChange(location, action) {
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
     // and whose action method returns anything other than `undefined`.
+    // const route = await router.resolve({
+    //   ...context,
+    //   pathname: location.pathname,
+    //   query: queryString.parse(location.search),
+    // });
+
+    let pathname = '';
+
+    if (isInitialRender && window.App.state.routeOverride) {
+      pathname = window.App.state.routeOverride.prepend;
+    }
+
+    pathname += location.pathname;
+
     const route = await router.resolve({
       ...context,
-      pathname: location.pathname,
+      pathname,
       query: queryString.parse(location.search),
     });
 

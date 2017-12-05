@@ -2,6 +2,7 @@ import React from 'react';
 // @TODO meh to have moment here, prefer to remove it
 import moment from 'moment';
 import { numberToMonth } from '../../lib/date';
+import { setRouteOverride } from '../../actions/routeOverride';
 
 export default [
   {
@@ -31,7 +32,7 @@ export default [
   {
     // Group
     path: '/:slug',
-    async action({ params, graphqlRequest }) {
+    async action({ params, graphqlRequest, store }) {
       const { slug } = params;
       const SingleGroup = await import('./SingleGroup');
 
@@ -84,6 +85,15 @@ export default [
           ? `https://communityfund.imgix.net/${group.logo}?fit=crop&w=500&h=500`
           : group.logo;
 
+      // Meetup override magic
+      if (!process.env.BROWSER && slug.includes('.')) {
+        await store.dispatch(
+          setRouteOverride({
+            prepend: slug,
+          }),
+        );
+      }
+
       return {
         title: group.name,
         component: (
@@ -101,7 +111,7 @@ export default [
   {
     // Event
     path: '/:groupSlug/:eventSlug',
-    async action({ graphqlRequest, params }) {
+    async action({ graphqlRequest, params, store }) {
       const { groupSlug, eventSlug } = params;
       const SingleEvent = await import('./SingleEvent');
 
@@ -149,6 +159,18 @@ export default [
       const timestamp = `${moment(event.startTime).format(
         'MMMM Do YYYY, h:mm a',
       )} to ${moment(event.endTime).format('h:mm a')}`;
+
+      // Meetup override magic
+      console.log('DOING MAGIC', !process.env.BROWSER, groupSlug.includes('.'));
+      if (!process.env.BROWSER && groupSlug.includes('.')) {
+        console.log('Setting route override ', `/${groupSlug}`);
+        await store.dispatch(
+          setRouteOverride({
+            prepend: `/${groupSlug}`,
+          }),
+        );
+      }
+
       return {
         title: event.name,
         component: (

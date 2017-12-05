@@ -6,6 +6,7 @@ import castVote from './castVote';
 import runtime from './runtime';
 import topics from './topics';
 import users from './users';
+import routeOverride from './routeOverride';
 
 export default combineReducers({
   user,
@@ -16,4 +17,5 @@ export default combineReducers({
   runtime,
   topics,
   users,
+  routeOverride,
 });
