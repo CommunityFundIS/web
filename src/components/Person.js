@@ -35,7 +35,7 @@ export default class Person extends React.Component {
 
     if (!image) {
       image =
-        'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg';
+        'https://communityfund.imgix.net/978d7067-4371-4683-8200-90d56cf8c1fa.png';
     }
 
     let img;
