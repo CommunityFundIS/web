@@ -90,7 +90,7 @@ export default [
       if (!process.env.BROWSER && isCNAME) {
         await store.dispatch(
           setRouteOverride({
-            prepend: `/meetup/slug`,
+            prepend: `/meetup/${slug}`,
           }),
         );
       }
