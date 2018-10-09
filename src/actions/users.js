@@ -2,15 +2,19 @@
 import { USERS_UPDATE_DATA } from '../constants';
 import { logError } from '../logger';
 
-export const fetchRandomUsers = () => async (
+export const fetchUsers = (options = {}) => async (
   dispatch,
   getState,
   { graphqlRequest },
 ) => {
+  const randomText = options.random ? 'true' : 'false';
+  const countText = options.count ? `${options.count}` : '20';
+  const onlyWithNameText = options.onlyWithName ? 'true' : 'false';
+
   try {
     const { data } = await graphqlRequest(`
       {
-        users(random: true) {
+        users(random: ${randomText}, count: ${countText}, onlyWithName: ${onlyWithNameText}) {
           id
           name
           title
